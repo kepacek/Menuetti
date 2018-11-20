@@ -1,0 +1,54 @@
+﻿@model Menuetti.Models.Recipes
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Recipes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RecipeName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RecipeName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Portions)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Portions)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Instructions)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Instructions)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DietType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DietType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.UserId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.RecipeId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
