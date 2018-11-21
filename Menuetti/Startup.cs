@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Menuetti
 {
@@ -56,6 +57,8 @@ namespace Menuetti
         // Configure the scope
         options.Scope.Clear();
         options.Scope.Add("openid");
+        options.Scope.Add("profile");
+
 
         // Set the callback path, so Auth0 will call back to http://localhost:5000/signin-auth0
         // Also ensure that you have added the URL as an Allowed Callback URL in your Auth0 dashboard
@@ -66,6 +69,12 @@ namespace Menuetti
 
         // Saves tokens to the AuthenticationProperties
         options.SaveTokens = true;
+
+        // Set the correct name claim type
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            NameClaimType = "name"
+        };
 
         options.Events = new OpenIdConnectEvents
         {
