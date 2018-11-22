@@ -4,25 +4,29 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Raaka-aineet</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Luo uusi</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IngredientName)
+                @*@Html.DisplayNameFor(model => model.IngredientName)*@
+                Raaka-aine
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AmountG)
+                @*@Html.DisplayNameFor(model => model.AmountG)*@
+                Määrä (g)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RecipeUnit)
+                @*@Html.DisplayNameFor(model => model.RecipeUnit)*@
+                Raaka-aineen yksikkö
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Recipe)
+                @*@Html.DisplayNameFor(model => model.Recipe)*@
+                Reseptin ID
             </th>
             <th></th>
         </tr>
@@ -43,9 +47,9 @@
                 @Html.DisplayFor(modelItem => item.Recipe.Instructions)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IngredientId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IngredientId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IngredientId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.IngredientId">Muokkaa</a> |
+                <a asp-action="Details" asp-route-id="@item.IngredientId">Tiedot</a> |
+                <a asp-action="Delete" asp-route-id="@item.IngredientId">Poista</a>
             </td>
         </tr>
 }
