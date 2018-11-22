@@ -48,6 +48,13 @@
         </dd>
     </dl>
 </div>
+<hr />
+@foreach (var item in Model.Ingredients)
+{
+    <p>@item.IngredientName</p>
+}
+
+<hr />
 <div>
     <a asp-action="Edit" asp-route-id="@Model.RecipeId">Edit</a> |
     <a asp-action="Index">Back to List</a>
