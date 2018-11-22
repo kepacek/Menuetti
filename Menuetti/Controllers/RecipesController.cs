@@ -36,6 +36,7 @@ namespace Menuetti.Controllers
 
             var recipes = await _context.Recipes
                 .Include(r => r.User)
+                .Include(r=>r.Ingredients)
                 .FirstOrDefaultAsync(m => m.RecipeId == id);
             if (recipes == null)
             {
