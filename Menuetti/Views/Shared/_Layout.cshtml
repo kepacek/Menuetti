@@ -25,36 +25,37 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Menuetti</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">MENUETTI</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Recipes" asp-action="">Reseptit</a></li>
+                    <li><a asp-area="" asp-controller="Ingredients" asp-action="">Raaka-aineet</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Yhteystiedot</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a asp-controller="Account" asp-action="Profile">Hello @User.Identity.Name!</a></li>
-                        <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+                        <li><a asp-controller="Account" asp-action="Logout">Kirjaudu ulos</a></li>
                     }
                     else
                     {
-                        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                        <li><a asp-controller="Account" asp-action="Login">Kirjaudu sisään</a></li>
                     }
                 </ul>
             </div>
         </div>
     </nav>
 
-    <partial name="_CookieConsentPartial" />
-
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
+            <partial name="_CookieConsentPartial" />
             <p>&copy; 2018 - Menuetti</p>
         </footer>
     </div>
