@@ -48,6 +48,14 @@
     </div>
 </div>
 
+
+@*<hr />
+@foreach (var item in Model.Ingredients)
+{
+    <p>@item.IngredientName</p>
+}
+
+<hr />*@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
