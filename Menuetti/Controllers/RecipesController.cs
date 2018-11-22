@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Menuetti.Models;
+using System.Security.Claims;
 
 namespace Menuetti.Controllers
 {
@@ -47,7 +48,8 @@ namespace Menuetti.Controllers
         // GET: Recipes/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+            //ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+            ViewData["UserId"] = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value; 
             return View();
         }
 
@@ -58,8 +60,15 @@ namespace Menuetti.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipes)
         {
+            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            
             if (ModelState.IsValid)
             {
+                if(_context.Users.Find(recipes.UserId) == null)
+                {
+                    Users user = new Users() { UserId = recipes.UserId };
+                    _context.Users.Add(user);
+                }
                 _context.Add(recipes);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
