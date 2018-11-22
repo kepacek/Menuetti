@@ -7,11 +7,19 @@ using Microsoft.AspNetCore.Mvc;
 using Menuetti.Models;
 using Microsoft.AspNetCore.Authentication;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Menuetti.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize(Roles = "admin")]
+        public IActionResult Admin()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Index()
         {
             // If the user is authenticated, then this is how you can get the access_token and id_token
@@ -38,6 +46,7 @@ namespace Menuetti.Controllers
 
         public IActionResult About()
         {
+
             string nimi = User.Identity.Name;
             ViewData["Message"] = nimi;
 
