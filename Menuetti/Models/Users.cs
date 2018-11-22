@@ -13,6 +13,8 @@ namespace Menuetti.Models
 
         public string UserId { get; set; }
 
+        public string UserName { get; set; }
+
         public virtual ICollection<MyLists> MyLists { get; set; }
         public virtual ICollection<Recipes> Recipes { get; set; }
     }
