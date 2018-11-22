@@ -46,6 +46,7 @@ namespace Menuetti.Controllers
 
         public IActionResult About()
         {
+
             string nimi = User.Identity.Name;
             ViewData["Message"] = nimi;
 
