@@ -40,21 +40,21 @@ namespace Menuetti.Controllers
                 // Now you can use them. For more info on when and how to use the 
                 // access_token and id_token, see https://auth0.com/docs/tokens
             }
-
+            
             return View();
         }
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
-            //string id = User.Claims.FirstOrDefault(x=>x.Type == ClaimTypes.NameIdentifier).Value;
+
+            string nimi = User.Identity.Name;
+            ViewData["Message"] = nimi;
+
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
