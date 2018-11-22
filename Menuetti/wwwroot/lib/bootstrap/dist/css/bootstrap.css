@@ -6235,7 +6235,8 @@ button.close {
   border-left-color: #fff;
 }
 .carousel {
-  position: relative;
+    position: relative;
+    
 }
 .carousel-inner {
   position: relative;
@@ -6294,9 +6295,10 @@ button.close {
 }
 .carousel-inner > .next,
 .carousel-inner > .prev {
-  position: absolute;
-  top: 0;
-  width: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
 }
 .carousel-inner > .next {
   left: 100%;
@@ -6401,7 +6403,7 @@ button.close {
 .carousel-indicators li {
   display: inline-block;
   width: 10px;
-  height: 10px;
+  height: 100px;
   margin: 1px;
   text-indent: -999px;
   cursor: pointer;
