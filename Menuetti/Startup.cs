@@ -58,6 +58,10 @@ namespace Menuetti
         options.Scope.Clear();
         options.Scope.Add("openid");
         options.Scope.Add("profile");
+        options.Scope.Add("email");
+        //options.Scope.Add("role");
+        options.Scope.Add("sub");
+        options.Scope.Add("iat");
 
 
         // Set the callback path, so Auth0 will call back to http://localhost:5000/signin-auth0
@@ -73,7 +77,8 @@ namespace Menuetti
         // Set the correct name claim type
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            NameClaimType = "name"
+            NameClaimType = "name",
+            RoleClaimType = "https://schemas.menuetti-appi.eu.auth0.com/roles"
         };
 
         options.Events = new OpenIdConnectEvents
