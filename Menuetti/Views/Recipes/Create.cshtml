@@ -41,6 +41,14 @@
                 <input asp-for="DietType" class="form-control" />
                 <span asp-validation-for="DietType" class="text-danger"></span>
             </div>
+
+            <div>
+
+                Ingredient name: <input type="text" id="iname" name="iname"/>
+                Amount name: <input type="number" id="amount" name="amount"/>
+            </div>
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -48,6 +56,20 @@
     </div>
 </div>
 
+<div>
+    <hr />
+    @if (Model != null && Model.Ingredients != null)
+    {
+        foreach (var item in Model.Ingredients)
+        {
+        <p>@item.IngredientName</p>
+        <p>@item.AmountG</p>
+        <p>@item.RecipeUnit</p>
+        }
+    }
+
+    <hr />
+</div>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
