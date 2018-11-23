@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Menuetti.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace Menuetti.Controllers
 {
@@ -36,6 +37,7 @@ namespace Menuetti.Controllers
 
             var recipes = await _context.Recipes
                 .Include(r => r.User)
+                .Include(r=>r.Ingredients)
                 .FirstOrDefaultAsync(m => m.RecipeId == id);
             if (recipes == null)
             {
@@ -58,7 +60,7 @@ namespace Menuetti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipes)
+        public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipes, string iname)
         {
             string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             
