@@ -52,3 +52,17 @@
     <a asp-action="Edit" asp-route-id="@Model.RecipeId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+<div>
+    <input type="text" id="TestLocalStorage" value=""/>
+    <input type="button" id="testi" value=TestiTallennus onClick="fnSaveData()" />
+</div>
+
+<script>
+    //dummydatan tallentaminen LocalStorageen --> muokattava/poistettava kun päästään oikeaan dataan käsiksi
+    function fnSaveData() {
+        var name = document.getElementById('TestLocalStorage');
+        localStorage.setItem('name', TestLocalStorage.value);
+    }
+</script>
