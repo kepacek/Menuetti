@@ -26,7 +26,7 @@
             </th>
             <th>
                 @*@Html.DisplayNameFor(model => model.Recipe)*@
-                Reseptin ID
+                Resepti
             </th>
             <th></th>
         </tr>
@@ -44,7 +44,7 @@
                 @Html.DisplayFor(modelItem => item.RecipeUnit)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Recipe.Instructions)
+                @Html.DisplayFor(modelItem => item.Recipe.RecipeName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IngredientId">Muokkaa</a> |
