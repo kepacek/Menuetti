@@ -8,8 +8,8 @@ body {
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 /* Carousel */
@@ -19,7 +19,7 @@ body {
 }
 
 /* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
+.carousel-inner .item img[src=".svg"] {
     width: 100%;
 }
 
@@ -34,6 +34,19 @@ body {
     .carousel-caption {
         display: none;
     }
+}
+
+.glyphicon-menu-right{
+    position: absolute;
+    right: 10%;
+    top: 40%;
+}
+
+.btntext {
+    padding-left: 20px;
+    font-weight: bold;
+    font-size: 22px;
+}
 }
 
 #myCarousel{

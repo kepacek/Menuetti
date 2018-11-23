@@ -2,56 +2,30 @@
     ViewData["Title"] = "Menuetti";
 }
 
-
-
-    <div id="myCarousel" class="carousel slide" style="height:100%" data-ride="carousel" data-interval="false">
-        @*<ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>*@
-        <div class="carousel-inner" @*role="listbox" *@>
-            <div class="item active" style="height: 100px; text-align:center" >
-                @*<img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" />*@
-                @*<div class="carousel-caption" role="option">*@
-                <p>
-                    <a class="btn btn-link" href="http://localhost:62500/Recipes/Details/8">
-                        dippadappa
-                    </a>
-                    <br /><input type="submit" value="Vahvista valinta" class="btn btn-sm" />
-                </p>
-                @*</div>*@
-            </div>
-            <div class="item" style="height: 100px; text-align:center">
-                @*<img src="~/images/banner2.svg" alt="Visual Studio" class="img-responsive" />
-                    <div class="carousel-caption" role="option">*@
-                <p>
-                    <a class="btn btn-link" href="http://localhost:62500/Recipes/Details/3">
-                        Fsaf
-                    </a>
-                    <br /><input type="submit" value="Vahvista valinta" class="btn btn-sm" />
-                </p>
-                @*</div>*@
-            </div>
-            <div class="item" style="height: 100px; text-align:center">
-                @*<img src="~/images/banner3.svg" alt="Microsoft Azure" class="img-responsive" />
-        <div class="carousel-caption" role="option">*@
-                <a class="btn btn-link" href="http://localhost:62500/Recipes/Details/9">
-                    Testi
-                </a>
-                <br /><input type="submit" value="Vahvista valinta" class="btn btn-sm" />
-                </p>
-                @*</div>*@
-            </div>
-        </div>
-        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-            @*<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>*@
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+<div class="row">
+    <div class="col-sm-12">
+        <center>
+            <img src="~/images/menuetti.png" alt="Menuetti logo" class="img-responsive" align="middle" />
+        </center>
     </div>
-
-
+    <div class="col-sm-12">
+        <h2 align="center">Valitse ruokavaliosi</h2>
+    </div>
+    <div class="col-sm-4">
+        <button type="button" class="btn btn-default btn-lg btn-block">
+            <img src="~/images/meat.png" />
+        <img src="~/images/fish.png" /> <span class="btntext">Seka</span> <span class="glyphicon glyphicon-menu-right"></span></button>
+    </div>
+    <br />
+    <div class="col-sm-4">
+        <button type="button" class="btn btn-default btn-lg btn-block">
+        <img src="~/images/cheese.png" />
+        <img src="~/images/vegetarian.png" /> <span class="btntext">Kasvis</span> <span class="glyphicon glyphicon-menu-right"></span></button>
+    </div>
+    <br />
+    <div class="col-sm-4">
+        <button type="button" class="btn btn-default btn-lg btn-block">
+        <img src="~/images/vegan.png" />
+        <img src="~/images/soybean.png" /> <span class="btntext">Vegaani</span> <span class="glyphicon glyphicon-menu-right"></span></button>
+    </div>
+</div>
