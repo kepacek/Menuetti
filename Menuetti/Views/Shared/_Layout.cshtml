@@ -25,21 +25,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">MENUETTI</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav text-right">
                     <li><a asp-area="" asp-controller="Recipes" asp-action="">Reseptit</a></li>
                     <li><a asp-area="" asp-controller="Ingredients" asp-action="">Raaka-aineet</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Yhteystiedot</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right text-right">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-controller="Account" asp-action="Profile">Hello @User.Identity.Name!</a></li>
+                        <li><a asp-controller="Account" asp-action="Profile">@User.Identity.Name</a></li>
+                        <li><br /></li>
                         <li><a asp-controller="Account" asp-action="Logout">Kirjaudu ulos</a></li>
                     }
                     else
@@ -51,12 +51,12 @@
         </div>
     </nav>
 
-    <div class="container body-content">
+    <div class="container body-content" id="footer">
         @RenderBody()
         <hr />
-        <footer>
+        <footer style="position: absolute; bottom: 0;">
             <partial name="_CookieConsentPartial" />
-            <p>&copy; 2018 - Menuetti</p>
+            <p style="font-weight: bold; justify-content: center;">&copy;Menuetti 2018</p>
         </footer>
     </div>
 

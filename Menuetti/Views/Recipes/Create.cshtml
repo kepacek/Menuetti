@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class ="form-control" value="@ViewBag.UserId" /></input>
+                <input asp-for="UserId" class="form-control" value="@ViewBag.UserId" /></input>
             </div>
             <div class="form-group">
                 <label asp-for="RecipeName" class="control-label"></label>
@@ -46,16 +46,14 @@
             </div>
         </form>
     </div>
+    <div>
+        @foreach (var item in Model.Ingredients)
+        {
+            <p>@item.IngredientName</p>
+        }
+    </div>
 </div>
 
-
-@*<hr />
-@foreach (var item in Model.Ingredients)
-{
-    <p>@item.IngredientName</p>
-}
-
-<hr />*@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
