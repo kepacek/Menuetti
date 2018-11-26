@@ -1,47 +1,53 @@
 ﻿@model Menuetti.Models.Recipes
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Tarkastele reseptiä";
 }
 
-<h2>Details</h2>
+<h2>Tarkastele reseptiä</h2>
 
 <div>
-    <h4>Recipes</h4>
+    @*<h4>Recipes</h4>*@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.RecipeName)
+            @*@Html.DisplayNameFor(model => model.RecipeName)*@
+            Reseptin nimi
         </dt>
         <dd>
             @Html.DisplayFor(model => model.RecipeName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Portions)
+            @*@Html.DisplayNameFor(model => model.Portions)*@
+            Annoksia
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Portions)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Instructions)
+            @*@Html.DisplayNameFor(model => model.Instructions)*@
+            Ohjeet
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Instructions)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Time)
+            @*@Html.DisplayNameFor(model => model.Time)*@
+            Valmistusaika
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Time)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DietType)
+            @*@Html.DisplayNameFor(model => model.DietType)*@
+            Ruokavalio
         </dt>
         <dd>
             @Html.DisplayFor(model => model.DietType)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.User)
+            @*@Html.DisplayNameFor(model => model.User)*@
+            Käyttäjä
         </dt>
         <dd>
             @Html.DisplayFor(model => model.User.UserId)
@@ -49,6 +55,7 @@
     </dl>
 </div>
 <hr />
+<h4>Reseptin raaka-aineet</h4>
 @foreach (var item in Model.Ingredients)
 {
 <p>@item.AmountG @item.RecipeUnit @item.IngredientName</p>
