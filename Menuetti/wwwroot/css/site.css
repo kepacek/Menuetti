@@ -42,14 +42,17 @@ body {
     top: 40%;
 }
 
+.col-sm-12 {
+    padding-bottom: 15px;
+}
+
 .btntext {
     padding-left: 20px;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
 }
-}
+
 
 #myCarousel{
     height: 200px;
-
 }
