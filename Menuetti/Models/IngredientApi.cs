@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace FineliApiHaku
+namespace Menuetti.Models
 {
     public class Ingredient
     {

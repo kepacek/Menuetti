@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Menuetti.Models.Ingredientti>
+
+@{
+    ViewData["Title"] = "LoadJson";
+}
+
+<h2>LoadJson</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+              Name  @*@Html.DisplayNameFor(model => model.name.fi)*@
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fiber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.salt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.carbohydrate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.protein)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.energyKcal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.saturatedFat)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name.fi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fiber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.salt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.carbohydrate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.protein)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.energyKcal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.saturatedFat)
+            </td>
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>
