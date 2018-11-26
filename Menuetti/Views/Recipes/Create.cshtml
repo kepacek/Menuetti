@@ -1,43 +1,43 @@
 ﻿@model Menuetti.Models.Recipes
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Luo uusi resepti";
 }
 
-<h2>Create</h2>
+<h2>Luo uusi</h2>
 
-<h4>Recipes</h4>
+<h4>Resepti</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
+                <label asp-for="UserId" class="control-label">Käyttäjä</label>
                 <input asp-for="UserId" class="form-control" value="@ViewBag.UserId" /></input>
             </div>
             <div class="form-group">
-                <label asp-for="RecipeName" class="control-label"></label>
+                <label asp-for="RecipeName" class="control-label">Reseptin nimi</label>
                 <input asp-for="RecipeName" class="form-control" />
                 <span asp-validation-for="RecipeName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Portions" class="control-label"></label>
+                <label asp-for="Portions" class="control-label">Annoksia</label>
                 <input asp-for="Portions" class="form-control" />
                 <span asp-validation-for="Portions" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Instructions" class="control-label"></label>
+                <label asp-for="Instructions" class="control-label">Valmistusohje</label>
                 <input asp-for="Instructions" class="form-control" />
                 <span asp-validation-for="Instructions" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Time" class="control-label"></label>
+                <label asp-for="Time" class="control-label">Valmistusaika</label>
                 <input asp-for="Time" class="form-control" />
                 <span asp-validation-for="Time" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DietType" class="control-label"></label>
+                <label asp-for="DietType" class="control-label">Ruokavalio</label>
                 <input asp-for="DietType" class="form-control" />
                 <span asp-validation-for="DietType" class="text-danger"></span>
             </div>
@@ -50,14 +50,13 @@
 
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Luo uusi" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <hr />
     @if (Model != null && Model.Ingredients != null)
     {
         foreach (var item in Model.Ingredients)
@@ -68,9 +67,8 @@
         }
     }
 </div>
-<hr/>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" button type="button" class="btn btn-default btn-md btn">Takaisin</a>
 </div>
 
 @section Scripts {
