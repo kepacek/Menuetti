@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Menuetti.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Menuetti.Controllers
 {
@@ -12,17 +14,37 @@ namespace Menuetti.Controllers
         {
             return View();
         }
+   
+        private readonly MenuettiDBContext _context;
+
+        public DietTypeController(MenuettiDBContext context)
+        {
+            _context = context;
+        }
 
         // diettype/omni
-        public IActionResult Omni()
+        public async Task<IActionResult> Omni()
         {
-            List<int> recipes = new List<int>();
-            Random rnd = new Random((int)DateTime.Now.Ticks);
-            for (int i = 0; i < 5; i++)
+            var recipes = await _context.Recipes.ToListAsync();
+            
+            List<string> recipeList = new List<string>();
+            Random rnd = new Random();
+
+            foreach (var item in recipes)
             {
-                recipes.Add(rnd.Next(1, 10));
+                int index = rnd.Next(recipes.Count);
+                recipeList.Add(recipes[index].RecipeName);
             }
-            return View(recipes);
+
+
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    int index = rnd.Next(recipes.Count);
+            //    recipeList.Add(recipes[index].RecipeName);
+            //}
+
+            return View(recipeList);
         }
-    }
+
+}
 }
