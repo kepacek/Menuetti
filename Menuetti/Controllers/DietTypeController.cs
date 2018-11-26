@@ -14,28 +14,15 @@ namespace Menuetti.Controllers
         {
             return View();
         }
-
-        // diettype/omni
-        //public IActionResult Omni()
-        //{
-        //    List<int> recipes = new List<int>();
-        //    Random rnd = new Random((int)DateTime.Now.Ticks);
-        //    for (int i = 0; i < 5; i++)
-        //    {
-        //        recipes.Add(rnd.Next(1, 10));
-        //    }
-        //    return View(recipes);
-        //}
-
-
+   
         private readonly MenuettiDBContext _context;
-
 
         public DietTypeController(MenuettiDBContext context)
         {
             _context = context;
         }
 
+        // diettype/omni
         public async Task<IActionResult> Omni()
         {
             var recipes = await _context.Recipes.ToListAsync();
@@ -43,11 +30,18 @@ namespace Menuetti.Controllers
             List<string> recipeList = new List<string>();
             Random rnd = new Random();
 
-            for (int i = 0; i < 100; i++)
+            foreach (var item in recipes)
             {
                 int index = rnd.Next(recipes.Count);
                 recipeList.Add(recipes[index].RecipeName);
             }
+
+
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    int index = rnd.Next(recipes.Count);
+            //    recipeList.Add(recipes[index].RecipeName);
+            //}
 
             return View(recipeList);
         }
