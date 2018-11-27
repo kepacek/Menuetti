@@ -4,33 +4,36 @@
     ViewData["Title"] = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Poista raaka-aine</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h4>Oletko varma, että haluat poistaa tämän raaka-aineen?</h4>
 <div>
-    <h4>Ingredients</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.IngredientName)
+            @*@Html.DisplayNameFor(model => model.IngredientName)*@
+            Raaka-aineen nimi
         </dt>
         <dd>
             @Html.DisplayFor(model => model.IngredientName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.AmountG)
+            @*@Html.DisplayNameFor(model => model.AmountG)*@
+            Määrä (g)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.AmountG)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.RecipeUnit)
+            @*@Html.DisplayNameFor(model => model.RecipeUnit)*@
+            Yksikkö
         </dt>
         <dd>
             @Html.DisplayFor(model => model.RecipeUnit)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Recipe)
+            @*@Html.DisplayNameFor(model => model.Recipe)*@
+            Resepti
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Recipe.Instructions)
@@ -39,7 +42,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="IngredientId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Poista" class="btn btn-default" /> 
+        <a asp-action="Index" class="btn btn-default" style="margin-left: 10px">Palaa takaisin</a>
     </form>
 </div>

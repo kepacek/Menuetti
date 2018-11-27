@@ -18,6 +18,13 @@
             @Html.DisplayFor(model => model.RecipeName)
         </dd>
         <dt>
+            @*@Html.DisplayNameFor(model => model.User)*@
+            Lisääjä
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.UserId)
+        </dd>
+        <dt>
             @*@Html.DisplayNameFor(model => model.Portions)*@
             Annoksia
         </dt>
@@ -25,15 +32,8 @@
             @Html.DisplayFor(model => model.Portions)
         </dd>
         <dt>
-            @*@Html.DisplayNameFor(model => model.Instructions)*@
-            Ohjeet
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Instructions)
-        </dd>
-        <dt>
             @*@Html.DisplayNameFor(model => model.Time)*@
-            Valmistusaika
+            Valmistusaika (min)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Time)
@@ -46,11 +46,11 @@
             @Html.DisplayFor(model => model.DietType)
         </dd>
         <dt>
-            @*@Html.DisplayNameFor(model => model.User)*@
-            Käyttäjä
+            @*@Html.DisplayNameFor(model => model.Instructions)*@
+            Ohjeet
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.User.UserId)
+            @Html.DisplayFor(model => model.Instructions)
         </dd>
     </dl>
 </div>
@@ -63,8 +63,8 @@
 
 <hr />
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.RecipeId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @*<a asp-action="Edit" asp-route-id="@Model.RecipeId">Edit</a> |*@
+    <a asp-action="Index">Palaa takaisin</a>
 </div>
 
 

@@ -4,54 +4,58 @@
     ViewData["Title"] = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Poista resepti</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Oletko varma, että haluat poistaa tämän reseptin?</h3>
 <div>
-    <h4>Recipes</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.RecipeName)
+            @*@Html.DisplayNameFor(model => model.RecipeName)*@
+            Reseptin nimi
         </dt>
         <dd>
             @Html.DisplayFor(model => model.RecipeName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Portions)
+            @*@Html.DisplayNameFor(model => model.Portions)*@
+            Annokset
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Portions)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Instructions)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Instructions)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Time)
+            @*@Html.DisplayNameFor(model => model.Time)*@
+            Valmistusaika
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Time)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DietType)
+            @*@Html.DisplayNameFor(model => model.DietType)*@
+            Ruokavalio
         </dt>
         <dd>
             @Html.DisplayFor(model => model.DietType)
         </dd>
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.User)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.User.UserId)
+        </dd>*@
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Instructions)*@
+            Valmistusohjeet
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Instructions)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="RecipeId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Poista resepti" class="btn btn-default" /> |
+        <a asp-action="Index" class="btn btn-default" style="margin-left: 10px">Palaa takaisin</a>
     </form>
 </div>

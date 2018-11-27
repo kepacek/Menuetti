@@ -14,7 +14,7 @@
     else
     {
     }
-    </p>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -38,40 +38,47 @@
                 @*@Html.DisplayNameFor(model => model.DietType)*@
                 Ruokavalio
             </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.User)*@
+            @*<th>
+                Html.DisplayNameFor(model => model.User)
                 Käyttäjä
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RecipeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Portions)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Instructions)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DietType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.UserId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RecipeId">Muokkaa</a> |
-                <a asp-action="Details" asp-route-id="@item.RecipeId">Tiedot</a> |
-                <a asp-action="Delete" asp-route-id="@item.RecipeId">Poista</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecipeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Portions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Instructions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DietType)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.User.UserId)
+                </td>*@
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.RecipeId">Tiedot</a>
+                    @if (item.User != null && ViewBag.UserId == item.User.UserId)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.RecipeId">| Muokkaa</a>
+                    }
+                    @if (item.User != null && ViewBag.UserId == item.User.UserId)
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.RecipeId">| Poista </a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
