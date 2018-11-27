@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "ShoppingListDetails";
+}
+
+<h2>Ostoslista</h2>
+
+<table>
+    <tr>
+        <td>
+            Ainekset
+        </td>
+        <td>
+            Määrä (g)
+        </td>
+    </tr>
+    @foreach (var item in ViewBag.List)
+    {
+        <tr>
+            <td>
+                @item.Key
+            </td>
+            <td>
+                @item.Value g
+            </td>
+        </tr>
+        <br />
+    }
+
+</table>
