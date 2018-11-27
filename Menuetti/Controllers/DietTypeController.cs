@@ -23,28 +23,61 @@ namespace Menuetti.Controllers
         }
 
         // diettype/omni
-        public async Task<IActionResult> Omni()
-        {
-            var recipes = await _context.Recipes.ToListAsync();
+        //public async Task<IActionResult> Omni()
+        //{
+        //    var recipes = await _context.Recipes.ToListAsync();
             
-            List<string> recipeList = new List<string>();
+            
+            List<Recipes> recipeList = new List<Recipes>();
             Random rnd = new Random();
 
             foreach (var item in recipes)
             {
                 int index = rnd.Next(recipes.Count);
-                recipeList.Add(recipes[index].RecipeName);
+                recipeList.Add(recipes[index]);
             }
-
-
             //for (int i = 0; i < 100; i++)
             //{
             //    int index = rnd.Next(recipes.Count);
             //    recipeList.Add(recipes[index].RecipeName);
             //}
 
-            return View(recipeList);
-        }
 
-}
+        //    return View(recipeList);
+        //}
+
+        // diettype/vegetarian
+        //public async Task<IActionResult> Vegetarian()
+        //{
+        //    var recipes = await _context.Recipes.ToListAsync();
+
+        //    List<string> recipeList = new List<string>();
+        //    Random rnd = new Random();
+
+        //    foreach (var item in recipes)
+        //    {
+        //        int index = rnd.Next(recipes.Count);
+        //        recipeList.Add(recipes[index].RecipeName);
+        //    }
+
+        //    return View(recipeList);
+        //}
+
+        //// diettype/vegan
+        //public async Task<IActionResult> Vegan()
+        //{
+        //    var recipes = await _context.Recipes.ToListAsync();
+
+        //    List<string> recipeList = new List<string>();
+        //    Random rnd = new Random();
+
+        //    foreach (var item in recipes)
+        //    {
+        //        int index = rnd.Next(recipes.Count);
+        //        recipeList.Add(recipes[index].RecipeName);
+        //    }
+
+        //    return View(recipeList);
+        //}
+    }
 }
