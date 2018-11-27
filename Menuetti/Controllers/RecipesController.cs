@@ -25,8 +25,8 @@ namespace Menuetti.Controllers
         // GET: Recipes
         public async Task<IActionResult> Index()
         {
-            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            ViewBag.UserId = UserId;
+            //string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            //ViewBag.UserId = UserId;
 
             var menuettiDBContext = _context.Recipes.Include(r => r.User);
             return View(await menuettiDBContext.ToListAsync());

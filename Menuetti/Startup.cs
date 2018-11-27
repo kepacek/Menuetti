@@ -142,8 +142,14 @@ namespace Menuetti
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "ShoppingList",
+                    template: "ShoppingList/ShoppingListDetails/{id1}/{id2}/{id3}/{id4}/{id5}",
+                    defaults: new { Controller = "ShoppingList", Action = "ShoppingListDetails" });
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
             });
         }
 

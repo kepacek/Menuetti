@@ -27,26 +27,27 @@ namespace Menuetti.Controllers
         }
 
         //GET: ShoppingList/Details/5
-        public async Task<IActionResult> ShoppingListDetails(int RecipeId)
+        public async Task<IActionResult> ShoppingListDetails(int id1, int id2, int id3, int id4, int id5)
         {
             List<Recipes> rlist = new List<Recipes>();
 
 
-            //setting values for id - id4
-            Recipes recipe0 = await _context.Recipes.Include("Ingredients").SingleAsync(r=>r.RecipeId ==  3);
-            Recipes recipe1 = await _context.Recipes.Include("Ingredients").SingleAsync(r=>r.RecipeId ==  6);
-            Recipes recipe2 = await _context.Recipes.Include("Ingredients").SingleAsync(r=>r.RecipeId ==  7);
-            Recipes recipe3 = await _context.Recipes.Include("Ingredients").SingleAsync(r=>r.RecipeId ==  8);
-            Recipes recipe4 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == 9);
 
-            
+            //setting values for id - id4
+            Recipes recipe0 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id1);
+            Recipes recipe1 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id2);
+            Recipes recipe2 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id3);
+            Recipes recipe3 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id4);
+            Recipes recipe4 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id5);
+
+
             rlist.Add(recipe0);
             rlist.Add(recipe1);
             rlist.Add(recipe2);
             rlist.Add(recipe3);
             rlist.Add(recipe4);
 
-           
+
             Dictionary<string, int?> shoppings = new Dictionary<string, int?>();
 
             foreach (var r in rlist)
@@ -66,18 +67,17 @@ namespace Menuetti.Controllers
                         else
                         {
                             Value = ing.AmountG;
-                            shoppings[Key] +=  Value;
+                            shoppings[Key] += Value;
                         }
                     }
-                   else
+                    else
                     {
                         Value = ing.AmountG;
                         shoppings.Add(Key, Value);
                     }
-                   
+
                 }
             }
-
             ViewBag.List = shoppings;
             return View();
 
