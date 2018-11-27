@@ -27,18 +27,18 @@ namespace Menuetti.Controllers
         }
 
         //GET: ShoppingList/Details/5
-        public async Task<IActionResult> Details(int id1, int id2, int id3, int id4, int id5)
+        public async Task<IActionResult> ShoppingListDetails(int id1, int id2, int id3, int id4, int id5)
         {
             List<Recipes> rlist = new List<Recipes>();
 
-            //var Ids = RecipeId.Split('/');
+
 
             //setting values for id - id4
-            Recipes recipe0 = _context.Recipes.Include("Ingredients").Single(r => r.RecipeId == id1);
-            Recipes recipe1 = _context.Recipes.Include("Ingredients").Single(r => r.RecipeId == id2);
-            Recipes recipe2 = _context.Recipes.Include("Ingredients").Single(r => r.RecipeId == id3);
-            Recipes recipe3 = _context.Recipes.Include("Ingredients").Single(r => r.RecipeId == id4);
-            Recipes recipe4 = _context.Recipes.Include("Ingredients").Single(r => r.RecipeId == id5);
+            Recipes recipe0 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id1);
+            Recipes recipe1 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id2);
+            Recipes recipe2 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id3);
+            Recipes recipe3 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id4);
+            Recipes recipe4 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id5);
 
 
             rlist.Add(recipe0);
@@ -78,8 +78,8 @@ namespace Menuetti.Controllers
 
                 }
             }
-
-            return View(shoppings);
+            ViewBag.List = shoppings;
+            return View();
 
         }
 
