@@ -9,7 +9,7 @@
 <p>
     @if (User.Identity.IsAuthenticated)
     {
-        <a asp-controller="Recipes" asp-action="Create" button type="button" class="btn btn-default btn-md btn">Luo uusi</a>
+        <a asp-controller="Recipes" asp-action="Create" button class="btn btn-default btn-md btn">Luo uusi</a>
     }
     else
     {
@@ -68,14 +68,11 @@
                     @Html.DisplayFor(modelItem => item.User.UserId)
                 </td>*@
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.RecipeId">Tiedot</a>
+                    <a asp-action="Details" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px">Tiedot</a>
                     @if (item.User != null && ViewBag.UserId == item.User.UserId)
                     {
-                        <a asp-action="Edit" asp-route-id="@item.RecipeId">| Muokkaa</a>
-                    }
-                    @if (item.User != null && ViewBag.UserId == item.User.UserId)
-                    {
-                        <a asp-action="Delete" asp-route-id="@item.RecipeId">| Poista </a>
+                        <a asp-action="Edit" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px">Muokkaa</a>
+                        <a asp-action="Delete" asp-route-id="@item.RecipeId" class="btn btn-default">Poista </a>
                     }
                 </td>
             </tr>

@@ -77,7 +77,7 @@ namespace Menuetti.Controllers
                    
                 }
             }
-
+            ViewBag.result = shoppings;
             return View();
 
         }

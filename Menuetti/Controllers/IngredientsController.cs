@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Menuetti.Models;
+using System.Security.Claims;
 
 namespace Menuetti.Controllers
 {
@@ -21,6 +22,9 @@ namespace Menuetti.Controllers
         // GET: Ingredients
         public async Task<IActionResult> Index()
         {
+            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            ViewBag.UserId = UserId;
+
             var menuettiDBContext = _context.Ingredients.Include(i => i.Recipe);
             return View(await menuettiDBContext.ToListAsync());
         }
@@ -40,6 +44,9 @@ namespace Menuetti.Controllers
             {
                 return NotFound();
             }
+
+            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            ViewBag.UserId = UserId;
 
             return View(ingredients);
         }

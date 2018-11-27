@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="DietType" class="control-label">Ruokavalio</label>
-                    <input asp-for="DietType" class="form-control" />
+                    <select asp-for="DietType" class="form-control"><option>Sekaruoka</option><option>Kasvis</option><option>Vegaaninen</option></select>
                     <span asp-validation-for="DietType" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -43,14 +43,14 @@
                     <input asp-for="Instructions" class="form-control" />
                     <span asp-validation-for="Instructions" class="text-danger"></span>
                 </div>
-                    <div class="form-group">
-                        <input type="submit" value="Päivitä" class="btn btn-default" />
-                    </div>
+                <div class="form-group">
+                    <input type="submit" value="Päivitä" class="btn btn-default" />
+                </div>
             </form>
         </div>
     </div>
     <div>
-        <a asp-action="Index">Palaa takaisin</a>
+        <a asp-action="Index" class="btn btn-default">Palaa takaisin</a>
     </div>
 
     @section Scripts {
