@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Menuetti.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Menuetti.Controllers
 {
@@ -166,5 +168,18 @@ namespace Menuetti.Controllers
         {
             return _context.Recipes.Any(e => e.RecipeId == id);
         }
+
+   
+        public ActionResult<Ingredientti> LoadJson()
+        {
+            using (StreamReader r = new StreamReader("ingredients.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Ingredientti> items = JsonConvert.DeserializeObject<List<Ingredientti>>(json);
+                return View(items);
+            }
+        }
+
+
     }
 }

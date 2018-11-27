@@ -1,7 +1,8 @@
-﻿@model List<Recipes>
+﻿@model List<string>
 @{
-    ViewData["Title"] = "Omni";
+    ViewData["Title"] = "Vegetarian";
 }
+
 
 
 <div id="myCarousel0" class="carousel slide" style="height:100%" data-ride="carousel" data-interval="false">
@@ -9,7 +10,7 @@
         <div class="item active" style="height: 100px; text-align:center">
             <p>
                 <script>
-                        localStorage.setItem('recipe0', '@Model[0].RecipeId')
+                        localStorage.setItem('recipe0', '@Model[0]')
                 </script>
                 @{await Html.RenderPartialAsync("_RecipeName", Model[0]);}
                 <a class="left carousel-control" href="#myCarousel0" role="button" data-slide="prev" onclick="fnSaveChoiceBack()">
@@ -18,7 +19,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack() {
-                        localStorage.setItem('recipe0', '@Model[2].RecipeId')
+                        localStorage.setItem('recipe0', '@Model[2]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel0" role="button" data-slide="next" onclick="fnSaveChoice()">
@@ -27,7 +28,7 @@
                 </a>
                 <script>
                     function fnSaveChoice(){
-                        localStorage.setItem('recipe0', '@Model[1].RecipeId')
+                        localStorage.setItem('recipe0', '@Model[1]')
                     }
                 </script>
             </p>
@@ -42,7 +43,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack1() {
-                    localStorage.setItem('recipe0', '@Model[0].RecipeId')
+                    localStorage.setItem('recipe0', '@Model[0]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel0" role="button" data-slide="next" onclick="fnSaveChoice1()">
@@ -51,7 +52,7 @@
                 </a>
                 <script>
                     function fnSaveChoice1() {
-                            localStorage.setItem('recipe0', '@Model[2].RecipeId')
+                            localStorage.setItem('recipe0', '@Model[2]')
                     }
                 </script>
             </p>
@@ -66,7 +67,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack2() {
-                    localStorage.setItem('recipe0', '@Model[1].RecipeId')
+                    localStorage.setItem('recipe0', '@Model[1]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel0" role="button" data-slide="next" onclick="fnSaveChoice2()">
@@ -75,7 +76,7 @@
                 </a>
                 <script>
                 function fnSaveChoice2(){
-                localStorage.setItem('recipe0', '@Model[0].RecipeId')
+                localStorage.setItem('recipe0', '@Model[0]')
                 }
                 </script>
             </p>
@@ -89,7 +90,7 @@
         <div class="item active" style="height: 100px; text-align:center">
             <p>
                 <script>
-                        localStorage.setItem('recipe1', '@Model[3].RecipeId')
+                        localStorage.setItem('recipe1', '@Model[3]')
                 </script>
                 @{await Html.RenderPartialAsync("_RecipeName", Model[3]);}
                 <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev" onclick="fnSaveChoiceBack3()">
@@ -98,7 +99,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack3() {
-                        localStorage.setItem('recipe1', '@Model[5].RecipeId')
+                        localStorage.setItem('recipe1', '@Model[5]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next" onclick="fnSaveChoice3()">
@@ -107,7 +108,7 @@
                 </a>
                 <script>
                     function fnSaveChoice3(){
-                        localStorage.setItem('recipe1', '@Model[4].RecipeId')
+                        localStorage.setItem('recipe1', '@Model[4]')
                     }
                 </script>
             </p>
@@ -122,7 +123,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack4() {
-                        localStorage.setItem('recipe1', '@Model[3].RecipeId')
+                        localStorage.setItem('recipe1', '@Model[3]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next" onclick="fnSaveChoice4()">
@@ -131,7 +132,7 @@
                 </a>
                 <script>
                     function fnSaveChoice4(){
-                        localStorage.setItem('recipe1', '@Model[5].RecipeId')
+                        localStorage.setItem('recipe1', '@Model[5]')
                     }
                 </script>
             </p>
@@ -146,7 +147,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack5() {
-                        localStorage.setItem('recipe1', '@Model[4].RecipeId')
+                        localStorage.setItem('recipe1', '@Model[4]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next" onclick="fnSaveChoice5()">
@@ -155,7 +156,7 @@
                 </a>
                 <script>
                 function fnSaveChoice5(){
-                localStorage.setItem('recipe1', '@Model[3].RecipeId')
+                localStorage.setItem('recipe1', '@Model[3]')
                 }
                 </script>
             </p>
@@ -169,7 +170,7 @@
         <div class="item active" style="height: 100px; text-align:center">
             <p>
                 <script>
-                        localStorage.setItem('recipe2', '@Model[6].RecipeId')
+                        localStorage.setItem('recipe2', '@Model[6]')
                 </script>
                 @{await Html.RenderPartialAsync("_RecipeName", Model[6]);}
                 <a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev" onclick="fnSaveChoiceBack6()">
@@ -178,7 +179,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack6() {
-                        localStorage.setItem('recipe2', '@Model[8].RecipeId')
+                        localStorage.setItem('recipe2', '@Model[8]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next" onclick="fnSaveChoice6()">
@@ -187,7 +188,7 @@
                 </a>
                 <script>
                     function fnSaveChoice6(){
-                        localStorage.setItem('recipe2', '@Model[7].RecipeId')
+                        localStorage.setItem('recipe2', '@Model[7]')
                     }
                 </script>
             </p>
@@ -202,7 +203,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack7() {
-                        localStorage.setItem('recipe2', '@Model[6].RecipeId')
+                        localStorage.setItem('recipe2', '@Model[6]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next" onclick="fnSaveChoice7()">
@@ -211,7 +212,7 @@
                 </a>
                 <script>
                     function fnSaveChoice7(){
-                        localStorage.setItem('recipe2', '@Model[8].RecipeId')
+                        localStorage.setItem('recipe2', '@Model[8]')
                     }
                 </script>
             </p>
@@ -226,7 +227,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack8() {
-                        localStorage.setItem('recipe2', '@Model[7].RecipeId')
+                        localStorage.setItem('recipe2', '@Model[7]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next" onclick="fnSaveChoice8()">
@@ -235,7 +236,7 @@
                 </a>
                 <script>
                 function fnSaveChoice8(){
-                localStorage.setItem('recipe2', '@Model[6].RecipeId')
+                localStorage.setItem('recipe2', '@Model[6]')
                 }
                 </script>
             </p>
@@ -249,7 +250,7 @@
         <div class="item active" style="height: 100px; text-align:center">
             <p>
                 <script>
-                        localStorage.setItem('recipe3', '@Model[9].RecipeId')
+                        localStorage.setItem('recipe3', '@Model[9]')
                 </script>
                 @{await Html.RenderPartialAsync("_RecipeName", Model[9]);}
                 <a class="left carousel-control" href="#myCarousel3" role="button" data-slide="prev" onclick="fnSaveChoiceBack9()">
@@ -258,7 +259,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack9() {
-                        localStorage.setItem('recipe3', '@Model[11].RecipeId')
+                        localStorage.setItem('recipe3', '@Model[11]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel3" role="button" data-slide="next" onclick="fnSaveChoice9()">
@@ -267,7 +268,7 @@
                 </a>
                 <script>
                     function fnSaveChoice9(){
-                        localStorage.setItem('recipe3', '@Model[10].RecipeId')
+                        localStorage.setItem('recipe3', '@Model[10]')
                     }
                 </script>
             </p>
@@ -282,7 +283,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack10() {
-                        localStorage.setItem('recipe3', '@Model[9].RecipeId')
+                        localStorage.setItem('recipe3', '@Model[9]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel3" role="button" data-slide="next" onclick="fnSaveChoice10()">
@@ -291,7 +292,7 @@
                 </a>
                 <script>
                     function fnSaveChoice10(){
-                        localStorage.setItem('recipe3', '@Model[11].RecipeId')
+                        localStorage.setItem('recipe3', '@Model[11]')
                     }
                 </script>
             </p>
@@ -306,7 +307,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack11() {
-                        localStorage.setItem('recipe3', '@Model[10].RecipeId')
+                        localStorage.setItem('recipe3', '@Model[10]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel3" role="button" data-slide="next" onclick="fnSaveChoice11()">
@@ -315,7 +316,7 @@
                 </a>
                 <script>
                 function fnSaveChoice11(){
-                localStorage.setItem('recipe3', '@Model[9].RecipeId')
+                localStorage.setItem('recipe3', '@Model[9]')
                 }
                 </script>
             </p>
@@ -329,7 +330,7 @@
         <div class="item active" style="height: 100px; text-align:center">
             <p>
                 <script>
-                        localStorage.setItem('recipe4', '@Model[12].RecipeId')
+                        localStorage.setItem('recipe4', '@Model[12]')
                 </script>
                 @{await Html.RenderPartialAsync("_RecipeName", Model[12]);}
                 <a class="left carousel-control" href="#myCarousel4" role="button" data-slide="prev" onclick="fnSaveChoiceBack12()">
@@ -338,7 +339,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack12() {
-                        localStorage.setItem('recipe4', '@Model[14].RecipeId')
+                        localStorage.setItem('recipe4', '@Model[14]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel4" role="button" data-slide="next" onclick="fnSaveChoice12()">
@@ -347,7 +348,7 @@
                 </a>
                 <script>
                     function fnSaveChoice12(){
-                        localStorage.setItem('recipe4', '@Model[13].RecipeId')
+                        localStorage.setItem('recipe4', '@Model[13]')
                     }
                 </script>
             </p>
@@ -362,7 +363,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack13() {
-                        localStorage.setItem('recipe4', '@Model[12].RecipeId')
+                        localStorage.setItem('recipe4', '@Model[12]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel4" role="button" data-slide="next" onclick="fnSaveChoice13()">
@@ -371,7 +372,7 @@
                 </a>
                 <script>
                     function fnSaveChoice13(){
-                        localStorage.setItem('recipe4', '@Model[14].RecipeId')
+                        localStorage.setItem('recipe4', '@Model[14]')
                     }
                 </script>
             </p>
@@ -386,7 +387,7 @@
                 </a>
                 <script>
                     function fnSaveChoiceBack14() {
-                        localStorage.setItem('recipe4', '@Model[13].RecipeId')
+                        localStorage.setItem('recipe4', '@Model[13]')
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel4" role="button" data-slide="next" onclick="fnSaveChoice14()">
@@ -395,7 +396,7 @@
                 </a>
                 <script>
                 function fnSaveChoice14(){
-                localStorage.setItem('recipe4', '@Model[12].RecipeId')
+                localStorage.setItem('recipe4', '@Model[12]')
                 }
                 </script>
             </p>

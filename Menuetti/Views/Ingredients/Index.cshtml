@@ -6,9 +6,13 @@
 
 <h2>Raaka-aineet</h2>
 
-<p>
-    <a asp-action="Create">Luo uusi</a>
-</p>
+@if (User.Identity.IsAuthenticated)
+{
+<a asp-controller="Ingredients" asp-action="Create" button type="button" class="btn btn-default btn-md btn">Luo uusi</a>
+}
+else
+{
+}
 <table class="table">
     <thead>
         <tr>
@@ -18,7 +22,7 @@
             </th>
             <th>
                 @*@Html.DisplayNameFor(model => model.AmountG)*@
-                Määrä (g)
+                Määrä
             </th>
             <th>
                 @*@Html.DisplayNameFor(model => model.RecipeUnit)*@
@@ -32,26 +36,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IngredientName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AmountG)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RecipeUnit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Recipe.RecipeName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IngredientId">Muokkaa</a> |
-                <a asp-action="Details" asp-route-id="@item.IngredientId">Tiedot</a> |
-                <a asp-action="Delete" asp-route-id="@item.IngredientId">Poista</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IngredientName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AmountG)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecipeUnit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Recipe.RecipeName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IngredientId">Muokkaa</a> |
+                    <a asp-action="Details" asp-route-id="@item.IngredientId">Tiedot</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IngredientId">Poista</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
