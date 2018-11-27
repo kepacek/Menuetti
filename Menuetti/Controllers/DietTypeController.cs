@@ -45,37 +45,45 @@ namespace Menuetti.Controllers
         }
 
         // diettype/vegetarian
-        //public async Task<IActionResult> Vegetarian()
-        //{
-        //    var recipes = await _context.Recipes.ToListAsync();
+        public async Task<IActionResult> Vegetarian()
+        {
+            var recipes = await _context.Recipes.ToListAsync();
 
-        //    List<string> recipeList = new List<string>();
-        //    Random rnd = new Random();
+            List<Recipes> recipeList = new List<Recipes>();
+            Random rnd = new Random();
 
-        //    foreach (var item in recipes)
-        //    {
-        //        int index = rnd.Next(recipes.Count);
-        //        recipeList.Add(recipes[index].RecipeName);
-        //    }
+            foreach (var item in recipes)
+            {
+                int index = rnd.Next(recipes.Count);
 
-        //    return View(recipeList);
-        //}
+                if (recipes[index].DietType == "Kasvis" || recipes[index].DietType == "Vegaaninen")
+                {
+                    recipeList.Add(recipes[index]);
+                }
+            }
 
-        //// diettype/vegan
-        //public async Task<IActionResult> Vegan()
-        //{
-        //    var recipes = await _context.Recipes.ToListAsync();
+            return View(recipeList);
+        }
 
-        //    List<string> recipeList = new List<string>();
-        //    Random rnd = new Random();
+        // diettype/vegan
+        public async Task<IActionResult> Vegan()
+        {
+            var recipes = await _context.Recipes.ToListAsync();
 
-        //    foreach (var item in recipes)
-        //    {
-        //        int index = rnd.Next(recipes.Count);
-        //        recipeList.Add(recipes[index].RecipeName);
-        //    }
+            List<Recipes> recipeList = new List<Recipes>();
+            Random rnd = new Random();
 
-        //    return View(recipeList);
-        //}
+            foreach (var item in recipes)
+            {
+                int index = rnd.Next(recipes.Count);
+
+                if (recipes[index].DietType == "Vegaaninen")
+                {
+                    recipeList.Add(recipes[index]);
+                }
+            }
+
+            return View(recipeList);
+        }
     }
 }
