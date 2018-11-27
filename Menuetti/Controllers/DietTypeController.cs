@@ -14,7 +14,7 @@ namespace Menuetti.Controllers
         {
             return View();
         }
-   
+
         private readonly MenuettiDBContext _context;
 
         public DietTypeController(MenuettiDBContext context)
@@ -22,12 +22,12 @@ namespace Menuetti.Controllers
             _context = context;
         }
 
-        // diettype/omni
-        //public async Task<IActionResult> Omni()
-        //{
-        //    var recipes = await _context.Recipes.ToListAsync();
-            
-            
+        //diettype/omni
+        public async Task<IActionResult> Omni()
+        {
+            var recipes = await _context.Recipes.ToListAsync();
+
+
             List<Recipes> recipeList = new List<Recipes>();
             Random rnd = new Random();
 
@@ -43,8 +43,8 @@ namespace Menuetti.Controllers
             //}
 
 
-        //    return View(recipeList);
-        //}
+            return View(recipeList);
+        }
 
         // diettype/vegetarian
         //public async Task<IActionResult> Vegetarian()
@@ -80,4 +80,4 @@ namespace Menuetti.Controllers
         //    return View(recipeList);
         //}
     }
-}
+    }

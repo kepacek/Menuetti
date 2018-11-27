@@ -402,3 +402,32 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    function getRecipesData() {
+    var selRecipe0 = localStorage.getItem("recipe0")
+    var selRecipe1 = localStorage.getItem("recipe1")
+    var selRecipe2 = localStorage.getItem("recipe2")
+    var selRecipe3 = localStorage.getItem("recipe3")
+    var selRecipe4 = localStorage.getItem("recipe4")
+
+    var selectedRecipes = "http://localhost:62500/shoppinglist/details/"
+        + selRecipe0
+        + "/" + selRecipe1
+        + "/" + selRecipe2
+        + "/" + selRecipe3
+        + "/" + selRecipe4;
+
+  
+        console.dir(selectedRecipes);
+        //fetch(selectedRecipes);
+        window.location.href = selectedRecipes;
+        //window.location.replace(selectedRecipes);
+    }
+    
+
+    
+</script>
+
+<button type="button" onClick="getRecipesData()">Heikin nappi</button>
