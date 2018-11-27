@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Menuetti.Models
 {
-    public class ShoppingList
+    public partial class ShoppingList
     {
         
             public int IngredientId { get; set; }
