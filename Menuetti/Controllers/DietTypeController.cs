@@ -23,9 +23,10 @@ namespace Menuetti.Controllers
         }
 
         // diettype/omni
-        public async Task<IActionResult> Omni()
-        {
-            var recipes = await _context.Recipes.ToListAsync();
+        //public async Task<IActionResult> Omni()
+        //{
+        //    var recipes = await _context.Recipes.ToListAsync();
+            
             
             List<Recipes> recipeList = new List<Recipes>();
             Random rnd = new Random();
@@ -41,8 +42,9 @@ namespace Menuetti.Controllers
             //    recipeList.Add(recipes[index].RecipeName);
             //}
 
-            return View(recipeList);
-        }
+
+        //    return View(recipeList);
+        //}
 
         // diettype/vegetarian
         //public async Task<IActionResult> Vegetarian()
