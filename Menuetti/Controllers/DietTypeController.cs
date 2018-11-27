@@ -14,7 +14,7 @@ namespace Menuetti.Controllers
         {
             return View();
         }
-   
+
         private readonly MenuettiDBContext _context;
 
         public DietTypeController(MenuettiDBContext context)

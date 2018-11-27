@@ -9,13 +9,12 @@
 <h4>Resepti</h4>
 <hr />
 <div class="row">
-    
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label">Käyttäjä</label>
-                <input asp-for="UserId" class="form-control" value="@ViewBag.UserId" /></input>
+                @*<label type="hidden" asp-for="UserId" class="control-label">Käyttäjä</label>*@
+                <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId" />
             </div>
             <div class="form-group">
                 <label asp-for="RecipeName" class="control-label">Reseptin nimi</label>
@@ -28,26 +27,27 @@
                 <span asp-validation-for="Portions" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Instructions" class="control-label">Valmistusohje</label>
-                <input asp-for="Instructions" class="form-control" />
-                <span asp-validation-for="Instructions" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Time" class="control-label">Valmistusaika</label>
+                <label asp-for="Time" class="control-label">Valmistusaika (min)</label>
                 <input asp-for="Time" class="form-control" />
                 <span asp-validation-for="Time" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DietType" class="control-label">Ruokavalio</label>
-                <input asp-for="DietType" class="form-control" />
+                <select asp-for="DietType" class="form-control"><option disabled selected>--- Valitse ---</option><option>Sekaruoka</option><option>Kasvis</option><option>Vegaaninen</option></select>
                 <span asp-validation-for="DietType" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Instructions" class="control-label">Valmistusohje</label>
+                @Html.TextAreaFor(m => m.Instructions, 15, 600, new { @class = "form-control" })
+                @*<input asp-for="Instructions" class="form-control" />*@
+                <span asp-validation-for="Instructions" class="text-danger"></span>
+            </div>
 
-            <div>
+            @*<div>
 
                 Ingredient name: <input type="text" id="iname" name="iname" />
                 Amount name: <input type="number" id="amount" name="amount" />
-            </div>
+            </div>*@
 
 
             <div class="form-group">
@@ -69,7 +69,7 @@
     }
 </div>
 <div>
-    <a asp-action="Index" button type="button" class="btn btn-default btn-md btn">Takaisin</a>
+    <a asp-action="Index" button class="btn btn-default btn-md btn">Takaisin</a>
 </div>
 
 @section Scripts {
