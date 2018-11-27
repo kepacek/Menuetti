@@ -22,7 +22,7 @@ namespace Menuetti.Controllers
             _context = context;
         }
 
-        //diettype/omni
+        // diettype/omni
         public async Task<IActionResult> Omni()
         {
             var recipes = await _context.Recipes.ToListAsync();
@@ -44,40 +44,48 @@ namespace Menuetti.Controllers
 
 
             return View(recipeList);
+            }
+
+            // diettype/vegetarian
+            public async Task<IActionResult> Vegetarian()
+        {
+            var recipes = await _context.Recipes.ToListAsync();
+
+            List<Recipes> recipeList = new List<Recipes>();
+            Random rnd = new Random();
+
+            foreach (var item in recipes)
+            {
+                int index = rnd.Next(recipes.Count);
+
+                if (recipes[index].DietType == "Kasvis" || recipes[index].DietType == "Vegaaninen")
+                {
+                    recipeList.Add(recipes[index]);
+                }
+            }
+
+            return View(recipeList);
         }
 
-        // diettype/vegetarian
-        //public async Task<IActionResult> Vegetarian()
-        //{
-        //    var recipes = await _context.Recipes.ToListAsync();
+        // diettype/vegan
+        public async Task<IActionResult> Vegan()
+        {
+            var recipes = await _context.Recipes.ToListAsync();
 
-        //    List<string> recipeList = new List<string>();
-        //    Random rnd = new Random();
+            List<Recipes> recipeList = new List<Recipes>();
+            Random rnd = new Random();
 
-        //    foreach (var item in recipes)
-        //    {
-        //        int index = rnd.Next(recipes.Count);
-        //        recipeList.Add(recipes[index].RecipeName);
-        //    }
+            foreach (var item in recipes)
+            {
+                int index = rnd.Next(recipes.Count);
 
-        //    return View(recipeList);
-        //}
+                if (recipes[index].DietType == "Vegaaninen")
+                {
+                    recipeList.Add(recipes[index]);
+                }
+            }
 
-        //// diettype/vegan
-        //public async Task<IActionResult> Vegan()
-        //{
-        //    var recipes = await _context.Recipes.ToListAsync();
-
-        //    List<string> recipeList = new List<string>();
-        //    Random rnd = new Random();
-
-        //    foreach (var item in recipes)
-        //    {
-        //        int index = rnd.Next(recipes.Count);
-        //        recipeList.Add(recipes[index].RecipeName);
-        //    }
-
-        //    return View(recipeList);
-        //}
+            return View(recipeList);
+        }
     }
 }

@@ -27,17 +27,17 @@ namespace Menuetti.Controllers
         }
 
         //GET: ShoppingList/Details/5
-        public async Task<IActionResult> Details(int RecipeId)
+        public async Task<IActionResult> ShoppingListDetails(int RecipeId)
         {
             List<Recipes> rlist = new List<Recipes>();
 
 
             //setting values for id - id4
-            Recipes recipe0 = _context.Recipes.Include("Ingredients").Single(r=>r.RecipeId ==  3);
-            Recipes recipe1 = _context.Recipes.Include("Ingredients").Single(r=>r.RecipeId ==  6);
-            Recipes recipe2 = _context.Recipes.Include("Ingredients").Single(r=>r.RecipeId ==  7);
-            Recipes recipe3 = _context.Recipes.Include("Ingredients").Single(r=>r.RecipeId ==  8);
-            Recipes recipe4 = _context.Recipes.Include("Ingredients").Single(r => r.RecipeId == 9);
+            Recipes recipe0 = await _context.Recipes.Include("Ingredients").SingleAsync(r=>r.RecipeId ==  3);
+            Recipes recipe1 = await _context.Recipes.Include("Ingredients").SingleAsync(r=>r.RecipeId ==  6);
+            Recipes recipe2 = await _context.Recipes.Include("Ingredients").SingleAsync(r=>r.RecipeId ==  7);
+            Recipes recipe3 = await _context.Recipes.Include("Ingredients").SingleAsync(r=>r.RecipeId ==  8);
+            Recipes recipe4 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == 9);
 
             
             rlist.Add(recipe0);
@@ -77,7 +77,8 @@ namespace Menuetti.Controllers
                    
                 }
             }
-            ViewBag.result = shoppings;
+
+            ViewBag.List = shoppings;
             return View();
 
         }
