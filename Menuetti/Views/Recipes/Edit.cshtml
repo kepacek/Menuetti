@@ -8,51 +8,63 @@
 
 @*<h4>Recipes</h4>*@
 <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="RecipeId" />
-                <div class="form-group">
-                    @*<label asp-for="UserId" class="control-label"></label>*@
-                    <input type="hidden" asp-for="UserId" class="form-control" asp-items="ViewBag.UserId" readonly />
-                    <span asp-validation-for="UserId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="RecipeName" class="control-label">Reseptin nimi</label>
-                    <input asp-for="RecipeName" class="form-control" />
-                    <span asp-validation-for="RecipeName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Portions" class="control-label">Annoksia</label>
-                    <input asp-for="Portions" class="form-control" />
-                    <span asp-validation-for="Portions" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Time" class="control-label">Valmistusaika (min)</label>
-                    <input asp-for="Time" class="form-control" />
-                    <span asp-validation-for="Time" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DietType" class="control-label">Ruokavalio</label>
-                    <select asp-for="DietType" class="form-control"><option>Sekaruoka</option><option>Kasvis</option><option>Vegaaninen</option></select>
-                    <span asp-validation-for="DietType" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Instructions" class="control-label">Valmistusohje</label>
-                    <input asp-for="Instructions" class="form-control" />
-                    <span asp-validation-for="Instructions" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Päivitä" class="btn btn-default" />
-                </div>
-            </form>
-        </div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RecipeId" />
+            <div class="form-group">
+                @*<label asp-for="UserId" class="control-label"></label>*@
+                <input type="hidden" asp-for="UserId" class="form-control" asp-items="ViewBag.UserId" readonly />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecipeName" class="control-label">Reseptin nimi</label>
+                <input asp-for="RecipeName" class="form-control" />
+                <span asp-validation-for="RecipeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Portions" class="control-label">Annoksia</label>
+                <input asp-for="Portions" class="form-control" />
+                <span asp-validation-for="Portions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Time" class="control-label">Valmistusaika (min)</label>
+                <input asp-for="Time" class="form-control" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+            <div>
+                @if (Model.Ingredients.Count > 0)
+                {
+                    <b>Raaka-aineet</b>
+                    @foreach (var item in Model.Ingredients)
+                    {
+                        <p>@item.AmountG @item.RecipeUnit @item.IngredientName</p>
+                    }
+                }
+                <a asp-controller="Ingredients" asp-action="CreateToRecipe"  
+                    asp-all-route-data="@(new Dictionary<string, string>  { { "RecipeId",  Model.RecipeId.ToString() }})" 
+                            button class="btn btn-default btn-md btn">Lisää uusi raaka-aine reseptiin</a><br />
+            </div>
+            <div class="form-group">
+                <label asp-for="DietType" class="control-label">Ruokavalio</label>
+                <select asp-for="DietType" class="form-control"><option>Sekaruoka</option><option>Kasvis</option><option>Vegaaninen</option></select>
+                <span asp-validation-for="DietType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Instructions" class="control-label">Valmistusohje</label>
+                <input asp-for="Instructions" class="form-control" />
+                <span asp-validation-for="Instructions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Päivitä" class="btn btn-default" />
+            </div>
+        </form>
     </div>
-    <div>
-        <a asp-action="Index" class="btn btn-default">Palaa takaisin</a>
-    </div>
-
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-default">Palaa takaisin</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

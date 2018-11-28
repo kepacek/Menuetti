@@ -62,6 +62,11 @@ namespace Menuetti.Controllers
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName");
             return View();
         }
+        public IActionResult CreateToRecipe(int RecipeId)
+        {
+            ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName");
+            return View();
+        }
 
         // POST: Ingredients/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

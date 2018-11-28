@@ -1,0 +1,58 @@
+﻿@model Menuetti.Models.Ingredients
+
+@{
+    ViewData["Title"] = "Lisää uusi raaka-aine reseptiin";
+}
+@if (User.Identity.IsAuthenticated)
+{
+<h2>Lisää uusi</h2>
+
+<h3>Raaka-aine</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" onsubmit=return redirect()>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @*<label asp-for="RecipeId" class="control-label">Resepti</label>*@
+                <input asp-for="RecipeId" class="form-control" asp-items="ViewBag.RecipeId" />
+            </div>
+            <div class="form-group">
+                <label asp-for="IngredientName" class="control-label">Raaka-aine</label>
+                <input asp-for="IngredientName" class="form-control" />
+                <span asp-validation-for="IngredientName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AmountG" class="control-label">Määrä</label>
+                <input asp-for="AmountG" class="form-control" />
+                <span asp-validation-for="AmountG" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecipeUnit" class="control-label">Yksikkö</label>
+                <input asp-for="RecipeUnit" class="form-control" />
+                <span asp-validation-for="RecipeUnit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Luo uusi" class="btn btn-default" onclick=/>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function redirect() {
+        window.location.replace = "/Recipes/Edit/"+@ViewBag.RecipeId;
+    }
+</script>
+}
+else
+{
+}
+<div>
+    <a asp-controller="Recipes" asp-action="Index" button class="btn btn-default btn-md btn">Takaisin</a>
+</div>
+@*asp-all-route-data="@(new Dictionary<string, string>  { { "RecipeId",  Model.RecipeId.ToString() }})"*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+}
