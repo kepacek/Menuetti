@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Menuetti.Controllers
 {
@@ -47,9 +48,40 @@ namespace Menuetti.Controllers
             return View();
         }
 
-        [Authorize]
-        public IActionResult Profile()
+        private readonly MenuettiDBContext _context;
+        public AccountController(MenuettiDBContext context)
         {
+            _context = context;
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+
+            string userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+            var recipes = await _context.Recipes.Where(r => r.UserId == userId).ToListAsync();
+
+            //Linq for checking the amount of recipes byt DietType added by user
+            var resultVegan = (from s in recipes
+                               where s.DietType == "Vegaaninen"
+                               select s).Count();
+
+            var resultOmni = (from s in recipes
+                              where s.DietType == "Sekaruoka"
+                              select s).Count();
+
+            var resultVegetarian = (from s in recipes
+                                    where s.DietType == "Kasvis"
+                                    select s).Count();
+
+            //ViewsBag for the amount of vegan recipes by user
+            ViewBag.Vegan = resultVegan;
+            //ViewsBag for the amount of omni recipes by user sekaruoka
+            ViewBag.Omni = resultOmni;
+            //ViewsBag for the amount of vegetarian recipes by user kasvis
+            ViewBag.Vegetarian = resultVegetarian;
+
             return View(new UserProfileViewModel()
             {
                 Name = User.Identity.Name,
