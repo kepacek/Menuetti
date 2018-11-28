@@ -44,10 +44,10 @@ namespace Menuetti.Controllers
 
 
             return View(recipeList);
-            }
+        }
 
-            // diettype/vegetarian
-            public async Task<IActionResult> Vegetarian()
+        // diettype/vegetarian
+        public async Task<IActionResult> Vegetarian()
         {
             var recipes = await _context.Recipes.ToListAsync();
 
