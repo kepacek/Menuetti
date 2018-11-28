@@ -3,28 +3,37 @@
     ViewData["Title"] = "ShoppingListDetails";
 }
 
-<h2>Ostoslista</h2>
 
-<table>
-    <tr>
-        <td>
-            Ainekset
-        </td>
-        <td>
-            Määrä (g)
-        </td>
-    </tr>
-    @foreach (var item in ViewBag.List)
+<div class="container">
+    <h2>5 päivän menu:</h2>
+    @foreach (var item in ViewBag.Recipes)
     {
         <tr>
-            <td>
-                @item.Key
-            </td>
-            <td>
-                @item.Value g
-            </td>
+            <td><a href="http://localhost:62500/Recipes/Details/@item.RecipeId">@item.RecipeName</a></td>
         </tr>
         <br />
     }
+    <h3>Ostoslista</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ainekset</th>
+                    <th>Määrä (g)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.List)
+                {
+                    <tr>
+                        <td>@item.Key</td>
+                        <td>@item.Value g</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
-</table>
+
+

@@ -79,6 +79,7 @@ namespace Menuetti.Controllers
                 }
             }
             ViewBag.List = shoppings;
+            ViewBag.Recipes = rlist;
             return View();
 
         }
