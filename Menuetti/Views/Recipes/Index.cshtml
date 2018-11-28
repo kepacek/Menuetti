@@ -22,14 +22,14 @@
                 @*@Html.DisplayNameFor(model => model.RecipeName)*@
                 Reseptin nimi
             </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.Portions)*@
+            @*<th>
+                @Html.DisplayNameFor(model => model.Portions)
                 Annoksia
             </th>
             <th>
-                @*@Html.DisplayNameFor(model => model.Instructions)*@
+                @Html.DisplayNameFor(model => model.Instructions)
                 Valmistusohje
-            </th>
+            </th>*@
             <th>
                 @*@Html.DisplayNameFor(model => model.Time)*@
                 Valmistusaika (min)
@@ -53,12 +53,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RecipeName)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Portions)
                 </td>
-                <td>
+                <td width="300px">
                     @Html.DisplayFor(modelItem => item.Instructions)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Time)
                 </td>
@@ -68,7 +68,7 @@
                 @*<td>
                     @Html.DisplayFor(modelItem => item.User.UserId)
                 </td>*@
-                <td>
+                <td >
                     <a asp-action="Details" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px">Tiedot</a>
                     @if (item.User != null && ViewBag.UserId == item.User.UserId)
                     {
