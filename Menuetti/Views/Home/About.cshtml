@@ -1,10 +1,32 @@
 ﻿@{
-    ViewData["Title"] = "Tietoa Menuetista";
+    ViewData["Title"] = "Tervetuloa Menuettiin!";
 }
 <h2>@ViewData["Title"]</h2>
-@if (User.Identity.IsAuthenticated)
-{
-<h3>Tervetuloa, @ViewData["Message"]</h3>
-}
+@*@if (User.Identity.IsAuthenticated)
+    {
+    <h3>Tervetuloa, @ViewData["Message"]</h3>
+    }*@
 
-<p>Menuetti on näppärä reseptipalvelu juuri sinulle.</p>
+<p>
+    Menuetti on reseptipalvelu, jonka avulla saat ehdotuksen viiden päivän ruokalajeista resepteineen ja ostoslistoineen.
+    <br /> Voit valita listallesi kasvis-, vegaani- tai sekaruokavalion mukaisia ruokalajeja.
+    <br />
+    <br />Rekisteröitymällä käyttäjäksi pääset jatkossa hyödyntämään palvelua monipuolisemmin ja lisäämään palveluun myös omia reseptejäsi.
+    <br /> Kehitämme palveluamme edelleen, ja toivomme palautetta ja ideoita rekisteröityneiltä käyttäjiltä käyttäjäkokemuksen parantamiseksi.
+</p>
+<br />
+<br />
+<div>
+
+    <img src="~/images/cheese.png" />
+    <img src="~/images/fish.png" />
+    <img src="~/images/vegan.png"/>
+    <img src="~/images/vegetarian.png" />
+    <img src="~/images/soybean.png"/>
+
+    
+</div>
+<br />
+<br />
+<h3>Käyttöehdot</h3>
+<p>......</p>
