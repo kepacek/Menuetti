@@ -44,7 +44,7 @@ namespace Menuetti.Controllers
 
             var recipes = await _context.Recipes
                 .Include(r => r.User)
-                .Include(r=>r.Ingredients)
+                .Include(r => r.Ingredients)
                 .FirstOrDefaultAsync(m => m.RecipeId == id);
             if (recipes == null)
             {
@@ -58,7 +58,7 @@ namespace Menuetti.Controllers
         public IActionResult Create()
         {
             //ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
-            ViewData["UserId"] = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value; 
+            ViewData["UserId"] = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             return View();
         }
 
@@ -75,7 +75,7 @@ namespace Menuetti.Controllers
             }
             if (ModelState.IsValid)
             {
-                if(_context.Users.Find(recipes.UserId) == null)
+                if (_context.Users.Find(recipes.UserId) == null)
                 {
                     Users user = new Users() { UserId = recipes.UserId };
                     _context.Users.Add(user);
@@ -96,7 +96,10 @@ namespace Menuetti.Controllers
                 return NotFound();
             }
 
-            var recipes = await _context.Recipes.FindAsync(id);
+            var recipes = await _context.Recipes
+                .Include(r => r.User)
+                .Include(r => r.Ingredients)
+                .FirstOrDefaultAsync(m => m.RecipeId == id);
             if (recipes == null)
             {
                 return NotFound();
@@ -179,7 +182,7 @@ namespace Menuetti.Controllers
             return _context.Recipes.Any(e => e.RecipeId == id);
         }
 
-   
+
         public ActionResult<Ingredientti> LoadJson()
         {
             using (StreamReader r = new StreamReader("ingredients.json"))
