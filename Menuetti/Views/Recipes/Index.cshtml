@@ -16,7 +16,7 @@
     }
 </p>
 <table class="table">
-    <thead>
+    <thead @*style="position: fixed; width: 100%"*@ >
         <tr>
             <th>
                 @*@Html.DisplayNameFor(model => model.RecipeName)*@
@@ -46,6 +46,7 @@
         </tr>
     </thead>
     <tbody>
+        <tr><td></td></tr>
         @foreach (var item in Model)
         {
             <tr>
