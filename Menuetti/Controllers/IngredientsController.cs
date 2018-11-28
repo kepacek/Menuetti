@@ -22,8 +22,11 @@ namespace Menuetti.Controllers
         // GET: Ingredients
         public async Task<IActionResult> Index()
         {
-            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            ViewBag.UserId = UserId;
+            if (User.Claims.Count() > 0)
+            {
+                string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                ViewBag.UserId = UserId;
+            }
 
             var menuettiDBContext = _context.Ingredients.Include(i => i.Recipe);
             return View(await menuettiDBContext.ToListAsync());
@@ -44,9 +47,11 @@ namespace Menuetti.Controllers
             {
                 return NotFound();
             }
-
-            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            ViewBag.UserId = UserId;
+            if (User.Claims.Count() > 0)
+            {
+                string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                ViewBag.UserId = UserId;
+            }
 
             return View(ingredients);
         }
@@ -65,6 +70,11 @@ namespace Menuetti.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IngredientId,RecipeId,IngredientName,AmountG,RecipeUnit")] Ingredients ingredients)
         {
+            if (User.Claims.Count() > 0)
+            {
+                string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                ViewBag.UserId = UserId;
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(ingredients);
@@ -88,7 +98,7 @@ namespace Menuetti.Controllers
             {
                 return NotFound();
             }
-            ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "Instructions", ingredients.RecipeId);
+            ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName", ingredients.RecipeId);
             return View(ingredients);
         }
 
