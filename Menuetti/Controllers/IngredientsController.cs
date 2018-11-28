@@ -68,6 +68,11 @@ namespace Menuetti.Controllers
             return View();
 
         }
+        public IActionResult CreateToRecipe(int RecipeId)
+        {
+            ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName");
+            return View();
+        }
 
         public List<Ingredientti> LoadJson()
         {
@@ -101,6 +106,26 @@ namespace Menuetti.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "Instructions", ingredients.RecipeId);
+            return View(ingredients);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateToRecipe([Bind("IngredientId,RecipeId,IngredientName,AmountG,RecipeUnit")] Ingredients ingredients)
+        {
+            if (User.Claims.Count() > 0)
+            {
+                string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                ViewBag.UserId = UserId;
+            }
+            if (ModelState.IsValid)
+            {
+                _context.Add(ingredients);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Edit", "Recipes", new { id = ingredients.RecipeId });
+            }
+            ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "Instructions", ingredients.RecipeId);
+
             return View(ingredients);
         }
 
