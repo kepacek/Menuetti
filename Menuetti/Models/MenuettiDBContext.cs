@@ -100,7 +100,7 @@ namespace Menuetti.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Instructions)
-                    .IsRequired()
+                    //.IsRequired()
                     .HasMaxLength(4000)
                     .IsUnicode(false);
 
