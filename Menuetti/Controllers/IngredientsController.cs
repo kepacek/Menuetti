@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Menuetti.Models;
 using System.Security.Claims;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Menuetti.Controllers
 {
@@ -60,8 +62,30 @@ namespace Menuetti.Controllers
         public IActionResult Create()
         {
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName");
+            //ViewData["IngredientName"] = new SelectList(LoadJson(), "name.fi");
+            ViewBag.Json = new SelectList(LoadJson(),"name.fi", "name.fi");
+            //ViewBag.units = new SelectList(LoadJson(), "units.Select(z=>z.description.fi))", "units.Select(z=>z.description.fi))");
+            return View();
+
+        }
+        public IActionResult CreateToRecipe(int RecipeId)
+        {
+            ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName");
             return View();
         }
+
+        public List<Ingredientti> LoadJson()
+        {
+            using (StreamReader r = new StreamReader("ingredients.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Ingredientti> items = JsonConvert.DeserializeObject<List<Ingredientti>>(json);
+
+                return items;
+
+            }
+        }
+
 
         // POST: Ingredients/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -82,6 +106,26 @@ namespace Menuetti.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "Instructions", ingredients.RecipeId);
+            return View(ingredients);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateToRecipe([Bind("IngredientId,RecipeId,IngredientName,AmountG,RecipeUnit")] Ingredients ingredients)
+        {
+            if (User.Claims.Count() > 0)
+            {
+                string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                ViewBag.UserId = UserId;
+            }
+            if (ModelState.IsValid)
+            {
+                _context.Add(ingredients);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Edit", "Recipes", new { id = ingredients.RecipeId });
+            }
+            ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "Instructions", ingredients.RecipeId);
+
             return View(ingredients);
         }
 
