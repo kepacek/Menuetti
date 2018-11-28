@@ -71,6 +71,7 @@ namespace Menuetti.Controllers
         public IActionResult CreateToRecipe(int RecipeId)
         {
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName");
+            ViewBag.Json = new SelectList(LoadJson(), "name.fi", "name.fi");
             return View();
         }
 
