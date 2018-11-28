@@ -24,4 +24,10 @@
     <Folder Include="Views\ShoppingList\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Ingredients\CreateToRecipe.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>
