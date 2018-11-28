@@ -27,15 +27,32 @@ namespace Menuetti.Controllers
         {
             var recipes = await _context.Recipes.ToListAsync();
 
-
             List<Recipes> recipeList = new List<Recipes>();
-            Random rnd = new Random();
 
             foreach (var item in recipes)
             {
-                int index = rnd.Next(recipes.Count);
-                recipeList.Add(recipes[index]);
+                recipeList.Add(item);
             }
+            Random rng = new Random();
+            int n = recipeList.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                Recipes value = recipeList[k];
+                recipeList[k] = recipeList[n];
+                recipeList[n] = value;
+            }
+
+
+
+            //Random rnd = new Random();
+
+            //foreach (var item in recipes)
+            //{
+            //    int index = rnd.Next(recipes.Count);
+            //    recipeList.Add(recipes[index]);
+            //}
             //for (int i = 0; i < 100; i++)
             //{
             //    int index = rnd.Next(recipes.Count);
@@ -128,7 +145,7 @@ namespace Menuetti.Controllers
             //    }
             //}
 
-            return View(recipeList); 
+            return View(recipeList);
         }
     }
 }
