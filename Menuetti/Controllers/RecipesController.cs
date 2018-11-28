@@ -25,9 +25,11 @@ namespace Menuetti.Controllers
         // GET: Recipes
         public async Task<IActionResult> Index()
         {
-            //string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            //ViewBag.UserId = UserId;
-
+            if (User.Claims.Count() > 0)
+            {
+                string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                ViewBag.UserId = UserId;
+            }
             var menuettiDBContext = _context.Recipes.Include(r => r.User);
             return View(await menuettiDBContext.ToListAsync());
         }
@@ -67,8 +69,10 @@ namespace Menuetti.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipes, string iname)
         {
-            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            
+            if (User.Claims.Count() > 0)
+            {
+                string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            }
             if (ModelState.IsValid)
             {
                 if(_context.Users.Find(recipes.UserId) == null)
