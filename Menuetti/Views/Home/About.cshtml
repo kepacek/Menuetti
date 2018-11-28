@@ -2,6 +2,9 @@
     ViewData["Title"] = "Tietoa Menuetista";
 }
 <h2>@ViewData["Title"]</h2>
+@if (User.Identity.IsAuthenticated)
+{
 <h3>Tervetuloa, @ViewData["Message"]</h3>
+}
 
 <p>Menuetti on näppärä reseptipalvelu juuri sinulle.</p>
