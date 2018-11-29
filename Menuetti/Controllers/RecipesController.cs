@@ -70,13 +70,28 @@ namespace Menuetti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipes, string iname)
+        public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipes, string iname, string submitButton)
         {
+
             if (User.Claims.Count() > 0)
             {
                 string userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             }
-            if (ModelState.IsValid)
+            if (ModelState.IsValid & submitButton == "Lisää uusi raaka-aine reseptiin")
+            {
+                if (_context.Users.Find(recipes.UserId) == null)
+                {
+                    Users user = new Users() { UserId = recipes.UserId };
+                    _context.Users.Add(user);
+                }
+                _context.Add(recipes);
+                await _context.SaveChangesAsync();
+                bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
+                if (showBadge)
+                { return RedirectToAction("Profile", "Account"); }
+                return RedirectToAction("CreateToRecipe", "Ingredients", new { RecipeId = recipes.RecipeId });
+            }
+            else if (ModelState.IsValid & submitButton == "Luo uusi")
             {
                 if (_context.Users.Find(recipes.UserId) == null)
                 {
@@ -90,9 +105,37 @@ namespace Menuetti.Controllers
                 { return RedirectToAction("Profile", "Account"); }
                 return RedirectToAction(nameof(Index));
             }
-
             return View(recipes);
         }
+
+        //new {RecipeId = recipes.RecipeId}
+        //public ActionResult MyAction(string submitButton)
+        //{
+        //    switch (submitButton)
+        //    {
+        //        case "Lisää uusi raaka-aine reseptiin":
+        //            // delegate sending to another controller action
+        //            return (IngredientCreation());
+        //        case "Luo uusi":
+        //            // call another action to perform the cancellation
+        //            return (CreateNew());
+        //        default:
+        //            // If they've submitted the form without a submitButton, 
+        //            // just return the view again.
+        //            return (View());
+        //    }
+        //}
+        //private ActionResult CreateNew()
+        //{
+        //    // process the cancellation request here.
+        //    return View(recipes);
+        //}
+
+        //private ActionResult IngredientCreation()
+        //{
+        //    // perform the actual send operation here.
+        //    return (View("SendConfirmed"));
+        //}
 
         [NonAction]
         private bool ShowBadgeMessage(string DietType, string UserId)
