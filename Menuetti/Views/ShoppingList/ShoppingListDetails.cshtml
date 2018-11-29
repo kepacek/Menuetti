@@ -5,7 +5,7 @@
 
 
 <div class="container">
-    <h2>5 päivän menu:</h2>
+    <h2>Valitsemasi menut:</h2>
     @foreach (var item in ViewBag.Recipes)
     {
         <tr>
@@ -13,12 +13,12 @@
         </tr>
         <br />
     }
-    <h3>Ostoslista</h3>
+    <h3>Tarvitsemasi raaka-aineet:</h3>
     <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
-                    <th width="50px"></th>
+                    <th width="50px"><img src="~/images/shoppingcart25.png"/></th>
                     <th>Ainekset</th>
                     <th>Määrä (g)</th>
                 </tr>
