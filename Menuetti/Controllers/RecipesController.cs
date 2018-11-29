@@ -139,16 +139,16 @@ namespace Menuetti.Controllers
             {
                 return NotFound();
             }
-
+            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             var recipes = await _context.Recipes
                 .Include(r => r.User)
                 .Include(r => r.Ingredients)
-                .FirstOrDefaultAsync(m => m.RecipeId == id);
+                .FirstOrDefaultAsync(m => m.RecipeId == id && m.UserId == UserId);
             if (recipes == null)
             {
                 return NotFound();
             }
-            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            
             ViewBag.UserId = UserId;
 
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipes.UserId);
@@ -198,10 +198,10 @@ namespace Menuetti.Controllers
             {
                 return NotFound();
             }
-
+            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             var recipes = await _context.Recipes
                 .Include(r => r.User)
-                .FirstOrDefaultAsync(m => m.RecipeId == id);
+                .FirstOrDefaultAsync(m => m.RecipeId == id && m.UserId == UserId);
             if (recipes == null)
             {
                 return NotFound();

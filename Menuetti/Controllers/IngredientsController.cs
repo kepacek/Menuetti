@@ -24,14 +24,24 @@ namespace Menuetti.Controllers
         // GET: Ingredients
         public async Task<IActionResult> Index()
         {
-            if (User.Claims.Count() > 0)
+            string UserId=null;
+            try
             {
-                string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-                ViewBag.UserId = UserId;
+                if (User.Claims.Count() > 0)
+                {
+                    UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                    ViewBag.UserId = UserId;
+                }
+                else
+                { return View("LoginRequired"); }
+                var menuettiDBContext = _context.Ingredients.Include(i => i.Recipe).Where(r => r.Recipe.UserId == UserId);
+                return View(await menuettiDBContext.ToListAsync());
             }
-
-            var menuettiDBContext = _context.Ingredients.Include(i => i.Recipe);
-            return View(await menuettiDBContext.ToListAsync());
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
         }
 
         // GET: Ingredients/Details/5
@@ -138,13 +148,14 @@ namespace Menuetti.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients.FindAsync(id);
-            if (ingredients == null)
+            var ingredient = await _context.Ingredients.FindAsync(id);
+            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            if (ingredient == null || ingredient.Recipe.UserId != UserId)
             {
                 return NotFound();
             }
-            ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName", ingredients.RecipeId);
-            return View(ingredients);
+            ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName", ingredient.RecipeId);
+            return View(ingredient);
         }
 
         // POST: Ingredients/Edit/5
@@ -191,15 +202,16 @@ namespace Menuetti.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients
+            var ingredient = await _context.Ingredients
                 .Include(i => i.Recipe)
                 .FirstOrDefaultAsync(m => m.IngredientId == id);
-            if (ingredients == null)
+            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            if (ingredient == null || ingredient.Recipe.UserId != UserId)
             {
                 return NotFound();
             }
 
-            return View(ingredients);
+            return View(ingredient);
         }
 
         // POST: Ingredients/Delete/5
