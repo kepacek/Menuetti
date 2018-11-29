@@ -10,6 +10,9 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.IO;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Linq.Expressions;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Menuetti.Controllers
 {
@@ -71,7 +74,7 @@ namespace Menuetti.Controllers
         {
             if (User.Claims.Count() > 0)
             {
-                string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                string userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             }
             if (ModelState.IsValid)
             {
@@ -82,10 +85,51 @@ namespace Menuetti.Controllers
                 }
                 _context.Add(recipes);
                 await _context.SaveChangesAsync();
+                bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
+                if (showBadge)
+                { return RedirectToAction("Profile", "Account"); }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipes.UserId);
+
             return View(recipes);
+        }
+
+        [NonAction]
+        private bool ShowBadgeMessage(string DietType, string UserId)
+        {
+            var userrecipes = _context.Recipes.Where(r => r.UserId == UserId).ToList();
+            //Linq for checking the amount of recipes byt DietType added by user
+            var result = (from s in userrecipes
+                          where s.DietType == DietType
+                          select s).Count();
+            //Most likely useless code, but here for storage for a while:
+            //var resultVegan = (from s in userrecipes
+            //                   where s.DietType == "Vegaaninen"
+            //                   select s).Count();
+
+            //var resultOmni = (from s in userrecipes
+            //                  where s.DietType == "Sekaruoka"
+            //                  select s).Count();
+
+            //var resultVegetarian = (from s in userrecipes
+            //                        where s.DietType == "Kasvis"
+            //                        select s).Count();
+
+            ////ViewsBag for the amount of vegan recipes by user
+            //ViewBag.Vegan = resultVegan;
+            ////ViewsBag for the amount of omni recipes by user sekaruoka
+            //ViewBag.Omni = resultOmni;
+            ////ViewsBag for the amount of vegetarian recipes by user kasvis
+            //ViewBag.Vegetarian = resultVegetarian;
+
+            if (result == 3)
+            { return true; }
+            else if (result == 10)
+            { return true; }
+            else if (result == 20)
+            { return true; }
+            else
+            { return false; }
         }
 
         // GET: Recipes/Edit/5
@@ -95,16 +139,16 @@ namespace Menuetti.Controllers
             {
                 return NotFound();
             }
-
+            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             var recipes = await _context.Recipes
                 .Include(r => r.User)
                 .Include(r => r.Ingredients)
-                .FirstOrDefaultAsync(m => m.RecipeId == id);
+                .FirstOrDefaultAsync(m => m.RecipeId == id && m.UserId == UserId);
             if (recipes == null)
             {
                 return NotFound();
             }
-            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            
             ViewBag.UserId = UserId;
 
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipes.UserId);
@@ -154,10 +198,10 @@ namespace Menuetti.Controllers
             {
                 return NotFound();
             }
-
+            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             var recipes = await _context.Recipes
                 .Include(r => r.User)
-                .FirstOrDefaultAsync(m => m.RecipeId == id);
+                .FirstOrDefaultAsync(m => m.RecipeId == id && m.UserId == UserId);
             if (recipes == null)
             {
                 return NotFound();

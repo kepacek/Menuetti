@@ -49,7 +49,7 @@
             @*@Html.DisplayNameFor(model => model.Instructions)*@
             Ohjeet
         </dt>
-        <dd>
+        <dd class="multiline">
             @Html.DisplayFor(model => model.Instructions)
         </dd>
     </dl>
@@ -58,10 +58,14 @@
 <h4>Reseptin raaka-aineet</h4>
 @foreach (var item in Model.Ingredients)
 {
+<<<<<<< HEAD
 <p>
     @item.AmountG @item.RecipeUnit @item.IngredientName
    
 </p>
+=======
+    <p>@item.AmountG @item.RecipeUnit @item.IngredientName</p>
+>>>>>>> 48ec87474d8ab1782be1373e4f31e762e0de8320
 }
 
 
@@ -69,9 +73,8 @@
 <hr />
 <div>
     @*<a asp-action="Edit" asp-route-id="@Model.RecipeId">Edit</a> |*@
-    <a asp-action="Index"class="btn btn-default">Palaa takaisin</a>
+    <a asp-action="Index" class="btn btn-default">Palaa takaisin</a>
 </div>
-
 
 @*<div>
     <br />
@@ -80,6 +83,7 @@
 </div>
 
 <script>
+
     //dummydatan tallentaminen LocalStorageen --> muokattava/poistettava kun päästään oikeaan dataan käsiksi
     function fnSaveData() {
         var name = document.getElementById('TestLocalStorage');

@@ -8,7 +8,7 @@
 
 
 <div class="container">
-    <h2>5 päivän menu:</h2>
+    <h2>Valitsemasi menut:</h2>
     @foreach (var item in ViewBag.Recipes)
     {
         <tr>
@@ -16,11 +16,12 @@
         </tr>
         <br />
     }
-    <h3>Ostoslista</h3>
+    <h3>Tarvitsemasi raaka-aineet:</h3>
     <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
+                    <th width="50px"><img src="~/images/shoppingcart25.png"/></th>
                     <th>Ainekset</th>
                     <th>Määrä</th>
                     <th>Yksikkö</th>
@@ -30,6 +31,7 @@
             <tbody>
                 @foreach (var item in ViewBag.List)
                 {
+<<<<<<< HEAD
                 <tr>
                     <td>@item.Key</td>
                     <td>
@@ -79,11 +81,44 @@
 
 
                 </tr>
+=======
+                    <tr>
+                        <td>
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </td>
+                        <td>@item.Key</td>
+                        <td>@item.Value g</td>
+                    </tr>
+>>>>>>> 48ec87474d8ab1782be1373e4f31e762e0de8320
                 }
             </tbody>
         </table>
     </div>
 </div>
 
+<style>
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+.container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+</style>
 
 
