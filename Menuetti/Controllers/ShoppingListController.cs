@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.IO;
 using Newtonsoft.Json;
+using System.Threading;
 
 namespace Menuetti.Controllers
 {
@@ -46,6 +47,8 @@ namespace Menuetti.Controllers
         {
             List<Recipes> rlist = new List<Recipes>();
             List<Ingredientti> jsonidata = LoadJsoni();
+
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
             //setting values for id - id4
             //Recipes recipe0 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id1);

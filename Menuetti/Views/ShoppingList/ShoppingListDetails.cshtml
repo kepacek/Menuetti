@@ -1,6 +1,9 @@
-﻿
+﻿@using System.Globalization;
+
+
 @{
     ViewData["Title"] = "ShoppingListDetails";
+    CultureInfo ci = new CultureInfo("en-US");
 }
 
 
@@ -19,7 +22,9 @@
             <thead>
                 <tr>
                     <th>Ainekset</th>
-                    <th>Määrä (g)</th>
+                    <th>Määrä</th>
+                    <th>Yksikkö</th>
+                    <th>Määrä grammoina</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,14 +32,49 @@
                 {
                 <tr>
                     <td>@item.Key</td>
-                    <td>@item.Value g</td>
-                    <td>@foreach (var a in @ViewBag.Json)
-                    {
-                        if (a.name==item.Key)
+                    <td>
+                        @foreach (var a in @ViewBag.jsoni)
                         {
-                            <p>terve</p>
+                            if (item.Key == a.name.fi && item.Value!=null)
+                            {
+                                var conversion = string.Join("", ((IEnumerable<dynamic>)a.units).Select(m => m.mass).First()); ;
+
+                                var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
+
+                                <p>@((Convert.ToDouble(item.Value) / double.Parse(conversion, ci)).ToString("f1"))  </p>
+                                
+
+                            }
+
+
                         }
-                    }</td>
+                    </td>
+                    <td>
+                        @foreach (var a in @ViewBag.jsoni)
+                        {
+                            if (item.Key == a.name.fi && item.Value != null)
+                            {
+
+                                var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
+
+                                <p>@unitti</p>
+
+                            }
+
+
+                        }
+                    </td>
+
+                    <td>
+                        @if (item.Value != null)
+                        {
+                            string g = "g";
+                            @item.Value;
+                            g.ToString();
+                        }
+                      
+
+                    </td>
 
 
 
