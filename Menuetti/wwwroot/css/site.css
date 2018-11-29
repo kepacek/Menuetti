@@ -111,4 +111,7 @@ body {
         display: block !important;
     }
 }
-
+.multiline
+{
+    white-space: pre-wrap;
+}
