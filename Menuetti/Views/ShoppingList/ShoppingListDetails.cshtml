@@ -25,10 +25,20 @@
             <tbody>
                 @foreach (var item in ViewBag.List)
                 {
-                    <tr>
-                        <td>@item.Key</td>
-                        <td>@item.Value g</td>
-                    </tr>
+                <tr>
+                    <td>@item.Key</td>
+                    <td>@item.Value g</td>
+                    <td>@foreach (var a in @ViewBag.Json)
+                    {
+                        if (a.name==item.Key)
+                        {
+                            <p>terve</p>
+                        }
+                    }</td>
+
+
+
+                </tr>
                 }
             </tbody>
         </table>

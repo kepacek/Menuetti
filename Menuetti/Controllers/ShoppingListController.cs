@@ -7,12 +7,27 @@ using Microsoft.AspNetCore.Mvc;
 using Menuetti.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Menuetti.Controllers
 {
     public class ShoppingListController : Controller
     {
         //private MenuettiDBContext db = new MenuettiDBContext();
+        
+        public List<Ingredientti> LoadJsoni()
+        {
+            using (StreamReader r = new StreamReader("ingredients.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Ingredientti> items = JsonConvert.DeserializeObject<List<Ingredientti>>(json);
+
+                return items;
+
+            }
+        }
+
 
         private readonly MenuettiDBContext _context;
         public ShoppingListController(MenuettiDBContext context)
@@ -30,8 +45,7 @@ namespace Menuetti.Controllers
         public async Task<IActionResult> ShoppingListDetails(int id1, int id2, int id3, int id4, int id5)
         {
             List<Recipes> rlist = new List<Recipes>();
-
-
+            List<Ingredientti> jsonidata = LoadJsoni();
 
             //setting values for id - id4
             Recipes recipe0 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id1);
@@ -80,6 +94,9 @@ namespace Menuetti.Controllers
             }
             ViewBag.List = shoppings;
             ViewBag.Recipes = rlist;
+            ViewBag.jsoni = jsonidata;
+
+
             return View();
 
         }
