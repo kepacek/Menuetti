@@ -21,7 +21,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th width="50px"><img src="~/images/shoppingcart25.png"/></th>
+                    <th width="50px"><img src="~/images/shoppingcart25.png" /></th>
                     <th>Ainekset</th>
                     <th>Määrä</th>
                     <th>Yksikkö</th>
@@ -29,22 +29,28 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in ViewBag.List)
-                {
-<<<<<<< HEAD
+           
+            @foreach (var item in ViewBag.List)
+            {
+
                 <tr>
+                    <td>
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </td>
+
                     <td>@item.Key</td>
                     <td>
                         @foreach (var a in @ViewBag.jsoni)
                         {
-                            if (item.Key == a.name.fi && item.Value!=null)
+                            if (item.Key == a.name.fi && item.Value != null)
                             {
                                 var conversion = string.Join("", ((IEnumerable<dynamic>)a.units).Select(m => m.mass).First()); ;
 
                                 var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
 
                                 <p>@((Convert.ToDouble(item.Value) / double.Parse(conversion, ci)).ToString("f1"))  </p>
-                                
+
 
                             }
 
@@ -74,24 +80,19 @@
                             @item.Value;
                             g.ToString();
                         }
-                      
+
 
                     </td>
 
 
 
+
+
+
+
+                    
                 </tr>
-=======
-                    <tr>
-                        <td>
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </td>
-                        <td>@item.Key</td>
-                        <td>@item.Value g</td>
-                    </tr>
->>>>>>> 48ec87474d8ab1782be1373e4f31e762e0de8320
-                }
+            }
             </tbody>
         </table>
     </div>
