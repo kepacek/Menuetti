@@ -1,6 +1,9 @@
-﻿
+﻿@using System.Globalization;
+
+
 @{
     ViewData["Title"] = "ShoppingListDetails";
+    CultureInfo ci = new CultureInfo("en-US");
 }
 
 
@@ -18,23 +21,78 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th width="50px"><img src="~/images/shoppingcart25.png"/></th>
+                    <th width="50px"><img src="~/images/shoppingcart25.png" /></th>
                     <th>Ainekset</th>
-                    <th>Määrä (g)</th>
+                    <th>Määrä</th>
+                    <th>Yksikkö</th>
+                    <th>Määrä grammoina</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in ViewBag.List)
-                {
-                    <tr>
-                        <td>
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </td>
-                        <td>@item.Key</td>
-                        <td>@item.Value g</td>
-                    </tr>
-                }
+           
+            @foreach (var item in ViewBag.List)
+            {
+
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </td>
+
+                    <td>@item.Key</td>
+                    <td>
+                        @foreach (var a in @ViewBag.jsoni)
+                        {
+                            if (item.Key == a.name.fi && item.Value != null)
+                            {
+                                var conversion = string.Join("", ((IEnumerable<dynamic>)a.units).Select(m => m.mass).First()); ;
+
+                                var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
+
+                                <p>@((Convert.ToDouble(item.Value) / double.Parse(conversion, ci)).ToString("f1"))  </p>
+
+
+                            }
+
+
+                        }
+                    </td>
+                    <td>
+                        @foreach (var a in @ViewBag.jsoni)
+                        {
+                            if (item.Key == a.name.fi && item.Value != null)
+                            {
+
+                                var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
+
+                                <p>@unitti</p>
+
+                            }
+
+
+                        }
+                    </td>
+
+                    <td>
+                        @if (item.Value != null)
+                        {
+                            string g = "g";
+                            @item.Value;
+                            g.ToString();
+                        }
+
+
+                    </td>
+
+
+
+
+
+
+
+                    
+                </tr>
+            }
             </tbody>
         </table>
     </div>
