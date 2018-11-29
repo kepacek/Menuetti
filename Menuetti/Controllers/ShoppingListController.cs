@@ -34,18 +34,80 @@ namespace Menuetti.Controllers
 
 
             //setting values for id - id4
-            Recipes recipe0 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id1);
-            Recipes recipe1 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id2);
-            Recipes recipe2 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id3);
-            Recipes recipe3 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id4);
-            Recipes recipe4 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id5);
+            //Recipes recipe0 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id1);
+            //Recipes recipe1 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id2);
+            //Recipes recipe2 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id3);
+            //Recipes recipe3 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id4);
+
+            Recipes recipe0;
+            if (id1 != 0)
+            {
+                recipe0 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id1);
+            }
+            else
+            { recipe0 = null; };
+
+            Recipes recipe1;
+            if (id2 != 0)
+            {
+                recipe1 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id2);
+            }
+            else
+            { recipe1 = null; };
+
+            Recipes recipe2;
+            if (id3 != 0)
+            {
+                recipe2 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id3);
+            }
+            else
+            { recipe2 = null; };
+
+            Recipes recipe3;
+            if (id4 != 0)
+            {
+                recipe3 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id4);
+            }
+            else
+            { recipe3 = null; };
 
 
-            rlist.Add(recipe0);
-            rlist.Add(recipe1);
-            rlist.Add(recipe2);
-            rlist.Add(recipe3);
-            rlist.Add(recipe4);
+            Recipes recipe4;
+            if (id5 != 0)
+            {
+                recipe4 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id5);
+            }
+            else
+            { recipe4 = null; };
+
+
+            //rlist.Add(recipe0);
+            //rlist.Add(recipe1);
+            //rlist.Add(recipe2);
+            //rlist.Add(recipe3);
+
+            if (id1 != 0)
+            {
+                rlist.Add(recipe0);
+            };
+
+            if (id2 != 0)
+            {
+                rlist.Add(recipe1);
+            };
+
+            if (id3 != 0)
+            {
+                rlist.Add(recipe2);
+            };
+
+            if (id4 != 0)
+            {
+                rlist.Add(recipe3);
+            };
+
+            if (id5 != 0) {
+                rlist.Add(recipe4);};
 
 
             Dictionary<string, int?> shoppings = new Dictionary<string, int?>();
