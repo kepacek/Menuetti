@@ -80,6 +80,8 @@ namespace Menuetti.Controllers
         }
         public IActionResult CreateToRecipe(int RecipeId)
         {
+            var rec = _context.Recipes.Find(RecipeId);
+            ViewBag.RecipeName = rec.RecipeName;
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName");
             ViewBag.Json = new SelectList(LoadJson(), "name.fi", "name.fi");
             return View();
@@ -116,6 +118,9 @@ namespace Menuetti.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            Recipes recipes = new Recipes();
+            string recipe = recipes.RecipeName;
+            ViewBag.RecipeName = recipe;
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "Instructions", ingredients.RecipeId);
             return View(ingredients);
         }
@@ -135,6 +140,9 @@ namespace Menuetti.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Edit", "Recipes", new { id = ingredients.RecipeId });
             }
+            Recipes recipes = new Recipes();
+            string recipe = recipes.RecipeName;
+            ViewBag.RecipeName = recipe;
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "Instructions", ingredients.RecipeId);
 
             return View(ingredients);
