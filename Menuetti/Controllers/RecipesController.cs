@@ -19,7 +19,7 @@ namespace Menuetti.Controllers
     public class RecipesController : Controller
     {
         private readonly MenuettiDBContext _context;
-
+        
         public RecipesController(MenuettiDBContext context)
         {
             _context = context;
