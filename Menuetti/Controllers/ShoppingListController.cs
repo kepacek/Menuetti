@@ -38,14 +38,21 @@ namespace Menuetti.Controllers
             Recipes recipe1 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id2);
             Recipes recipe2 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id3);
             Recipes recipe3 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id4);
-            Recipes recipe4 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id5);
+            Recipes recipe4;
+            if (id5 != 0)
+            {
+                recipe4 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id5);
+            }
+            else
+            { recipe4 = null; };
 
 
             rlist.Add(recipe0);
             rlist.Add(recipe1);
             rlist.Add(recipe2);
             rlist.Add(recipe3);
-            rlist.Add(recipe4);
+            if (id5 != 0) {
+                rlist.Add(recipe4);};
 
 
             Dictionary<string, int?> shoppings = new Dictionary<string, int?>();

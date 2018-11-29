@@ -143,7 +143,7 @@ namespace Menuetti
             {
                 routes.MapRoute(
                     name: "ShoppingList",
-                    template: "ShoppingList/ShoppingListDetails/{id1}/{id2}/{id3}/{id4}/{id5}",
+                    template: "ShoppingList/ShoppingListDetails/{id1}/{id2}/{id3}/{id4}/{id5?}",
                     defaults: new { Controller = "ShoppingList", Action = "ShoppingListDetails" });
 
                 routes.MapRoute(
