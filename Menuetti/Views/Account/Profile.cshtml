@@ -12,10 +12,20 @@
                 <img src="@Model.ProfileImage"
                      alt="" class="img-rounded img-responsive" />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <h3>@Model.Name</h3>
                 <p>
                     <i class="glyphicon glyphicon-envelope"></i> @Model.EmailAddress
+                </p>
+                <p>
+                    <script>
+                    a = @ViewBag.Omni;
+                    b = @ViewBag.Vegetarian;
+                    c = @ViewBag.Vegan;
+                    d = a + b + c;//perform sum operation
+                        document.write("Olet lisännyt " + d + " reseptiä Menuettiin.");//print the result(+ is a concatenate operator)
+                    </script>
+                    <br />(@ViewBag.Omni sekaruokareseptiä, @ViewBag.Vegetarian kasvisruokareseptiä ja @ViewBag.Vegan vegaanireseptiä)
                 </p>
             </div>
         </div>
@@ -27,32 +37,36 @@
         <div class="row">
             <h2>Ansiomerkit</h2>
 
-            <div class="col-md-2">
-                <h3>Sekaruokasankari</h3>
+            <div class="col-md-3">
                 @if (@ViewBag.Omni > 2)
-                {<p><img src="~/images/meat.png" alt="Meat" /> 3 reseptiä :) </p>}
+                {<h3>Sekaruokasankari</h3>}
+                @if (@ViewBag.Omni > 2)
+                {<p><img src="~/images/meat.png" alt="Meat" /><br />Olet lisännyt 3 reseptiä tai enemmän.</p>}
                 @if (@ViewBag.Omni > 9)
                 {
-                    <p> <img src="~/images/fish.png" alt="Fish" /> Olet lisännyt 10 sekaruokareseptiä!!!</p>}
+                    <p> <img src="~/images/fish.png" alt="Fish" /><br />Olet lisännyt vähintään 10 sekaruokareseptiä!</p>}
                 @if (@ViewBag.Omni > 19)
                 {
-                    <p> <img src="~/images/fish.png" /> Olet lisännyt 20 sekaruokareseptiä!!!</p>}
+                    <p> <img src="~/images/fish.png" /><br />Olet lisännyt vähintään 20 sekaruokareseptiä!</p>}
             </div>
-            <div class="col-md-2">
-                <h3>Vegemestari</h3>
+            <div class="col-md-3">
                 @if (@ViewBag.Vegetarian > 2)
-                {<p><img src="~/images/cheese.png" alt="Cheese" /> 3 reseptiä :) </p>}
+                {<h3>Vegemestari</h3>}
+                @if (@ViewBag.Vegetarian > 2)
+                {<p><img src="~/images/cheese.png" alt="Cheese" /><br />Olet lisännyt 3 reseptiä tai enemmän.</p>}
                 @if (@ViewBag.Vegetarian > 9)
                 {
-                    <p> <img src="~/images/vegetarian.png" alt="Vegetarian" /> Olet lisännyt 10 vegeruokareseptiä!!!</p>}
+                    <p> <img src="~/images/vegetarian.png" alt="Vegetarian" /><br />Olet lisännyt vähintään 10 vegeruokareseptiä!</p>}
                 @if (@ViewBag.Vegetarian > 19)
                 {
-                    <p> <img src="~/images/soybean.png" alt="Soybean" /> Olet lisännyt 20 vegeruokareseptiä!!!</p>}
+                    <p> <img src="~/images/soybean.png" alt="Soybean" /><br />Olet lisännyt vähintään 20 vegeruokareseptiä!</p>}
             </div>
-            <div class="col-md-2">
-                <h3>Vegaaniguru</h3>
+            <div class="col-md-3">
                 @if (@ViewBag.Vegan > 2)
-                {<p><img src="~/images/cheese.png" alt="Cheese" /> 3 reseptiä :) </p>}
+                {
+                    <h3>Vegaaniguru</h3>}
+                @if (@ViewBag.Vegan > 2)
+                {<p><img src="~/images/soybean.png" alt="Soybean" /><br />Olet lisännyt 3 reseptiä tai enemmän.</p>}
                 @if (@ViewBag.Vegan > 9)
                 {
                     <p> <img src="~/images/vegetarian.png" alt="Vegetarian" /> Olet lisännyt 10 vegaaniruokareseptiä!!!</p>}
@@ -60,7 +74,7 @@
                 {
                     <p> <img src="~/images/vegan.png" alt="Vegan" /> Olet lisännyt 20 vegaaniruokareseptiä!!!</p>}
             </div>
-           
+
         </div>
     </div>
 </div>
