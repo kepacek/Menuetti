@@ -22,7 +22,15 @@ body {
 .carousel-inner .item img[src=".svg"] {
     width: 100%;
 }
+.carousel-control {
+    color: black;
+    opacity: inherit;
+    background-image: none !important;
+}
 
+.carousel-control:hover {
+    color: dimgray;
+}
 /* QR code generator */
 #qrCode {
     margin: 15px;
