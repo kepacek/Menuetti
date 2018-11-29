@@ -32,7 +32,7 @@
                 <span asp-validation-for="Time" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" button class="btn btn-default btn-md btn" value="Lisää uusi raaka-aine reseptiin" onclick="window.location/..='@Url.Action("Ingredients", "CreateToRecipe")'"><br />
+                <input type="submit" button class="btn btn-default btn-md btn" name="submitButton" value="Lisää uusi raaka-aine reseptiin"><br />
             </div>
             <div class="form-group">
                 <label asp-for="DietType" class="control-label">Ruokavalio</label>
@@ -54,7 +54,7 @@
 
 
             <div class="form-group">
-                <input type="submit" value="Luo uusi" class="btn btn-default" />
+                <input type="submit" name="submitButton" value="Luo uusi" class="btn btn-default" />
             </div>
         </form>
     </div>

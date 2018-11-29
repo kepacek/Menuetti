@@ -5,9 +5,7 @@
 }
 @if (User.Identity.IsAuthenticated)
 {
-    <h2>Lisää uusi</h2>
-
-    <h3>Raaka-aine</h3>
+    <h3>Lisää uusi raaka-aine reseptiin "@ViewBag.RecipeName"</h3>
     <hr />
     <div class="row">
         <div class="col-md-4">
@@ -15,7 +13,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     @*<label asp-for="RecipeId" class="control-label">Resepti</label>*@
-                    <input asp-for="RecipeId" class="form-control" asp-items="ViewBag.RecipeId" />
+                    <input type="hidden" asp-for="RecipeId" class="form-control" asp-items="ViewBag.RecipeId" />
                 </div>
                 @*<div class="form-group">
                         <label asp-for="IngredientName" class="control-label">Raaka-aine</label>
