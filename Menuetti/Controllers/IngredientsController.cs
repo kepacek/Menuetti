@@ -24,7 +24,7 @@ namespace Menuetti.Controllers
         // GET: Ingredients
         public async Task<IActionResult> Index()
         {
-            string UserId=null;
+            string UserId = null;
             try
             {
                 if (User.Claims.Count() > 0)
@@ -41,7 +41,7 @@ namespace Menuetti.Controllers
             {
                 return NotFound();
             }
-            
+
         }
 
         // GET: Ingredients/Details/5
@@ -73,7 +73,7 @@ namespace Menuetti.Controllers
         {
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName");
             //ViewData["IngredientName"] = new SelectList(LoadJson(), "name.fi");
-            ViewBag.Json = new SelectList(LoadJson(),"name.fi", "name.fi");
+            ViewBag.Json = new SelectList(LoadJson(), "name.fi", "name.fi");
             //ViewBag.units = new SelectList(LoadJson(), "units.Select(z=>z.description.fi))", "units.Select(z=>z.description.fi))");
             return View();
 
@@ -156,13 +156,17 @@ namespace Menuetti.Controllers
                 return NotFound();
             }
 
-            var ingredient = await _context.Ingredients.FindAsync(id);
+            //var ingredient = await _context.Ingredients.FindAsync(id);
+            var ingredient = await _context.Ingredients
+                .Include(i => i.Recipe)
+                .FirstOrDefaultAsync(m => m.IngredientId == id);
             string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             if (ingredient == null || ingredient.Recipe.UserId != UserId)
             {
                 return NotFound();
             }
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName", ingredient.RecipeId);
+            ViewBag.Json = new SelectList(LoadJson(), "name.fi", "name.fi");
             return View(ingredient);
         }
 
@@ -198,6 +202,9 @@ namespace Menuetti.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Json = new SelectList(LoadJson(), "name.fi", "name.fi");
+            var rec = _context.Recipes.Find(id);
+            ViewBag.RecipeName = rec.RecipeName;
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "Instructions", ingredients.RecipeId);
             return View(ingredients);
         }
