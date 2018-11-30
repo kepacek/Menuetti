@@ -77,7 +77,7 @@ namespace Menuetti.Controllers
             {
                 string userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             }
-            if (ModelState.IsValid & submitButton == "Lisää uusi raaka-aine reseptiin")
+            if (ModelState.IsValid & submitButton == "Lisää uusi raaka-aine reseptiin") //Create a new recipe first to get an ID, then move to the CreateToRecipe of that particular ID
             {
                 if (_context.Users.Find(recipes.UserId) == null)
                 {
@@ -91,7 +91,7 @@ namespace Menuetti.Controllers
                 { return RedirectToAction("Profile", "Account"); }
                 return RedirectToAction("CreateToRecipe", "Ingredients", new { RecipeId = recipes.RecipeId });
             }
-            else if (ModelState.IsValid & submitButton == "Luo uusi")
+            else if (ModelState.IsValid & submitButton == "Luo uusi") //Create a new recipe and move to the recipe list Index
             {
                 if (_context.Users.Find(recipes.UserId) == null)
                 {
@@ -107,35 +107,6 @@ namespace Menuetti.Controllers
             }
             return View(recipes);
         }
-
-        //new {RecipeId = recipes.RecipeId}
-        //public ActionResult MyAction(string submitButton)
-        //{
-        //    switch (submitButton)
-        //    {
-        //        case "Lisää uusi raaka-aine reseptiin":
-        //            // delegate sending to another controller action
-        //            return (IngredientCreation());
-        //        case "Luo uusi":
-        //            // call another action to perform the cancellation
-        //            return (CreateNew());
-        //        default:
-        //            // If they've submitted the form without a submitButton, 
-        //            // just return the view again.
-        //            return (View());
-        //    }
-        //}
-        //private ActionResult CreateNew()
-        //{
-        //    // process the cancellation request here.
-        //    return View(recipes);
-        //}
-
-        //private ActionResult IngredientCreation()
-        //{
-        //    // perform the actual send operation here.
-        //    return (View("SendConfirmed"));
-        //}
 
         [NonAction]
         private bool ShowBadgeMessage(string DietType, string UserId)
@@ -193,7 +164,6 @@ namespace Menuetti.Controllers
             }
             
             ViewBag.UserId = UserId;
-
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipes.UserId);
             return View(recipes);
         }
