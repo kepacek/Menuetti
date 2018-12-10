@@ -83,7 +83,8 @@ namespace Menuetti.Controllers
             var rec = _context.Recipes.Find(RecipeId);
             ViewBag.RecipeName = rec.RecipeName;
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName");
-            ViewBag.Json = new SelectList(LoadJson(), "name.fi", "name.fi");
+            SelectList JsonLista = new SelectList(LoadJson(), "name.fi", "name.fi");
+            ViewBag.Json = JsonLista;
             return View();
         }
 
@@ -92,10 +93,8 @@ namespace Menuetti.Controllers
             using (StreamReader r = new StreamReader("ingredients.json"))
             {
                 string json = r.ReadToEnd();
-                List<Ingredientti> items = JsonConvert.DeserializeObject<List<Ingredientti>>(json);
-
+                List<Ingredientti> items = JsonConvert.DeserializeObject<List<Ingredientti>>(json).OrderBy(t => t.name.fi).ToList();
                 return items;
-
             }
         }
 
