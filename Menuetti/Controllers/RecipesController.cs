@@ -57,6 +57,26 @@ namespace Menuetti.Controllers
             return View(recipes);
         }
 
+        // GET: Recipes/Details/5
+        public async Task<IActionResult> DetailsCarousel(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var recipes = await _context.Recipes
+                .Include(r => r.User)
+                .Include(r => r.Ingredients)
+                .FirstOrDefaultAsync(m => m.RecipeId == id);
+            if (recipes == null)
+            {
+                return NotFound();
+            }
+            ViewBag.CarouselIngredients = recipes.Ingredients.ToList();
+            return View(recipes);
+        }
+
         // GET: Recipes/Create
         public IActionResult Create()
         {
