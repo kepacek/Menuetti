@@ -1,0 +1,15 @@
+﻿@model Recipes
+
+<p>@Model.RecipeName <img src="~/images/time.png" /> @Model.Time min </p>
+<p>@Model.Portions <img src="~/images/time.png" /></p>
+
+@foreach (var item in Model.Ingredients)
+{
+    <p>
+        @item.AmountG @item.RecipeUnit @item.IngredientName
+    </p>
+}
+<p> @Model.Instructions </p>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
