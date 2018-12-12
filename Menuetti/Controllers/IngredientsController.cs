@@ -39,7 +39,7 @@ namespace Menuetti.Controllers
             }
             catch (Exception)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
         }
@@ -49,7 +49,7 @@ namespace Menuetti.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var ingredients = await _context.Ingredients
@@ -57,7 +57,7 @@ namespace Menuetti.Controllers
                 .FirstOrDefaultAsync(m => m.IngredientId == id);
             if (ingredients == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             if (User.Claims.Count() > 0)
             {
@@ -152,7 +152,7 @@ namespace Menuetti.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             //var ingredient = await _context.Ingredients.FindAsync(id);
@@ -162,7 +162,7 @@ namespace Menuetti.Controllers
             string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             if (ingredient == null || ingredient.Recipe.UserId != UserId)
             {
-                return NotFound();
+                return View("NoPermission");
             }
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName", ingredient.RecipeId);
             ViewBag.Json = new SelectList(LoadJson(), "name.fi", "name.fi");
@@ -192,7 +192,7 @@ namespace Menuetti.Controllers
                 {
                     if (!IngredientsExists(ingredients.IngredientId))
                     {
-                        return NotFound();
+                        return View("NotFound");
                     }
                     else
                     {
@@ -213,7 +213,7 @@ namespace Menuetti.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var ingredient = await _context.Ingredients
@@ -222,7 +222,7 @@ namespace Menuetti.Controllers
             string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             if (ingredient == null || ingredient.Recipe.UserId != UserId)
             {
-                return NotFound();
+                return View("NoPermission");
             }
 
             return View(ingredient);
