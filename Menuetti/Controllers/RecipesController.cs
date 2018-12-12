@@ -42,7 +42,7 @@ namespace Menuetti.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var recipes = await _context.Recipes
@@ -51,7 +51,7 @@ namespace Menuetti.Controllers
                 .FirstOrDefaultAsync(m => m.RecipeId == id);
             if (recipes == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(recipes);
@@ -80,9 +80,16 @@ namespace Menuetti.Controllers
         // GET: Recipes/Create
         public IActionResult Create()
         {
-            //ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
-            ViewData["UserId"] = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            return View();
+            if (User.Claims.Count() == 0)
+            {
+                return View("LoginRequired");
+            }
+            else
+            {
+                //ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+                ViewData["UserId"] = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                return View();
+            }
         }
 
         // POST: Recipes/Create
@@ -92,40 +99,47 @@ namespace Menuetti.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipes, string iname, string submitButton)
         {
+            if (User.Claims.Count() == 0)
+            {
+                return View("NotFound");
+            }
+            else
+            {
 
-            if (User.Claims.Count() > 0)
-            {
-                string userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            }
-            if (ModelState.IsValid & submitButton == "Lisää uusi raaka-aine reseptiin") //Create a new recipe first to get an ID, then move to the CreateToRecipe of that particular ID
-            {
-                if (_context.Users.Find(recipes.UserId) == null)
+                if (User.Claims.Count() > 0)
                 {
-                    Users user = new Users() { UserId = recipes.UserId };
-                    _context.Users.Add(user);
+                    string userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
                 }
-                _context.Add(recipes);
-                await _context.SaveChangesAsync();
-                bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
-                if (showBadge)
-                { return RedirectToAction("Profile", "Account"); }
-                return RedirectToAction("CreateToRecipe", "Ingredients", new { RecipeId = recipes.RecipeId });
-            }
-            else if (ModelState.IsValid & submitButton == "Luo uusi") //Create a new recipe and move to the recipe list Index
-            {
-                if (_context.Users.Find(recipes.UserId) == null)
+                if (ModelState.IsValid & submitButton == "Lisää uusi raaka-aine reseptiin") //Create a new recipe first to get an ID, then move to the CreateToRecipe of that particular ID
                 {
-                    Users user = new Users() { UserId = recipes.UserId };
-                    _context.Users.Add(user);
+                    if (_context.Users.Find(recipes.UserId) == null)
+                    {
+                        Users user = new Users() { UserId = recipes.UserId };
+                        _context.Users.Add(user);
+                    }
+                    _context.Add(recipes);
+                    await _context.SaveChangesAsync();
+                    bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
+                    if (showBadge)
+                    { return RedirectToAction("Profile", "Account"); }
+                    return RedirectToAction("CreateToRecipe", "Ingredients", new { RecipeId = recipes.RecipeId });
                 }
-                _context.Add(recipes);
-                await _context.SaveChangesAsync();
-                bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
-                if (showBadge)
-                { return RedirectToAction("Profile", "Account"); }
-                return RedirectToAction(nameof(Index));
+                else if (ModelState.IsValid & submitButton == "Luo uusi") //Create a new recipe and move to the recipe list Index
+                {
+                    if (_context.Users.Find(recipes.UserId) == null)
+                    {
+                        Users user = new Users() { UserId = recipes.UserId };
+                        _context.Users.Add(user);
+                    }
+                    _context.Add(recipes);
+                    await _context.SaveChangesAsync();
+                    bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
+                    if (showBadge)
+                    { return RedirectToAction("Profile", "Account"); }
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(recipes);
             }
-            return View(recipes);
         }
 
         [NonAction]
@@ -171,21 +185,28 @@ namespace Menuetti.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
-            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            var recipes = await _context.Recipes
-                .Include(r => r.User)
-                .Include(r => r.Ingredients)
-                .FirstOrDefaultAsync(m => m.RecipeId == id && m.UserId == UserId);
-            if (recipes == null)
+            else if (User.Claims.Count() == 0)
             {
-                return NotFound();
+                return View("LoginRequired");
             }
-            
-            ViewBag.UserId = UserId;
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipes.UserId);
-            return View(recipes);
+            else
+            {
+                string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                var recipes = await _context.Recipes
+                    .Include(r => r.User)
+                    .Include(r => r.Ingredients)
+                    .FirstOrDefaultAsync(m => m.RecipeId == id && m.UserId == UserId);
+                if (recipes == null)
+                {
+                    return View("NotFound");
+                }
+
+                ViewBag.UserId = UserId;
+                ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipes.UserId);
+                return View(recipes);
+            }
         }
 
         // POST: Recipes/Edit/5
@@ -197,7 +218,7 @@ namespace Menuetti.Controllers
         {
             if (id != recipes.RecipeId)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (ModelState.IsValid)
@@ -211,7 +232,7 @@ namespace Menuetti.Controllers
                 {
                     if (!RecipesExists(recipes.RecipeId))
                     {
-                        return NotFound();
+                        return View("NotFound");
                     }
                     else
                     {
@@ -229,18 +250,25 @@ namespace Menuetti.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
-            string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            var recipes = await _context.Recipes
-                .Include(r => r.User)
-                .FirstOrDefaultAsync(m => m.RecipeId == id && m.UserId == UserId);
-            if (recipes == null)
+            else if (User.Claims.Count() == 0)
             {
-                return NotFound();
+                return View("LoginRequired");
             }
+            else 
+            {
+                string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                var recipes = await _context.Recipes
+                    .Include(r => r.User)
+                    .FirstOrDefaultAsync(m => m.RecipeId == id && m.UserId == UserId);
+                if (recipes == null)
+                {
+                    return View("NotFound");
+                }
 
-            return View(recipes);
+                return View(recipes);
+            }
         }
 
         // POST: Recipes/Delete/5
