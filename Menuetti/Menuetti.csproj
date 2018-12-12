@@ -34,6 +34,9 @@
     <Content Update="Views\Ingredients\NotFound.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Recipes\UserRecipes.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Recipes\LoginRequired.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

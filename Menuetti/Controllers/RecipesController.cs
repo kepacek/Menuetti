@@ -37,6 +37,36 @@ namespace Menuetti.Controllers
             return View(await menuettiDBContext.ToListAsync());
         }
 
+        // GET: Recipes/UserRecipes
+
+        public async Task<IActionResult> UserRecipes()
+        {
+            string UserId = null;
+            try
+            {
+                if (User.Claims.Count() > 0)
+                {
+                    UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                    ViewBag.UserId = UserId;
+                    var menuettiDBContext = _context.Recipes.Where(r => r.UserId == UserId);
+                    return View(await menuettiDBContext.ToListAsync());
+                }
+                else
+                { return View("LoginRequired"); }
+            }
+            catch (Exception)
+            {
+                return View("NotFound");
+            }
+            //if (User.Claims.Count() > 0)
+            //{
+            //    string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            //    ViewBag.UserId = UserId;
+            //}
+            //var menuettiDBContext = _context.Recipes.Include(r => r.User);
+            //return View(await menuettiDBContext.ToListAsync());
+        }
+
         // GET: Recipes/Details/5
         public async Task<IActionResult> Details(int? id)
         {

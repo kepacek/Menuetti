@@ -163,5 +163,60 @@
         "mass": "1.0"
       }
     ]
+  },
+  {
+    "name": { "fi": "Portobello, sieni" },
+    "id": 100004,
+    "ingredientClass": { "description": { "fi": "Sienet" } },
+    "fiber": "1.5",
+    "salt": "8.14999961853027",
+    "fat": "0.230000004172325",
+    "carbohydrate": "0.300000011920929",
+    "protein": "2.09999990463257",
+    "energyKcal": "15.019828690306463",
+    "saturatedFat": "0.030000003054738",
+    "specialDiets": [ "CHOLFREE", "LACSFREE", "SALTFREE", "LACVEGE", "GLUTFREE", "LACOVEGE", "EGGFREE", "SOYAFREE", "UNSWEET", "NAGLUFRE", "MILKFREE", "VEGAN", "FATFREE" ],
+    "units": [
+      {
+        "description": { "fi": "pieni (kpl)" },
+        "code": "KPL_S",
+        "mass": "5.0"
+      },
+      {
+        "description": { "fi": "keskikokoinen (kpl)" },
+        "code": "KPL_M",
+        "mass": "15.0"
+      },
+      {
+        "description": { "fi": "desilitra" },
+        "code": "DL",
+        "mass": "30.0"
+      },
+      {
+        "description": { "fi": "pieni annos" },
+        "code": "PORTS",
+        "mass": "100.0"
+      },
+      {
+        "description": { "fi": "keskikokoinen annos" },
+        "code": "PORTM",
+        "mass": "200.0"
+      },
+      {
+        "description": { "fi": "iso annos" },
+        "code": "PORTL",
+        "mass": "270.0"
+      },
+      {
+        "description": { "fi": "Annoksen koko, joka vastaa 1000kJ" },
+        "code": "PORT1000KJ",
+        "mass": "1590.58"
+      },
+      {
+        "description": { "fi": "gramma" },
+        "code": "G",
+        "mass": "1.0"
+      }
+    ]
   }
 ]
