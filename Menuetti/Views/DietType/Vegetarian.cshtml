@@ -7,21 +7,27 @@
 <p>Jätä haluamasi vaihtoehdot näkyville. Valitsemalla <img src="~/images/delete.png" /> voit jättää rivin tyhjäksi.</p>
 
 @*First carousel*@
+@*/*first recipe id from the randomly generated list*/*@
 <div id="myCarousel0" class="carousel slide" style="height:70%" data-ride="carousel" data-interval="false">
     <div class="carousel-inner" @*role="listbox" *@>
         <div class="item active" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                 <script>
-                        localStorage.setItem('recipe0', '@Model[0].RecipeId')
+/*setting the currently visible recipe id to local storage for later shopping list creation*/
+                    localStorage.setItem('recipe0', '@Model[0].RecipeId')
                 </script>
-                @{await Html.RenderPartialAsync("_RecipeName", Model[0]);}
+                @*showing the currently visible recipe name to user + calling on click to view the recipe details*@
+                <a role="button" onclick="showDetCarousel(@Model[0].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[0]);} </a>
                 <a class="left carousel-control" href="#myCarousel0" role="button" data-slide="prev" onclick="fnSaveChoiceBack()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
                 <script>
+                    /*setting the previous recipe id to local storage for later shopping list creation and hiding recipe details*/
                     function fnSaveChoiceBack() {
                         localStorage.setItem('recipe0', 0)
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel0" role="button" data-slide="next" onclick="fnSaveChoice()">
@@ -29,23 +35,38 @@
                     <span class="sr-only">Next</span>
                 </a>
                 <script>
+ /*setting the next recipe id to local storage for later shopping list creation and hiding recipe details*/
                     function fnSaveChoice(){
                         localStorage.setItem('recipe0', '@Model[1].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            //hiding by default the recipe details and the toggle function for shoving it
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[0]);}</h5>
+
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
-                @{await Html.RenderPartialAsync("_RecipeName", Model[1]);}
+                <a role="button" onclick="showDetCarousel1(@Model[1].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[1]);} </a>
                 <a class="left carousel-control" href="#myCarousel0" role="button" data-slide="prev" onclick="fnSaveChoiceBack1()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
                 <script>
                     function fnSaveChoiceBack1() {
-                    localStorage.setItem('recipe0', '@Model[0].RecipeId')
+                        localStorage.setItem('recipe0', '@Model[0].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel0" role="button" data-slide="next" onclick="fnSaveChoice1()">
@@ -54,22 +75,35 @@
                 </a>
                 <script>
                     function fnSaveChoice1() {
-                            localStorage.setItem('recipe0', '@Model[2].RecipeId')
+                        localStorage.setItem('recipe0', '@Model[2].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel1(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[1]);}</h5>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
-                @{await Html.RenderPartialAsync("_RecipeName", Model[2]);}
+                <a role="button" onclick="showDetCarousel2(@Model[2].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[2]);}  </a>
                 <a class="left carousel-control" href="#myCarousel0" role="button" data-slide="prev" onclick="fnSaveChoiceBack2()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
                 <script>
                     function fnSaveChoiceBack2() {
-                    localStorage.setItem('recipe0', '@Model[1].RecipeId')
+                        localStorage.setItem('recipe0', '@Model[1].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel0" role="button" data-slide="next" onclick="fnSaveChoice2()">
@@ -79,11 +113,24 @@
                 <script>
                     function fnSaveChoice2() {
                         localStorage.setItem('recipe0', 0)
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel2(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[2]);}</h5>
 
+        @*last item in carousel with no recipe, leaving it blank*@
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
                 <img src="~/images/delete.png" />
@@ -118,7 +165,9 @@
                 <script>
                         localStorage.setItem('recipe1', '@Model[3].RecipeId')
                 </script>
-                @{await Html.RenderPartialAsync("_RecipeName", Model[3]);}
+                <a role="button" onclick="showDetCarousel3(@Model[3].RecipeId)">
+                    @{await Html.RenderPartialAsync("_RecipeName", Model[3]);}
+                </a>
                 <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev" onclick="fnSaveChoiceBack4()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -126,6 +175,7 @@
                 <script>
                     function fnSaveChoiceBack4() {
                         localStorage.setItem('recipe1', 0)
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next" onclick="fnSaveChoice4()">
@@ -135,14 +185,25 @@
                 <script>
                     function fnSaveChoice4(){
                         localStorage.setItem('recipe1', '@Model[4].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel3(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[3]);}</h5>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
-                @{await Html.RenderPartialAsync("_RecipeName", Model[4]);}
+                <a role="button" onclick="showDetCarousel4(@Model[4].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[4]);} </a>
                 <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev" onclick="fnSaveChoiceBack5()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -150,6 +211,7 @@
                 <script>
                     function fnSaveChoiceBack5() {
                         localStorage.setItem('recipe1', '@Model[3].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next" onclick="fnSaveChoice5()">
@@ -159,14 +221,25 @@
                 <script>
                     function fnSaveChoice5(){
                         localStorage.setItem('recipe1', '@Model[5].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel4(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[4]);}</h5>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
-                @{await Html.RenderPartialAsync("_RecipeName", Model[5]);}
+                <a role="button" onclick="showDetCarousel5(@Model[5].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[5]);} </a>
                 <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev" onclick="fnSaveChoiceBack6()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -174,6 +247,7 @@
                 <script>
                     function fnSaveChoiceBack6() {
                         localStorage.setItem('recipe1', '@Model[4].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next" onclick="fnSaveChoice6()">
@@ -183,10 +257,21 @@
                 <script>
                     function fnSaveChoice6() {
                         localStorage.setItem('recipe1', 0)
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel5(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[5]);}</h5>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
@@ -222,7 +307,7 @@
                 <script>
                         localStorage.setItem('recipe2', '@Model[6].RecipeId')
                 </script>
-                @{await Html.RenderPartialAsync("_RecipeName", Model[6]);}
+                <a role="button" onclick="showDetCarousel6(@Model[6].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[6]);} </a>
                 <a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev" onclick="fnSaveChoiceBack8()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -230,6 +315,7 @@
                 <script>
                     function fnSaveChoiceBack8() {
                         localStorage.setItem('recipe2', 0)
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next" onclick="fnSaveChoice8()">
@@ -239,14 +325,25 @@
                 <script>
                     function fnSaveChoice8(){
                         localStorage.setItem('recipe2', '@Model[7].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel6(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[6]);}</h5>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
-                @{await Html.RenderPartialAsync("_RecipeName", Model[7]);}
+                <a role="button" onclick="showDetCarousel7(@Model[7].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[7]);} </a>
                 <a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev" onclick="fnSaveChoiceBack9()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -254,6 +351,7 @@
                 <script>
                     function fnSaveChoiceBack9() {
                         localStorage.setItem('recipe2', '@Model[6].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next" onclick="fnSaveChoice9()">
@@ -263,14 +361,25 @@
                 <script>
                     function fnSaveChoice9(){
                         localStorage.setItem('recipe2', '@Model[8].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel7(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[7]);}</h5>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
-                @{await Html.RenderPartialAsync("_RecipeName", Model[8]);}
+                <a role="button" onclick="showDetCarousel8(@Model[8].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[8]);} </a>
                 <a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev" onclick="fnSaveChoiceBack10()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -278,6 +387,7 @@
                 <script>
                     function fnSaveChoiceBack10() {
                         localStorage.setItem('recipe2', '@Model[7].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next" onclick="fnSaveChoice10()">
@@ -287,10 +397,21 @@
                 <script>
                     function fnSaveChoice10() {
                         localStorage.setItem('recipe2', 0)
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel8(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[8]);}</h5>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
@@ -326,7 +447,7 @@
                 <script>
                         localStorage.setItem('recipe3', '@Model[9].RecipeId')
                 </script>
-                @{await Html.RenderPartialAsync("_RecipeName", Model[9]);}
+                <a role="button" onclick="showDetCarousel9(@Model[9].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[9]);} </a>
                 <a class="left carousel-control" href="#myCarousel3" role="button" data-slide="prev" onclick="fnSaveChoiceBack12()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -334,6 +455,7 @@
                 <script>
                     function fnSaveChoiceBack12() {
                         localStorage.setItem('recipe3', 0)
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel3" role="button" data-slide="next" onclick="fnSaveChoice12()">
@@ -343,14 +465,25 @@
                 <script>
                     function fnSaveChoice12(){
                         localStorage.setItem('recipe3', '@Model[10].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel9(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[9]);}</h5>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
-                @{await Html.RenderPartialAsync("_RecipeName", Model[10]);}
+                <a role="button" onclick="showDetCarousel10(@Model[10].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[10]);} </a>
                 <a class="left carousel-control" href="#myCarousel3" role="button" data-slide="prev" onclick="fnSaveChoiceBack13()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -358,6 +491,7 @@
                 <script>
                     function fnSaveChoiceBack13() {
                         localStorage.setItem('recipe3', '@Model[9].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel3" role="button" data-slide="next" onclick="fnSaveChoice13()">
@@ -367,14 +501,25 @@
                 <script>
                     function fnSaveChoice13(){
                         localStorage.setItem('recipe3', '@Model[11].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel10(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[10]);}</h5>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
-                @{await Html.RenderPartialAsync("_RecipeName", Model[11]);}
+                <a role="button" onclick="showDetCarousel11(@Model[11].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[11]);} </a>
                 <a class="left carousel-control" href="#myCarousel3" role="button" data-slide="prev" onclick="fnSaveChoiceBack14()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -382,6 +527,7 @@
                 <script>
                     function fnSaveChoiceBack14() {
                         localStorage.setItem('recipe3', '@Model[10].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel3" role="button" data-slide="next" onclick="fnSaveChoice14()">
@@ -391,10 +537,21 @@
                 <script>
                     function fnSaveChoice14() {
                         localStorage.setItem('recipe3', 0)
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel11(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[11]);}</h5>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
@@ -422,7 +579,7 @@
     </div>
 </div>
 
-@*Fift carousel*@
+@*Fifth carousel*@
 <div id="myCarousel4" class="carousel slide" style="height:70%" data-ride="carousel" data-interval="false">
     <div class="carousel-inner" @*role="listbox" *@>
         <div class="item active" style="height: 70px; text-align:center">
@@ -430,7 +587,7 @@
                 <script>
                         localStorage.setItem('recipe4', '@Model[12].RecipeId')
                 </script>
-                @{await Html.RenderPartialAsync("_RecipeName", Model[12]);}
+                <a role="button" onclick="showDetCarousel12(@Model[12].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[12]);} </a>
                 <a class="left carousel-control" href="#myCarousel4" role="button" data-slide="prev" onclick="fnSaveChoiceBack16()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -438,6 +595,7 @@
                 <script>
                     function fnSaveChoiceBack16() {
                         localStorage.setItem('recipe4', 0)
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel4" role="button" data-slide="next" onclick="fnSaveChoice16()">
@@ -447,14 +605,25 @@
                 <script>
                     function fnSaveChoice16(){
                         localStorage.setItem('recipe4', '@Model[13].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel12(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[12]);}</h5>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
-                @{await Html.RenderPartialAsync("_RecipeName", Model[13]);}
+                <a role="button" onclick="showDetCarousel13(@Model[13].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[13]);} </a>
                 <a class="left carousel-control" href="#myCarousel4" role="button" data-slide="prev" onclick="fnSaveChoiceBack17()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -462,6 +631,7 @@
                 <script>
                     function fnSaveChoiceBack17() {
                         localStorage.setItem('recipe4', '@Model[12].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel4" role="button" data-slide="next" onclick="fnSaveChoice17()">
@@ -471,14 +641,25 @@
                 <script>
                     function fnSaveChoice17(){
                         localStorage.setItem('recipe4', '@Model[14].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel13(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[13]);}</h5>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
-                @{await Html.RenderPartialAsync("_RecipeName", Model[14]);}
+                <a role="button" onclick="showDetCarousel14(@Model[14].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[14]);} </a>
                 <a class="left carousel-control" href="#myCarousel4" role="button" data-slide="prev" onclick="fnSaveChoiceBack18()">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -486,6 +667,7 @@
                 <script>
                     function fnSaveChoiceBack18() {
                         localStorage.setItem('recipe4', '@Model[13].RecipeId')
+                        $(".DetCarousel").hide();
                     }
                 </script>
                 <a class="right carousel-control" href="#myCarousel4" role="button" data-slide="next" onclick="fnSaveChoice18()">
@@ -495,10 +677,21 @@
                 <script>
                     function fnSaveChoice18() {
                         localStorage.setItem('recipe4', 0)
+                        $(".DetCarousel").hide();
                     }
                 </script>
             </p>
         </div>
+        <script>
+            $(document).ready(function () {
+                $(".DetCarousel").hide();
+            });
+            function showDetCarousel14(modeli) {
+                console.log(modeli)
+                $("#" + modeli).toggle();
+            }
+        </script>
+        <h14>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[14]);}</h14>
 
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
@@ -523,6 +716,7 @@
                 </script>
             </p>
         </div>
+
     </div>
 </div> <br />
 
@@ -554,5 +748,9 @@
         window.location.href = selectedRecipes;
         //window.location.replace(selectedRecipes);
     }
+
+
+
 </script>
+
 
