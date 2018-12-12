@@ -118,7 +118,7 @@
                 </script>
             </p>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
         <script>
             $(document).ready(function () {
                 $(".DetCarousel").hide();
@@ -130,6 +130,7 @@
         </script>
         <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[2]);}</h5>
 
+ @*last item in carousel with no recipe, leaving it blank*@
         <div class="item" style="height: 70px; text-align:center">
             <p class="btntext" style="text-align: center; padding: 1em 0">
                 <img src="~/images/delete.png" />
@@ -164,26 +165,27 @@
                 <script>
                         localStorage.setItem('recipe1', '@Model[3].RecipeId')
                 </script>
-                @{await Html.RenderPartialAsync("_RecipeName", Model[3]);}
-                <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev" onclick="fnSaveChoiceBack4()">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <script>
-                    function fnSaveChoiceBack4() {
-                        localStorage.setItem('recipe1', 0)
-                    }
-                </script>
-                <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next" onclick="fnSaveChoice4()">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-                <script>
+                <a role="button" onclick="showDetCarousel2(@Model[3].RecipeId)">
+                    @{await Html.RenderPartialAsync("_RecipeName", Model[3]);}</a>
+                                <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev" onclick="fnSaveChoiceBack4()">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <script>
+                                    function fnSaveChoiceBack4() {
+                                        localStorage.setItem('recipe1', 0)
+                                    }
+                                </script>
+                                <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next" onclick="fnSaveChoice4()">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                                <script>
                     function fnSaveChoice4(){
                         localStorage.setItem('recipe1', '@Model[4].RecipeId')
                     }
-                </script>
-            </p>
+                                </script>
+</p>
         </div>
 
         <div class="item" style="height: 70px; text-align:center">
