@@ -88,11 +88,24 @@ namespace Menuetti.Controllers
             return View();
         }
 
+        public string AddedIngredients()
+        {
+            using (StreamReader r = new StreamReader("ingredientsAdded.json"))
+            {
+                string addedIngredients = r.ReadToEnd();
+                return addedIngredients;
+            }
+        }
+
         public List<Ingredientti> LoadJson()
         {
             using (StreamReader r = new StreamReader("ingredients.json"))
             {
-                string json = r.ReadToEnd();
+                string ingredients = r.ReadToEnd();
+                string ingredients1 = ingredients.Remove(ingredients.Length-1).ToString();
+                string added = AddedIngredients();
+                string addedIngredients = added.Substring(1).ToString();
+                string json = string.Concat(ingredients1, ",", addedIngredients);
                 List<Ingredientti> items = JsonConvert.DeserializeObject<List<Ingredientti>>(json).OrderBy(t => t.name.fi).ToList();
                 return items;
             }

@@ -200,7 +200,7 @@ namespace Menuetti.Controllers
                     .FirstOrDefaultAsync(m => m.RecipeId == id && m.UserId == UserId);
                 if (recipes == null)
                 {
-                    return View("NotFound");
+                    return View("NoPermission");
                 }
 
                 ViewBag.UserId = UserId;
@@ -264,7 +264,7 @@ namespace Menuetti.Controllers
                     .FirstOrDefaultAsync(m => m.RecipeId == id && m.UserId == UserId);
                 if (recipes == null)
                 {
-                    return View("NotFound");
+                    return View("NoPermission");
                 }
 
                 return View(recipes);

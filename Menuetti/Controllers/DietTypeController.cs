@@ -25,7 +25,9 @@ namespace Menuetti.Controllers
         // diettype/omni
         public async Task<IActionResult> Omni()
         {
-            var recipes = await _context.Recipes.ToListAsync();
+            var recipes = await _context.Recipes
+                            .Include(r => r.Ingredients)
+                            .ToListAsync();
 
             List<Recipes> recipeList = new List<Recipes>();
 
@@ -66,7 +68,9 @@ namespace Menuetti.Controllers
         // diettype/vegetarian
         public async Task<IActionResult> Vegetarian()
         {
-            var recipes = await _context.Recipes.ToListAsync();
+            var recipes = await _context.Recipes
+                .Include(r => r.Ingredients)
+                .ToListAsync();
 
             List<Recipes> recipeList = new List<Recipes>();
 
@@ -106,7 +110,9 @@ namespace Menuetti.Controllers
         // diettype/vegan
         public async Task<IActionResult> Vegan()
         {
-            var recipes = await _context.Recipes.ToListAsync();
+            var recipes = await _context.Recipes
+                .Include(r => r.Ingredients)
+                .ToListAsync();
 
             List<Recipes> recipeList = new List<Recipes>();
 
