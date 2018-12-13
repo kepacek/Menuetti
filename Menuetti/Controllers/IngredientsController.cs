@@ -148,10 +148,10 @@ namespace Menuetti.Controllers
             {
                 ViewBag.UserId = UserId;
             }
-            if (ingredients.Recipe.UserId != UserId)
-            {
-                return View("NoPermission");
-            }
+            //if (ingredients.Recipe.UserId != UserId)
+            //{
+            //    return View("NoPermission");
+            //}
             if (ModelState.IsValid)
             {
                 _context.Add(ingredients);

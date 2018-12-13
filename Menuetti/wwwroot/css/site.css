@@ -59,10 +59,12 @@ body {
     padding-left: 20px;
     font-weight: bold;
     font-size: 17px;
+    color: black;
 }
 
     .btntext:link {
         text-decoration: none;
+        color: black;
     }
 
     .btntext:hover {
