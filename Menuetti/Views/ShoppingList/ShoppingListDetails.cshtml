@@ -1,12 +1,9 @@
 ﻿@using System.Globalization;
 
-
 @{
     ViewData["Title"] = "ShoppingListDetails";
     CultureInfo ci = new CultureInfo("en-US");
 }
-
-
 <div class="container">
     <h2>Valitsemasi menut:</h2>
     @foreach (var item in ViewBag.Recipes)
@@ -29,97 +26,69 @@
                 </tr>
             </thead>
             <tbody>
-           
-            @foreach (var item in ViewBag.List)
-            {
-
-                <tr>
-                    <td>
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </td>
-
-                    <td>@item.Key</td>
-                    <td>
-                        @foreach (var a in @ViewBag.jsoni)
-                        {
-                            if (item.Key == a.name.fi && item.Value != null)
+                @foreach (var item in ViewBag.List)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </td>
+                        <td>@item.Key</td>
+                        <td>
+                            @foreach (var a in @ViewBag.jsoni)
                             {
-                                var conversion = string.Join("", ((IEnumerable<dynamic>)a.units).Select(m => m.mass).First()); ;
-
-                                var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
-
-                                <p>@((Convert.ToDouble(item.Value) / double.Parse(conversion, ci)).ToString("f1"))  </p>
-
-
+                                if (item.Key == a.name.fi && item.Value != null)
+                                {
+                                    var conversion = string.Join("", ((IEnumerable<dynamic>)a.units).Select(m => m.mass).First()); ;
+                                    var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
+                                    <p>@((Convert.ToDouble(item.Value) / double.Parse(conversion, ci)).ToString("f1"))  </p>
+                                }
                             }
-
-
-                        }
-                    </td>
-                    <td>
-                        @foreach (var a in @ViewBag.jsoni)
-                        {
-                            if (item.Key == a.name.fi && item.Value != null)
+                        </td>
+                        <td>
+                            @foreach (var a in @ViewBag.jsoni)
                             {
-
-                                var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
-
-                                <p>@unitti</p>
-
+                                if (item.Key == a.name.fi && item.Value != null)
+                                {
+                                    var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
+                                    <p>@unitti</p>
+                                }
                             }
-
-
-                        }
-                    </td>
-
-                    <td>
-                        @if (item.Value != null)
-                        {
-                            string g = "g";
-                            @item.Value;
-                            g.ToString();
-                        }
-
-
-                    </td>
-
-
-
-
-
-
-
-                    
-                </tr>
-            }
+                        </td>
+                        <td>
+                            @if (item.Value != null)
+                            {
+                                string g = "g";
+                                @item.Value;
+                                g.ToString();
+                            }
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
 </div>
 
 <style>
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
 
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-}
-
-.container .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
 </style>
-
-
