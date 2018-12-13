@@ -12,7 +12,7 @@
     @foreach (var item in ViewBag.Recipes)
     {
         <tr>
-            <td><a href="http://localhost:62500/Recipes/Details/@item.RecipeId">@item.RecipeName</a></td>
+            <td><a id="ostos" href="http://localhost:62500/Recipes/Details/@item.RecipeId">@item.RecipeName</a></td>
         </tr>
         <br />
     }
