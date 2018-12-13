@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Menuetti.Models.Recipes>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Omat reseptit</h2>
+
+<p>
+    <a asp-controller="Recipes" asp-action="Create" button class="btn btn-default btn-md btn">Luo uusi resepti</a>  <a asp-controller="Recipes" asp-action="Index" button class="btn btn-default btn-md btn">Näytä kaikki reseptit</a>
+</p>
+<table class="table">
+    <thead @*style="position: fixed; width: 100%" *@>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.RecipeName)*@
+                Reseptin nimi
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Portions)
+                    Annoksia
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Instructions)
+                    Valmistusohje
+                </th>*@
+            <th>
+                @*@Html.DisplayNameFor(model => model.Time)*@
+                Valmistusaika (min)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.DietType)*@
+                Ruokavalio
+            </th>
+            @*<th>
+                    Html.DisplayNameFor(model => model.User)
+                    Käyttäjä
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td></td></tr>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecipeName)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Portions)
+                </td>
+                <td width="300px">
+                    @Html.DisplayFor(modelItem => item.Instructions)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DietType)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.User.UserId)
+                </td>*@
+            <td>
+                <a asp-action="Details" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px">Tiedot</a>
+                <a asp-action="Edit" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px">Muokkaa</a>
+                <a asp-action="Delete" asp-route-id="@item.RecipeId" class="btn btn-default">Poista </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,222 @@
+[
+  {
+    "name": { "fi": "Limetti" },
+    "id": 100001,
+    "ingredientClass": { "description": { "fi": "Sitrushedelmät" } },
+    "fiber": "2.8",
+    "salt": "2.0",
+    "fat": "0.2",
+    "carbohydrate": "10.5",
+    "protein": "0.7",
+    "energyKcal": "30.0",
+    "energy": "128",
+    "alcohol": "0.0",
+    "sugar": "10.5",
+    "saturatedFat": "0.03",
+    "organicAcids": "4.5",
+    "sugarAlcohol": "0.0",
+    "specialDiets": [ "CHOLFREE", "LOWPROT", "LACSFREE", "SALTFREE", "LACVEGE", "GLUTFREE", "LACOVEGE", "EGGFREE", "SOYAFREE", "UNSWEET", "NAGLUFRE", "MILKFREE", "VEGAN", "FATFREE" ],
+    "units": [
+      {
+        "description": { "fi": "keskikokoinen annos" },
+        "code": "PORTM",
+        "mass": "65.0"
+      },
+      {
+        "description": { "fi": "iso annos" },
+        "code": "PORTL",
+        "mass": "100.0"
+      },
+      {
+        "description": { "fi": "pieni (kpl)" },
+        "code": "KPL_M",
+        "mass": "40.0"
+      },
+      {
+        "description": { "fi": "keskikokoinen (kpl)" },
+        "code": "KPL_M",
+        "mass": "60.0"
+      },
+      {
+        "description": { "fi": "iso (kpl)" },
+        "code": "KPL_L",
+        "mass": "80.0"
+      },
+      {
+        "description": { "fi": "pieni annos" },
+        "code": "PORTS",
+        "mass": "30.0"
+      },
+      {
+        "description": { "fi": "Annoksen koko, joka vastaa 1000kJ" },
+        "code": "PORT1000KJ",
+        "mass": "725"
+      },
+      {
+        "description": { "fi": "gramma" },
+        "code": "G",
+        "mass": "1.0"
+      }
+    ]
+  },
+  {
+    "name": { "fi": "Chili, punainen" },
+    "id": 100002,
+    "ingredientClass": { "description": { "fi": "Vihanneshedelmät" } },
+    "fiber": "1.5",
+    "salt": "17.8400001525879",
+    "fat": "0.200000002980232",
+    "carbohydrate": "7.96000003814697",
+    "protein": "2.0",
+    "energyKcal": "45.085766453414635",
+    "saturatedFat": "0.0189999993890524",
+    "specialDiets": [ "CHOLFREE", "LOWPROT", "LACSFREE", "SALTFREE", "LACVEGE", "GLUTFREE", "LACOVEGE", "EGGFREE", "SOYAFREE", "UNSWEET", "NAGLUFRE", "MILKFREE", "VEGAN", "FATFREE" ],
+    "units": [
+      {
+        "description": { "fi": "keskikokoinen (kpl)" },
+        "code": "KPL_M",
+        "mass": "10.0"
+      },
+      {
+        "description": { "fi": "pieni annos" },
+        "code": "PORTS",
+        "mass": "1.0"
+      },
+      {
+        "description": { "fi": "keskikokoinen annos" },
+        "code": "PORTM",
+        "mass": "3.0"
+      },
+      {
+        "description": { "fi": "iso annos" },
+        "code": "PORTL",
+        "mass": "10.0"
+      },
+      {
+        "description": { "fi": "Annoksen koko, joka vastaa 1000kJ" },
+        "code": "PORT1000KJ",
+        "mass": "529.89"
+      },
+      {
+        "description": { "fi": "gramma" },
+        "code": "G",
+        "mass": "1.0"
+      }
+    ]
+  },
+  {
+    "name": { "fi": "Currytahna, tulinen" },
+    "id": 100003,
+    "ingredientClass": { "description": { "fi": "Maustekastikkeet" } },
+    "fiber": "0.662999982617795",
+    "salt": "11838.23062296",
+    "fat": "15.1145005965903",
+    "carbohydrate": "9.79680000800341",
+    "protein": "3.59999990463257",
+    "energyKcal": "189.29906875440486",
+    "saturatedFat": "2.82135473255357",
+    "specialDiets": [ "LACVEGE", "GLUTFREE", "LACOVEGE", "MILKFREE", "VEGAN" ],
+    "units": [
+      {
+        "description": { "fi": "desilitra" },
+        "code": "DL",
+        "mass": "100.0"
+      },
+      {
+        "description": { "fi": "ruokalusikka" },
+        "code": "RKL",
+        "mass": "15.0"
+      },
+      {
+        "description": { "fi": "teelusikka" },
+        "code": "TL",
+        "mass": "5.0"
+      },
+      {
+        "description": { "fi": "Valmistaja (kpl)" },
+        "code": "KPL_VALM",
+        "mass": "400.0"
+      },
+      {
+        "description": { "fi": "pieni annos" },
+        "code": "PORTS",
+        "mass": "5.0"
+      },
+      {
+        "description": { "fi": "keskikokoinen annos" },
+        "code": "PORTM",
+        "mass": "15.0"
+      },
+      {
+        "description": { "fi": "iso annos" },
+        "code": "PORTL",
+        "mass": "30.0"
+      },
+      {
+        "description": { "fi": "Annoksen koko, joka vastaa 1000kJ" },
+        "code": "PORT1000KJ",
+        "mass": "126.2"
+      },
+      {
+        "description": { "fi": "gramma" },
+        "code": "G",
+        "mass": "1.0"
+      }
+    ]
+  },
+  {
+    "name": { "fi": "Portobello, sieni" },
+    "id": 100004,
+    "ingredientClass": { "description": { "fi": "Sienet" } },
+    "fiber": "1.5",
+    "salt": "8.14999961853027",
+    "fat": "0.230000004172325",
+    "carbohydrate": "0.300000011920929",
+    "protein": "2.09999990463257",
+    "energyKcal": "15.019828690306463",
+    "saturatedFat": "0.030000003054738",
+    "specialDiets": [ "CHOLFREE", "LACSFREE", "SALTFREE", "LACVEGE", "GLUTFREE", "LACOVEGE", "EGGFREE", "SOYAFREE", "UNSWEET", "NAGLUFRE", "MILKFREE", "VEGAN", "FATFREE" ],
+    "units": [
+      {
+        "description": { "fi": "pieni (kpl)" },
+        "code": "KPL_S",
+        "mass": "5.0"
+      },
+      {
+        "description": { "fi": "keskikokoinen (kpl)" },
+        "code": "KPL_M",
+        "mass": "15.0"
+      },
+      {
+        "description": { "fi": "desilitra" },
+        "code": "DL",
+        "mass": "30.0"
+      },
+      {
+        "description": { "fi": "pieni annos" },
+        "code": "PORTS",
+        "mass": "100.0"
+      },
+      {
+        "description": { "fi": "keskikokoinen annos" },
+        "code": "PORTM",
+        "mass": "200.0"
+      },
+      {
+        "description": { "fi": "iso annos" },
+        "code": "PORTL",
+        "mass": "270.0"
+      },
+      {
+        "description": { "fi": "Annoksen koko, joka vastaa 1000kJ" },
+        "code": "PORT1000KJ",
+        "mass": "1590.58"
+      },
+      {
+        "description": { "fi": "gramma" },
+        "code": "G",
+        "mass": "1.0"
+      }
+    ]
+  }
+]
