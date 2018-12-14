@@ -6,6 +6,8 @@
 @section Scripts
     {
     <script>
+        // Function for the carousel swipe
+        // Bootstrap Carousel Swipe jQuery plugin v1.1 | https://github.com/maaaaark/bcSwipe | MIT License
         (function ($) {
             $.fn.bcSwipe = function (settings) {
                 var config = { threshold: null };
@@ -57,7 +59,7 @@
         })(jQuery);
 
         $(document).ready(function () {
-            // DOM ladattu
+            // DOM loaded - jQuery works
             $('.carousel').bcSwipe({ threshold: null });
         })
     </script>
@@ -65,7 +67,7 @@
 <h2>Sekaruokavalio</h2>
 
 <div>Kuinka monta reseptiä haluat?</div>
-<nav aria-label="Page navigation example">
+<nav>
     <ul class="pagination">
         <li>
             @for (int i = 1; i < 6; i++)
@@ -77,25 +79,35 @@
     </ul>
 </nav>
 
+<div>Reseptejä: @(nro * 3)</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <div class="col-md-4">
     <!--Carousel-->
-    <div id="sidebar-carousel-1" class="carousel slide" data-ride="carousel">
+    <div id="sidebar-carousel-1" class="carousel slide" data-ride="carousel" data-interval="false">
         <ol class="carousel-indicators grey">
             <li data-target="#sidebar-carousel-1" data-slide-to="0" class="active"></li>
             <li data-target="#sidebar-carousel-1" data-slide-to="1"></li>
             <li data-target="#sidebar-carousel-1" data-slide-to="2"></li>
         </ol>
-        <div class="carousel-inner">            
+    @if(Model[0].RecipeName != null)
+    {
+        <div class="carousel-inner">
             <div class="item active">
                 @Model[0].RecipeName
             </div>
-            <div class="item">
-                @Model[1].RecipeName
-            </div>
-            <div class="item">
-                @Model[2].RecipeName
-            </div>
+            @for (int i = 1; i < 3; i++)
+            {
+                <div class="item">
+                    @Model[i].RecipeName
+                </div>
+            }
         </div>
+    }
         <!-- Controls -->
         <a class="left carousel-control" href="#sidebar-carousel-1" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left"></span>
