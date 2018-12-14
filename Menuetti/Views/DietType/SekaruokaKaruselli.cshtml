@@ -5,6 +5,7 @@
     var nroOfRecipesPerCarousel = 3;
     var nroOfRecipeOptions = nroOfRecipes * nroOfRecipesPerCarousel;
     var index = 0;
+    var indexOfPartial = 0;
 }
 @section Scripts
     {
@@ -92,19 +93,22 @@
             <div class="carousel-inner">
                 <div class="item active" style="height: 7em; text-align:center">
                     <p class="btntext" style="text-align: center; height:50%; padding: 1em 0">
-                        @*<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAABkCAMAAAAL3/3yAAAAA1BMVEUAAACnej3aAAAANElEQVR4nO3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfgx1lAABqFDyOQAAAABJRU5ErkJggg==" />*@
-                        @Model[index].RecipeName<br />
-                        <img src="~/images/time.png" /> <small>@Model[index].Time min</small>
+                        @*@Model[index].RecipeName<br />*@
+                        @*<img src="~/images/time.png" /> <small>@Model[index].Time min</small>*@
+                        <a role="button" onclick="showDetCarousel(@Model[index].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[index]);} </a>
                     </p>
+                    <script>localStorage.setItem('recipe(@index)', @Model[index].RecipeId)</script>
                 </div>
+
                 @for (int i = 1; i < nroOfRecipesPerCarousel; i++)
                 {
                     <div class="item" style="height: 7em; text-align:center">
                         <p class="btntext" style="text-align: center; padding: 1em 0">
-                            @*<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAABkCAMAAAAL3/3yAAAAA1BMVEUAAACnej3aAAAANElEQVR4nO3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfgx1lAABqFDyOQAAAABJRU5ErkJggg==" />*@
-                            @Model[(i + index)].RecipeName<br />
-                            <img src="~/images/time.png" /> <small>@Model[(i + index)].Time min</small>
+                            @*@Model[(i + index)].RecipeName<br />*@
+                            @*<img src="~/images/time.png" /> <small>@Model[(i + index)].Time min</small>*@
+                            <a role="button" onclick="showDetCarousel(@Model[(i + index)].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[(i + index)]);} </a>
                         </p>
+                        <script>localStorage.setItem('recipe(@(i + index))', @Model[(i + index)].RecipeId)</script>
                     </div>
                 }
                 <script>@(index+=nroOfRecipesPerCarousel);</script>
@@ -117,6 +121,13 @@
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
         </div><!--/Carousel-->
+
+        @while (indexOfPartial < index)
+        {
+            <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[indexOfPartial]);}</h5>
+            indexOfPartial++;
+        }
+
     </div>
 }
 
