@@ -1,0 +1,108 @@
+﻿@model List<Recipes>
+@{
+    ViewData["Title"] = "Omni";
+    var nro = ViewBag.amountOfRecipes;
+}
+@section Scripts
+    {
+    <script>
+        (function ($) {
+            $.fn.bcSwipe = function (settings) {
+                var config = { threshold: null };
+                if (settings) {
+                    $.extend(config, settings);
+                }
+
+                this.each(function () {
+                    var stillMoving = false;
+                    var start;
+
+                    if ('ontouchstart' in document.documentElement) {
+                        this.addEventListener('touchstart', onTouchStart, false);
+                    }
+
+                    function onTouchStart(e) {
+                        if (e.touches.length == 1) {
+                            start = e.touches[0].pageX;
+                            stillMoving = true;
+                            this.addEventListener('touchmove', onTouchMove, false);
+                        }
+                    }
+
+                    function onTouchMove(e) {
+                        if (stillMoving) {
+                            var x = e.touches[0].pageX;
+                            var difference = start - x;
+                            if (Math.abs(difference) >= config.threshold) {
+                                cancelTouch();
+                                if (difference > 0) {
+                                    $(this).carousel('next');
+                                }
+                                else {
+                                    $(this).carousel('prev');
+                                }
+                            }
+                        }
+                    }
+
+                    function cancelTouch() {
+                        this.removeEventListener('touchmove', onTouchMove);
+                        start = null;
+                        stillMoving = false;
+                    }
+                });
+
+                return this;
+            };
+        })(jQuery);
+
+        $(document).ready(function () {
+            // DOM ladattu
+            $('.carousel').bcSwipe({ threshold: null });
+        })
+    </script>
+}
+<h2>Sekaruokavalio</h2>
+
+<div>Kuinka monta reseptiä haluat?</div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li>
+            @for (int i = 1; i < 6; i++)
+            {
+                string number = i.ToString();
+                @Html.ActionLink(number, "SekaruokaKaruselli", "DietType", new { id = number }, null)
+            }
+        </li>
+    </ul>
+</nav>
+
+<div class="col-md-4">
+    <!--Carousel-->
+    <div id="sidebar-carousel-1" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators grey">
+            <li data-target="#sidebar-carousel-1" data-slide-to="0" class="active"></li>
+            <li data-target="#sidebar-carousel-1" data-slide-to="1"></li>
+            <li data-target="#sidebar-carousel-1" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">            
+            <div class="item active">
+                @Model[0].RecipeName
+            </div>
+            <div class="item">
+                @Model[1].RecipeName
+            </div>
+            <div class="item">
+                @Model[2].RecipeName
+            </div>
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#sidebar-carousel-1" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#sidebar-carousel-1" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div><!--/Carousel-->
+</div>
+

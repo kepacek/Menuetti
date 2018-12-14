@@ -142,6 +142,11 @@ namespace Menuetti
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "Carousel",
+                    template: "DietType/SekaruokaKaruselli/{id?}",
+                    defaults: new { Controller = "DietType", Action = "SekaruokaKaruselli" });
+
+                routes.MapRoute(
                     name: "ShoppingList",
                     template: "ShoppingList/ShoppingListDetails/{id1}/{id2}/{id3}/{id4}/{id5}",
                     defaults: new { Controller = "ShoppingList", Action = "ShoppingListDetails" });
@@ -149,7 +154,6 @@ namespace Menuetti
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
             });
         }
 
