@@ -154,7 +154,7 @@ namespace Menuetti.Controllers
                     { return RedirectToAction("Profile", "Account"); }
                     return RedirectToAction("CreateToRecipe", "Ingredients", new { RecipeId = recipes.RecipeId });
                 }
-                else if (ModelState.IsValid & submitButton == "Luo uusi") //Create a new recipe and move to the recipe list Index
+                else if (ModelState.IsValid & submitButton == "Tallenna resepti") //Create a new recipe and move to the recipe list Index
                 {
                     if (_context.Users.Find(recipes.UserId) == null)
                     {
