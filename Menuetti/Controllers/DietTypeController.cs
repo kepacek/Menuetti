@@ -67,9 +67,11 @@ namespace Menuetti.Controllers
         // diettype/SekaruokaKaruselli/3
         public async Task<IActionResult> SekaruokaKaruselli(int id = 3)
         {
+            if (id > 5)
+                id = 5;
+
             // 3 recipes per slider
             int amountOfRecipesNeeded = id * 3;
-
 
             // get random amount of recipes + their ingredients from the db
             var recipeAmountInDb = _context.Recipes.Count();
