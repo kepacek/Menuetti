@@ -1,7 +1,10 @@
 ﻿@model List<Recipes>
 @{
     ViewData["Title"] = "Omni";
-    var nro = ViewBag.amountOfRecipes;
+    var nroOfRecipes = ViewBag.amountOfRecipes;
+    var nroOfRecipesPerCarousel = 3;
+    var nroOfRecipeOptions = nroOfRecipes * nroOfRecipesPerCarousel;
+    var index = 0;
 }
 @section Scripts
     {
@@ -79,42 +82,86 @@
     </ul>
 </nav>
 
-<div>Reseptejä: @(nro * 3)</div>
+<div>Erilaisia reseptejä: @nroOfRecipeOptions</div>
 <br />
 <br />
 <br />
 <br />
 <br />
 <br />
-<div class="col-md-4">
-    <!--Carousel-->
-    <div id="sidebar-carousel-1" class="carousel slide" data-ride="carousel" data-interval="false">
-        <ol class="carousel-indicators grey">
-            <li data-target="#sidebar-carousel-1" data-slide-to="0" class="active"></li>
-            <li data-target="#sidebar-carousel-1" data-slide-to="1"></li>
-            <li data-target="#sidebar-carousel-1" data-slide-to="2"></li>
-        </ol>
-    @if(Model[0].RecipeName != null)
-    {
-        <div class="carousel-inner">
-            <div class="item active">
-                @Model[0].RecipeName
-            </div>
-            @for (int i = 1; i < 3; i++)
-            {
-                <div class="item">
-                    @Model[i].RecipeName
+@for (int j = 1; j <= nroOfRecipes; j++)
+{
+    <div class="col-md-4">
+        <!--Carousel-->
+        <div id="sidebar-carousel-@j" class="carousel slide" data-ride="carousel" data-interval="false">
+            <ol class="carousel-indicators grey">
+                <li data-target="#sidebar-carousel-@j" data-slide-to="0" class="active"></li>
+                <li data-target="#sidebar-carousel-@j" data-slide-to="1"></li>
+                <li data-target="#sidebar-carousel-@j" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    @Model[index].RecipeName
                 </div>
-            }
-        </div>
-    }
-        <!-- Controls -->
-        <a class="left carousel-control" href="#sidebar-carousel-1" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="right carousel-control" href="#sidebar-carousel-1" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-    </div><!--/Carousel-->
-</div>
+                @for (int i = 1; i < nroOfRecipesPerCarousel; i++)
+                {
+                    <div class="item">
+                        @Model[(i + index)].RecipeName
+                    </div>
+                }
+                <script>@(index+=nroOfRecipesPerCarousel);</script>
+            </div>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#sidebar-carousel-@j" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#sidebar-carousel-@j" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div><!--/Carousel-->
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+}
+@*<div class="col-md-4">
+        <!--Carousel-->
+        <div id="sidebar-carousel-2" class="carousel slide" data-ride="carousel" data-interval="false">
+            <ol class="carousel-indicators grey">
+                <li data-target="#sidebar-carousel-2" data-slide-to="0" class="active"></li>
+                <li data-target="#sidebar-carousel-2" data-slide-to="1"></li>
+                <li data-target="#sidebar-carousel-2" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    @Model[0].RecipeName
+                </div>
+                @for (int i = 1; i < 3; i++)
+                {
+                    <div class="item">
+                        @Model[i].RecipeName
+                    </div>
+                }
+            </div>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#sidebar-carousel-2" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#sidebar-carousel-2" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div><!--/Carousel-->
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />*@
+
 
