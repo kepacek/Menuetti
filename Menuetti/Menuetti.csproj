@@ -25,6 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\DietType\SekaruokaKaruselli.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Ingredients\CreateToRecipe.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
