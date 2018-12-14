@@ -80,7 +80,7 @@ function getRecipesData() {
     var selRecipe3 = localStorage.getItem("recipe3")
     var selRecipe4 = localStorage.getItem("recipe4")
 
-    var selectedRecipes = "https://menuetti.azurewebsites.net/shoppinglist/shoppinglistdetails/"
+    var selectedRecipes = "../shoppinglist/shoppinglistdetails/"
         + selRecipe0
         + "/" + selRecipe1
         + "/" + selRecipe2
