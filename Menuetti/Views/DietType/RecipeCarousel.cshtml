@@ -1,11 +1,12 @@
 ﻿@model List<Recipes>
 @{
     ViewData["Title"] = ViewBag.dietType;
-    var nroOfRecipes = ViewBag.amountOfRecipes;
-    var nroOfRecipesPerCarousel = 3;
-    var nroOfRecipeOptions = nroOfRecipes * nroOfRecipesPerCarousel;
-    var indexOfFirstCarouselItem = 0;
-    var indexOfPartialView = 0;
+    int nroOfRecipes = ViewBag.amountOfRecipes;
+    int nroOfRecipesPerCarousel = 3;
+    int nroOfRecipeOptions = nroOfRecipes * nroOfRecipesPerCarousel;
+    int indexOfFirstCarouselItem = 0;
+    int indexOfPartialView = 0;
+    string action = ViewBag.dietUrl;
 }
 @section Scripts
     {
@@ -81,7 +82,7 @@
             @for (int i = 1; i < 6; i++)
             {
                 string number = i.ToString();
-                @Html.ActionLink(number, "RecipeCarousel", "DietType", new { id = number }, null)
+                @Html.ActionLink(number, action, "DietType", new { id = number }, null)
             }
         </li>
     </ul>

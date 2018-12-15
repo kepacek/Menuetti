@@ -99,13 +99,23 @@ namespace Menuetti.Controllers
             } // Could this be done faster?
 
             ViewBag.dietType = "Omni";
+            ViewBag.dietUrl = "RecipeCarousel";
             ViewBag.amountOfRecipes = id;
             return View(recipesAndIncredients);
         }
 
         // diettype/vegetarian
-        public async Task<IActionResult> Vegetarian()
+        public async Task<IActionResult> Vegetarian(int id = 3)
         {
+            // Defining the carousel "settings"
+            int maxAmountOfRecipes = 5;
+
+            if (id > maxAmountOfRecipes)
+                id = maxAmountOfRecipes;
+
+            if (id < 1)
+                id = 3;
+
             var recipes = await _context.Recipes
                 .Include(r => r.Ingredients)
                 .ToListAsync();
@@ -143,13 +153,24 @@ namespace Menuetti.Controllers
             //}
 
             ViewBag.dietType = "Kasvis";
-            ViewBag.amountOfRecipes = 3;
+            ViewBag.dietUrl = "Vegetarian";
+            ViewBag.amountOfRecipes = id;
             return View("RecipeCarousel", recipeList);
         }
 
         // diettype/vegan
-        public async Task<IActionResult> Vegan()
+        public async Task<IActionResult> Vegan(int id = 3)
         {
+            // Defining the carousel "settings"
+            int maxAmountOfRecipes = 4;
+            // THE MAX AMOUNT IS 4 SINCE WE DO NOT HAVE ENOUGH VEGAN RECIPES AND WE DO NOT WANT IT TO CRASH! 
+
+            if (id > maxAmountOfRecipes)
+                id = maxAmountOfRecipes;
+
+            if (id < 1)
+                id = 3;
+
             var recipes = await _context.Recipes
                 .Include(r => r.Ingredients)
                 .ToListAsync();
@@ -192,7 +213,8 @@ namespace Menuetti.Controllers
             //}
 
             ViewBag.dietType = "Vegaani";
-            ViewBag.amountOfRecipes = 3;
+            ViewBag.dietUrl = "Vegan";
+            ViewBag.amountOfRecipes = id;
             return View("RecipeCarousel", recipeList);
         }
     }
