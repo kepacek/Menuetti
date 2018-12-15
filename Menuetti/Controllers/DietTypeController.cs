@@ -97,7 +97,8 @@ namespace Menuetti.Controllers
 
                 recipesAndIncredients.Add(recipe);
             } // Could this be done faster?
-            
+
+            ViewBag.dietType = "Omni";
             ViewBag.amountOfRecipes = id;
             return View(recipesAndIncredients);
         }
@@ -141,6 +142,7 @@ namespace Menuetti.Controllers
             //    }
             //}
 
+            ViewBag.dietType = "Kasvis";
             ViewBag.amountOfRecipes = 3;
             return View("RecipeCarousel", recipeList);
         }
@@ -189,7 +191,9 @@ namespace Menuetti.Controllers
             //    }
             //}
 
-            return View(recipeList);
+            ViewBag.dietType = "Vegaani";
+            ViewBag.amountOfRecipes = 3;
+            return View("RecipeCarousel", recipeList);
         }
     }
 }
