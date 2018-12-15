@@ -166,96 +166,27 @@ namespace Menuetti.Controllers
 
         }
 
-        //GET: ShoppingList/ForRecipes/id1/id2/...
-        public async Task<IActionResult> ForRecipes(int id1, int id2, int id3, int id4, int id5)
+        //GET: ShoppingList/Recipes/id1/id2/...
+        public async Task<IActionResult> Recipes(int id1, int id2, int id3, int id4, int id5)
         {
-            List<Recipes> rlist = new List<Recipes>();
+            //List<Recipes> rlist = new List<Recipes>();
             List<Ingredientti> jsonidata = LoadJsoni();
 
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
-            //setting values for id - id4
-            //Recipes recipe0 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id1);
-            //Recipes recipe1 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id2);
-            //Recipes recipe2 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id3);
-            //Recipes recipe3 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id4);
-
-            Recipes recipe0;
-            if (id1 != 0)
-            {
-                recipe0 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id1);
-            }
-            else
-            { recipe0 = null; };
-
-            Recipes recipe1;
-            if (id2 != 0)
-            {
-                recipe1 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id2);
-            }
-            else
-            { recipe1 = null; };
-
-            Recipes recipe2;
-            if (id3 != 0)
-            {
-                recipe2 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id3);
-            }
-            else
-            { recipe2 = null; };
-
-            Recipes recipe3;
-            if (id4 != 0)
-            {
-                recipe3 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id4);
-            }
-            else
-            { recipe3 = null; };
-
-
-            Recipes recipe4;
-            if (id5 != 0)
-            {
-                recipe4 = await _context.Recipes.Include("Ingredients").SingleAsync(r => r.RecipeId == id5);
-            }
-            else
-            { recipe4 = null; };
-
-
-            //rlist.Add(recipe0);
-            //rlist.Add(recipe1);
-            //rlist.Add(recipe2);
-            //rlist.Add(recipe3);
-
-            if (id1 != 0)
-            {
-                rlist.Add(recipe0);
-            };
-
-            if (id2 != 0)
-            {
-                rlist.Add(recipe1);
-            };
-
-            if (id3 != 0)
-            {
-                rlist.Add(recipe2);
-            };
-
-            if (id4 != 0)
-            {
-                rlist.Add(recipe3);
-            };
-
-            if (id5 != 0)
-            {
-                rlist.Add(recipe4);
-            };
-
+            // getting the ingredients from the db for each id
+            var allRecipesAndIncredients = await _context.Recipes
+                    .Where(r => r.RecipeId.Equals(id1)
+                        || r.RecipeId.Equals(id2)
+                        || r.RecipeId.Equals(id3)
+                        || r.RecipeId.Equals(id4)
+                        || r.RecipeId.Equals(id5))                        
+                    .Include(r => r.Ingredients)
+                    .ToListAsync();
 
             Dictionary<string, int?> shoppings = new Dictionary<string, int?>();
 
-            foreach (var r in rlist)
+            foreach (var r in allRecipesAndIncredients)
             {
 
                 foreach (var ing in r.Ingredients)
@@ -284,12 +215,10 @@ namespace Menuetti.Controllers
                 }
             }
             ViewBag.List = shoppings;
-            ViewBag.Recipes = rlist;
+            ViewBag.Recipes = allRecipesAndIncredients;
             ViewBag.jsoni = jsonidata;
 
-
-            return View();
-
+            return View("ShoppingListDetails");
         }
 
         // GET: ShoppingList/Create

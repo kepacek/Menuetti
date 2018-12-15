@@ -68,7 +68,9 @@
         })
     </script>
 }
-<script>localStorage.clear();</script>
+<script>
+    localStorage.clear();
+</script>
 
 <h2>Sekaruokavalio</h2>
 
@@ -95,10 +97,8 @@
                 @*<--First item on the carousel (visible right away)-->*@
                 <div class="item active" id="@Model[indexOfFirstCarouselItem].RecipeId" style="height: 7em; text-align:center">
                     <p class="btntext" style="text-align: center; height:50%; padding: 1em 0">
-                        <a role="button" onclick="showDetCarousel(@Model[indexOfFirstCarouselItem].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[indexOfFirstCarouselItem]);} </a>
+                        <a role="button" onclick="showTheCarousel(@Model[indexOfFirstCarouselItem].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[indexOfFirstCarouselItem]);} </a>
                     </p>
-                   @* <script>localStorage.setItem('recipe@(indexOfFirstCarouselItem)', @Model[indexOfFirstCarouselItem].RecipeId)</script>*@
-                    @*<script>localStorage.setItem('selected@(indexOfFirstCarouselItem)', @Model[indexOfFirstCarouselItem].RecipeId)</script>*@
                 </div>
 
                 @*<--Other items on the carousel (visible when clicking right or left)-->*@
@@ -106,34 +106,29 @@
                 {
                     <div class="item" id="@Model[(i + indexOfFirstCarouselItem)].RecipeId" style="height: 7em; text-align:center">
                         <p class="btntext" style="text-align: center; padding: 1em 0">
-                            <a role="button" onclick="showDetCarousel(@Model[(i + indexOfFirstCarouselItem)].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[(i + indexOfFirstCarouselItem)]);} </a>
+                            <a role="button" onclick="showTheCarousel(@Model[(i + indexOfFirstCarouselItem)].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[(i + indexOfFirstCarouselItem)]);} </a>
                         </p>
-                        @*<script>localStorage.setItem('recipe@(i + indexOfFirstCarouselItem)', @Model[(i + indexOfFirstCarouselItem)].RecipeId)</script>*@
                     </div>
                 }
                 <script>@(indexOfFirstCarouselItem += nroOfRecipesPerCarousel);</script>
             </div>
 
             @*<!-- Controls -->*@
-            <a class="left carousel-control" href="#sidebar-carousel-@j" data-slide="prev">
+            <a class="left carousel-control" href="#sidebar-carousel-@j" data-slide="prev" onclick="closeTheCarousels()">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
-            <a class="right carousel-control" href="#sidebar-carousel-@j" data-slide="next">
+            <a class="right carousel-control" href="#sidebar-carousel-@j" data-slide="next" onclick="closeTheCarousels()">
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
-            @*<script>
-                    function clickRight() {
-                        var item = localStorage.getItem('selected@(j))');
-                        localStorage.setItem('selected@(j)', item + 'x');
-                    }
-                </script>*@
         </div>
 
         @*<--This creates a partial view for the recipe under the relevant carousel-->*@
         @while (indexOfPartialView < indexOfFirstCarouselItem)
         {
             <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[indexOfPartialView]);}</h5>
+
             indexOfPartialView++;
+            
         }
 
     </div>
@@ -143,14 +138,5 @@
         <button type="submit" class="btn btn-default btn-lg btn-block" onclick=sendToShoppinglist()><img src="~/images/checklist.png" alt="Checklist" style="padding-right: 9%;" /><span class="btntext">Luo ostoslista</span><span class="glyphicon glyphicon-menu-right" style="padding-left: 9%;"></span></button>
     </p>
 </div>
-@*<script>
-    function send() {
-        var actives = document.getElementsByClassName("item active");
-        console.dir(actives);
-        for (var i = 0; i < actives.length; i++) {
-            console.log(actives[i].id);
-        }
-    }
-</script>*@
 
 

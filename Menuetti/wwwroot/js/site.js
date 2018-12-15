@@ -12,65 +12,80 @@ function fnSaveChoiceBack() {
 $(document).ready(function () {
     $(".DetCarousel").hide();
 });
+
+// Essi's - it is with THE
+function showTheCarousel(modeli) {
+    console.log(modeli)
+    $("#recipe-" + modeli).toggle();
+}
+function closeTheCarousels() {
+    var selectedRecipes = document.getElementsByClassName("item active");
+
+    for (let i = 0; i < selectedRecipes.length; i++) {
+        //console.log("closing " + selectedRecipes[i].id);
+        $("#recipe-" + selectedRecipes[i].id).hide();
+    }
+}
+
 function showDetCarousel(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel1(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel2(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel3(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel4(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel5(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel6(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel7(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel8(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel9(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel10(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel11(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel12(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel13(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 function showDetCarousel14(modeli) {
     console.log(modeli)
-    $("#" + modeli).toggle();
+    $("#recipe-" + modeli).toggle();
 }
 
 function getRecipesData() {
@@ -97,24 +112,23 @@ function getRecipesData() {
 function sendToShoppinglist() {
 
     var selectedRecipes = document.getElementsByClassName("item active");
-    //console.dir(selectedRecipes);
+    console.dir(selectedRecipes);
 
-    var recipeIdsListed = [];
-    
-    for (var i = 0; i < selectedRecipes.length; i++) {
+    let recipeIdsListed = [];
+
+    for (let i = 0; i < selectedRecipes.length; i++) {
         console.log(selectedRecipes[i].id);
         recipeIdsListed.push(selectedRecipes[i].id)
     }
 
     //console.log(recipeIdsListed);
 
-    var urlParameters = "/shoppinglist/shoppinglistdetails/";
+    let urlParameters = "/shoppinglist/recipes/";
 
-    for (var i = 0; i < recipeIdsListed.length; i++) {
+    for (let i = 0; i < recipeIdsListed.length; i++) {
         urlParameters += (recipeIdsListed[i].toString() + "/");
     }
 
-    //urlParameters += "0/0/";
     console.log(urlParameters);
 
     window.location.href = urlParameters;
