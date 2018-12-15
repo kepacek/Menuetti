@@ -72,7 +72,7 @@
     localStorage.clear();
 </script>
 
-<h2>Sekaruokavalio</h2>
+<h2>Ruokavalio: @ViewData["Title"]</h2>
 
 <div>Kuinka monta reseptiä haluat?</div>
 <nav>
@@ -81,7 +81,7 @@
             @for (int i = 1; i < 6; i++)
             {
                 string number = i.ToString();
-                @Html.ActionLink(number, "SekaruokaKaruselli", "DietType", new { id = number }, null)
+                @Html.ActionLink(number, "RecipeCarousel", "DietType", new { id = number }, null)
             }
         </li>
     </ul>

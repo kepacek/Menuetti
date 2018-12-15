@@ -64,8 +64,8 @@ namespace Menuetti.Controllers
         }
 
 
-        // diettype/SekaruokaKaruselli/3
-        public async Task<IActionResult> SekaruokaKaruselli(int id = 3)
+        // diettype/RecipeCarousel/3
+        public async Task<IActionResult> RecipeCarousel(int id = 3)
         {
             // Defining the carousel "settings"
             int maxAmountOfRecipes = 5;
@@ -141,7 +141,8 @@ namespace Menuetti.Controllers
             //    }
             //}
 
-            return View(recipeList);
+            ViewBag.amountOfRecipes = 3;
+            return View("RecipeCarousel", recipeList);
         }
 
         // diettype/vegan

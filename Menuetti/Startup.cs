@@ -143,7 +143,7 @@ namespace Menuetti
             {
                 routes.MapRoute(
                     name: "Carousel",
-                    template: "DietType/SekaruokaKaruselli/{id?}",
+                    template: "DietType/RecipeCarousel/{id?}",
                     defaults: new { Controller = "DietType", Action = "SekaruokaKaruselli" });
 
                 routes.MapRoute(
