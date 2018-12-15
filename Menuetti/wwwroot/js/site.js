@@ -93,3 +93,29 @@ function getRecipesData() {
     window.location.href = selectedRecipes;
     //window.location.replace(selectedRecipes);
 }
+
+function sendToShoppinglist() {
+
+    var selectedRecipes = document.getElementsByClassName("item active");
+    //console.dir(selectedRecipes);
+
+    var recipeIdsListed = [];
+    
+    for (var i = 0; i < selectedRecipes.length; i++) {
+        console.log(selectedRecipes[i].id);
+        recipeIdsListed.push(selectedRecipes[i].id)
+    }
+
+    //console.log(recipeIdsListed);
+
+    var urlParameters = "/shoppinglist/shoppinglistdetails/";
+
+    for (var i = 0; i < recipeIdsListed.length; i++) {
+        urlParameters += (recipeIdsListed[i].toString() + "/");
+    }
+
+    //urlParameters += "0/0/";
+    console.log(urlParameters);
+
+    window.location.href = urlParameters;
+}
