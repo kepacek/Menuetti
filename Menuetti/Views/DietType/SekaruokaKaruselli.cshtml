@@ -68,6 +68,8 @@
         })
     </script>
 }
+<script>localStorage.clear();</script>
+
 <h2>Sekaruokavalio</h2>
 
 <div>Kuinka monta reseptiä haluat?</div>
@@ -95,7 +97,7 @@
                     <p class="btntext" style="text-align: center; height:50%; padding: 1em 0">
                         <a role="button" onclick="showDetCarousel(@Model[indexOfFirstCarouselItem].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[indexOfFirstCarouselItem]);} </a>
                     </p>
-                    <script>localStorage.setItem('recipe(@indexOfFirstCarouselItem)', @Model[indexOfFirstCarouselItem].RecipeId)</script>
+                    <script>localStorage.setItem('recipe@(indexOfFirstCarouselItem)', @Model[indexOfFirstCarouselItem].RecipeId)</script>
                 </div>
 
                 @*<--Other items on the carousel (visible when clicking right or left)-->*@
@@ -105,7 +107,7 @@
                         <p class="btntext" style="text-align: center; padding: 1em 0">
                             <a role="button" onclick="showDetCarousel(@Model[(i + indexOfFirstCarouselItem)].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[(i + indexOfFirstCarouselItem)]);} </a>
                         </p>
-                        <script>localStorage.setItem('recipe(@(i + indexOfFirstCarouselItem))', @Model[(i + indexOfFirstCarouselItem)].RecipeId)</script>
+                        <script>localStorage.setItem('recipe@(i + indexOfFirstCarouselItem)', @Model[(i + indexOfFirstCarouselItem)].RecipeId)</script>
                     </div>
                 }
                 <script>@(indexOfFirstCarouselItem += nroOfRecipesPerCarousel);</script>

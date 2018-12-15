@@ -73,6 +73,10 @@ namespace Menuetti.Controllers
 
             if (id > maxAmountOfRecipes)
                 id = maxAmountOfRecipes;
+
+            if (id < 1)
+                id = 3;
+
             int amountOfRecipesNeeded = id * recipesPerCarousel;
 
             // get random amount of recipes + their ingredients from the db
