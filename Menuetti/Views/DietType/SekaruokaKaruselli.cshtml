@@ -4,8 +4,8 @@
     var nroOfRecipes = ViewBag.amountOfRecipes;
     var nroOfRecipesPerCarousel = 3;
     var nroOfRecipeOptions = nroOfRecipes * nroOfRecipesPerCarousel;
-    var index = 0;
-    var indexOfPartial = 0;
+    var indexOfFirstCarouselItem = 0;
+    var indexOfPartialView = 0;
 }
 @section Scripts
     {
@@ -83,49 +83,48 @@
     </ul>
 </nav>
 
-@*<div>Erilaisia reseptejä: @nroOfRecipeOptions</div>*@
-
 @for (int j = 1; j <= nroOfRecipes; j++)
 {
     <div class="col-md-4">
-        <!--Carousel-->
+        @*<--Carousel. The program creates as many carousels as the user wants to get recipes--?*@
         <div id="sidebar-carousel-@j" style="height:70%" class="carousel slide" data-ride="carousel" data-interval="false">
             <div class="carousel-inner">
+
+                @*<--First item on the carousel (visible right away)-->*@
                 <div class="item active" style="height: 7em; text-align:center">
                     <p class="btntext" style="text-align: center; height:50%; padding: 1em 0">
-                        @*@Model[index].RecipeName<br />*@
-                        @*<img src="~/images/time.png" /> <small>@Model[index].Time min</small>*@
-                        <a role="button" onclick="showDetCarousel(@Model[index].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[index]);} </a>
+                        <a role="button" onclick="showDetCarousel(@Model[indexOfFirstCarouselItem].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[indexOfFirstCarouselItem]);} </a>
                     </p>
-                    <script>localStorage.setItem('recipe(@index)', @Model[index].RecipeId)</script>
+                    <script>localStorage.setItem('recipe(@indexOfFirstCarouselItem)', @Model[indexOfFirstCarouselItem].RecipeId)</script>
                 </div>
 
+                @*<--Other items on the carousel (visible when clicking right or left)-->*@
                 @for (int i = 1; i < nroOfRecipesPerCarousel; i++)
                 {
                     <div class="item" style="height: 7em; text-align:center">
                         <p class="btntext" style="text-align: center; padding: 1em 0">
-                            @*@Model[(i + index)].RecipeName<br />*@
-                            @*<img src="~/images/time.png" /> <small>@Model[(i + index)].Time min</small>*@
-                            <a role="button" onclick="showDetCarousel(@Model[(i + index)].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[(i + index)]);} </a>
+                            <a role="button" onclick="showDetCarousel(@Model[(i + indexOfFirstCarouselItem)].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[(i + indexOfFirstCarouselItem)]);} </a>
                         </p>
-                        <script>localStorage.setItem('recipe(@(i + index))', @Model[(i + index)].RecipeId)</script>
+                        <script>localStorage.setItem('recipe(@(i + indexOfFirstCarouselItem))', @Model[(i + indexOfFirstCarouselItem)].RecipeId)</script>
                     </div>
                 }
-                <script>@(index+=nroOfRecipesPerCarousel);</script>
+                <script>@(indexOfFirstCarouselItem += nroOfRecipesPerCarousel);</script>
             </div>
-            <!-- Controls -->
+
+            @*<!-- Controls -->*@
             <a class="left carousel-control" href="#sidebar-carousel-@j" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
             <a class="right carousel-control" href="#sidebar-carousel-@j" data-slide="next">
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
-        </div><!--/Carousel-->
+        </div>
 
-        @while (indexOfPartial < index)
+        @*<--This creates a partial view for the recipe under the relevant carousel-->*@
+        @while (indexOfPartialView < indexOfFirstCarouselItem)
         {
-            <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[indexOfPartial]);}</h5>
-            indexOfPartial++;
+            <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[indexOfPartialView]);}</h5>
+            indexOfPartialView++;
         }
 
     </div>

@@ -67,11 +67,13 @@ namespace Menuetti.Controllers
         // diettype/SekaruokaKaruselli/3
         public async Task<IActionResult> SekaruokaKaruselli(int id = 3)
         {
-            if (id > 5)
-                id = 5;
+            // Defining the carousel "settings"
+            int maxAmountOfRecipes = 5;
+            int recipesPerCarousel = 3;
 
-            // 3 recipes per slider
-            int amountOfRecipesNeeded = id * 3;
+            if (id > maxAmountOfRecipes)
+                id = maxAmountOfRecipes;
+            int amountOfRecipesNeeded = id * recipesPerCarousel;
 
             // get random amount of recipes + their ingredients from the db
             var recipeAmountInDb = _context.Recipes.Count();
@@ -91,15 +93,7 @@ namespace Menuetti.Controllers
 
                 recipesAndIncredients.Add(recipe);
             } // Could this be done faster?
-
-            //var order = await _context.Recipes
-            //    .Include(r => r.Ingredients)
-            //    .Select(recipe => new { recipe, recipe.Ingredients })
-            //    .OrderBy(x => rnd.Next())
-            //    .Take(amountOfRecipes)
-            //    .ToListAsync();          
-            // This does not work because the view needs a List<Recipe> and this is an anonymous list...
-
+            
             ViewBag.amountOfRecipes = id;
             return View(recipesAndIncredients);
         }
