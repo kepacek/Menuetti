@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Luo uusi resepti";
+    var ingredients = ViewBag.Json;
 }
 
 <h2>Luo uusi</h2>
@@ -9,47 +10,44 @@
 <h4>Resepti</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                @*<label type="hidden" asp-for="UserId" class="control-label">Käyttäjä</label>*@
-                <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId" />
-            </div>
-            <div class="form-group">
-                <label asp-for="RecipeName" class="control-label">Reseptin nimi</label>
-                <input asp-for="RecipeName" required autofocus class="form-control" />
-                <span asp-validation-for="RecipeName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Portions" class="control-label">Annoksia</label>
-                <input asp-for="Portions" class="form-control" />
-                <span asp-validation-for="Portions" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Time" class="control-label">Valmistusaika (min)</label>
-                <input asp-for="Time" class="form-control" />
-                <span asp-validation-for="Time" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" button class="btn btn-default btn-md btn" name="submitButton" value="Lisää uusi raaka-aine reseptiin"><br /> @*Create a new recipe, move to "create a new ingredient"*@
-            </div>
-            <div class="form-group">
-                <label asp-for="DietType" class="control-label">Ruokavalio</label>
-                <select asp-for="DietType" class="form-control"><option disabled selected>--- Valitse ---</option><option>Sekaruoka</option><option>Kasvis</option><option>Vegaaninen</option></select>
-                <span asp-validation-for="DietType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Instructions" class="control-label">Valmistusohje</label>
-                @Html.TextAreaFor(m => m.Instructions, 15, 600, new { @class = "form-control" })
-                @*<input asp-for="Instructions" class="form-control" />*@
-                <span asp-validation-for="Instructions" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" name="submitButton" value="Tallenna resepti" class="btn btn-default" /> @*Create a new recipe, move to the recipe list*@
-            </div>
-        </form>
-    </div>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            @*<label type="hidden" asp-for="UserId" class="control-label">Käyttäjä</label>*@
+            <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId" />
+        </div>
+        <div class="form-group">
+            <label asp-for="RecipeName" class="control-label">Reseptin nimi</label>
+            <input asp-for="RecipeName" required autofocus class="form-control" />
+            <span asp-validation-for="RecipeName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Portions" class="control-label">Annoksia</label>
+            <input asp-for="Portions" class="form-control" />
+            <span asp-validation-for="Portions" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Time" class="control-label">Valmistusaika (min)</label>
+            <input asp-for="Time" class="form-control" />
+            <span asp-validation-for="Time" class="text-danger"></span>
+        </div>
+        <p class="form-group" style="text-align: center; height:50%">
+            <div role="textbox"> @{await Html.RenderPartialAsync("_AddIngredient", Model);} </div>
+        </p>
+        <div class="form-group">
+            <label asp-for="DietType" class="control-label">Ruokavalio</label>
+            <select asp-for="DietType" class="form-control"><option disabled selected>--- Valitse ---</option><option>Sekaruoka</option><option>Kasvis</option><option>Vegaaninen</option></select>
+            <span asp-validation-for="DietType" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Instructions" class="control-label">Valmistusohje</label>
+            @Html.TextAreaFor(m => m.Instructions, 15, 600, new { @class = "form-control" })
+            <span asp-validation-for="Instructions" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" name="submitButton" value="Tallenna resepti" class="btn btn-default" /> @*Create a new recipe, move to the recipe list*@
+        </div>
+    </form>
 </div>
 
 <div>

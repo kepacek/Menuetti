@@ -116,9 +116,31 @@ namespace Menuetti.Controllers
             }
             else
             {
+                List<Ingredientti> items = new List<Ingredientti>();
+
+                using (StreamReader r = new StreamReader("ingredients.json"))
+                {
+                    string ingredients = r.ReadToEnd(); // Read ingredients.json
+                    string ingredientsEdited = ingredients.Remove(ingredients.Length - 1).ToString(); // Remove the final "]" from the ingredients.json file to prepare the string for concatenation
+                    string json = string.Concat(ingredientsEdited, ",", AddedIngredients().Substring(1).ToString()); // Concatenate the above ingredients-string with a "," and an addedIngredients string with the initial "[" removed
+                    items = JsonConvert.DeserializeObject<List<Ingredientti>>(json).OrderBy(t => t.name.fi).ToList(); // Create a list of ingredients and added sorted alphabetically by the name
+                }
+                SelectList JsonLista = new SelectList(items, "name.fi", "name.fi");
+                ViewBag.Json = JsonLista;
+
                 //ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+                //SelectList JsonLista = new SelectList(LoadJson(), "name.fi", "name.fi");
                 ViewData["UserId"] = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
                 return View();
+            }
+        }
+        public string AddedIngredients()
+        {
+            // Create a string from the non-Fineli API ingredients located in the ingredientsAdded.json file
+            using (StreamReader r = new StreamReader("ingredientsAdded.json"))
+            {
+                string addedIngredients = r.ReadToEnd();
+                return addedIngredients;
             }
         }
 
