@@ -77,16 +77,27 @@
 
 <div>Kuinka monta reseptiä haluat?</div>
 <nav>
-    <ul class="pagination">
-        <li>
-            @for (int i = 1; i < 6; i++)
+    <ul class="pagination pagination-lg" style="margin: 0 0 0 0">
+        @for (int i = 1; i < 6; i++)
+        {
+            string number = i.ToString();
+            if (i == nroOfRecipes)
             {
-                string number = i.ToString();
-                @Html.ActionLink(number, action, "DietType", new { id = number }, null)
+                <li class="page-item active">
+                    @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item active" })
+                </li>
             }
-        </li>
+            else
+            {
+                <li class="page-item disabled">
+                    @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item disabled" })
+                </li>
+            }
+        }
     </ul>
 </nav>
+<hr style="margin-top:0px" />
+
 
 @for (int j = 1; j <= nroOfRecipes; j++)
 {
@@ -134,7 +145,7 @@
 
         }
     </div>
-    <hr style="margin-top:0px"/>
+    <hr style="margin-top:0px" />
 }
 <div>
     <p>
