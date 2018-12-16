@@ -128,7 +128,7 @@
         @*<--This creates a partial view for the recipe under the relevant carousel-->*@
         @while (indexOfPartialView < indexOfFirstCarouselItem)
         {
-            <h5>@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[indexOfPartialView]);}</h5>
+            <div id="details-@Model[indexOfPartialView]">@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[indexOfPartialView]);}</div>
 
             indexOfPartialView++;
 
