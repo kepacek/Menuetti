@@ -20,7 +20,7 @@ body {
     width: 100%;
 }
 .carousel-control {
-    color: black;
+    color: #333333;
     opacity: inherit;
     background-image: none !important;
 }
