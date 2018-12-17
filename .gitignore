@@ -262,3 +262,6 @@ __pycache__/
 *./appsettings.Development.json
 *./appsettings.json
 Menuetti/appsettings.json
+
+# Essi's helper file
+Menuetti/Models/Extensions.cs

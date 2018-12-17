@@ -48,9 +48,9 @@ body {
     padding-bottom: 15px;
 }
 .btntext {
-    padding-left: 20px;
+    /*padding-left: 20px;*/
     font-weight: bold;
-    font-size: 17px;
+    font-size: 1em;
     color: black;
 }
     .btntext:link {

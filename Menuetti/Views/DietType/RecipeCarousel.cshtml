@@ -1,0 +1,156 @@
+﻿@model List<Recipes>
+@{
+    ViewData["Title"] = ViewBag.dietType;
+    int nroOfRecipes = ViewBag.amountOfRecipes;
+    int nroOfRecipesPerCarousel = 3;
+    int nroOfRecipeOptions = nroOfRecipes * nroOfRecipesPerCarousel;
+    int indexOfFirstCarouselItem = 0;
+    int indexOfPartialView = 0;
+    string action = ViewBag.dietUrl;
+}
+@section Scripts
+    {
+    <script>
+        // Function for the carousel swipe
+        // Bootstrap Carousel Swipe jQuery plugin v1.1 | https://github.com/maaaaark/bcSwipe | MIT License
+        (function ($) {
+            $.fn.bcSwipe = function (settings) {
+                var config = { threshold: null };
+                if (settings) {
+                    $.extend(config, settings);
+                }
+
+                this.each(function () {
+                    var stillMoving = false;
+                    var start;
+
+                    if ('ontouchstart' in document.documentElement) {
+                        this.addEventListener('touchstart', onTouchStart, false);
+                    }
+
+                    function onTouchStart(e) {
+                        if (e.touches.length == 1) {
+                            start = e.touches[0].pageX;
+                            stillMoving = true;
+                            this.addEventListener('touchmove', onTouchMove, false);
+                        }
+                    }
+
+                    function onTouchMove(e) {
+                        if (stillMoving) {
+                            var x = e.touches[0].pageX;
+                            var difference = start - x;
+                            if (Math.abs(difference) >= config.threshold) {
+                                cancelTouch();
+                                if (difference > 0) {
+                                    $(this).carousel('next');
+                                }
+                                else {
+                                    $(this).carousel('prev');
+                                }
+                            }
+                        }
+                    }
+
+                    function cancelTouch() {
+                        this.removeEventListener('touchmove', onTouchMove);
+                        start = null;
+                        stillMoving = false;
+                    }
+                });
+
+                return this;
+            };
+        })(jQuery);
+
+        $(document).ready(function () {
+            // DOM loaded - jQuery works
+            $('.carousel').bcSwipe({ threshold: null });
+        })
+    </script>
+}
+<script>
+    localStorage.clear();
+</script>
+
+<h2>Ruokavalio: @ViewBag.dietType</h2>
+
+<div>Kuinka monta reseptiä haluat?</div>
+<nav>
+    <ul class="pagination pagination-lg" style="margin: 0 0 0 0">
+        @for (int i = 1; i < 6; i++)
+        {
+            string number = i.ToString();
+            if (i == nroOfRecipes)
+            {
+                <li class="page-item active">
+                    @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item active" })
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled">
+                    @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item disabled" })
+                </li>
+            }
+        }
+    </ul>
+</nav>
+<hr style="margin-top:0px" />
+
+
+@for (int j = 1; j <= nroOfRecipes; j++)
+{
+    <div class="container-fluid">
+        @*<--Carousel. The program creates as many carousels as the user wants to get recipes--?*@
+        <div id="sidebar-carousel-@j" style="height:70%; align-content:center" class="carousel slide" data-ride="carousel" data-interval="false">
+            <div class="carousel-inner">
+
+                @*<--First item on the carousel (visible right away)-->*@
+                <div class="item active" id="@Model[indexOfFirstCarouselItem].RecipeId" style="height: 5.5em; text-align:center">
+                    <p class="btntext" style="text-align: center; height:50%">
+                        <a role="button" onclick="showTheCarousel(@Model[indexOfFirstCarouselItem].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[indexOfFirstCarouselItem]);} </a>
+                    </p>
+                    <script>localStorage.setItem('recipe/@(indexOfFirstCarouselItem)', '@Model[indexOfFirstCarouselItem].RecipeName')</script>
+                </div>
+
+                @*<--Other items on the carousel (visible when clicking right or left)-->*@
+                @for (int i = 1; i < nroOfRecipesPerCarousel; i++)
+                {
+                    <div class="item" id="@Model[(i + indexOfFirstCarouselItem)].RecipeId" style="height: 5.5em; text-align:center">
+                        <p class="btntext" style="text-align: center">
+                            <a role="button" onclick="showTheCarousel(@Model[(i + indexOfFirstCarouselItem)].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[(i + indexOfFirstCarouselItem)]);} </a>
+                        </p>
+                        <script>localStorage.setItem('recipe/@(i + indexOfFirstCarouselItem)', '@Model[(i + indexOfFirstCarouselItem)].RecipeName')</script>
+                    </div>
+                }
+                <script>@(indexOfFirstCarouselItem += nroOfRecipesPerCarousel);</script>
+            </div>
+
+            @*<!-- Controls -->*@
+            <a class="left carousel-control" href="#sidebar-carousel-@j" data-slide="prev" onclick="closeTheCarousels()">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#sidebar-carousel-@j" data-slide="next" onclick="closeTheCarousels()">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+        @*<--This creates a partial view for the recipe under the relevant carousel-->*@
+        @while (indexOfPartialView < indexOfFirstCarouselItem)
+        {
+            <div id="details-@Model[indexOfPartialView]">@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[indexOfPartialView]);}</div>
+
+            indexOfPartialView++;
+
+        }
+    </div>
+    <hr style="margin-top:0px" />
+}
+<div>
+    <p>
+        <button type="submit" class="btn btn-default btn-lg btn-block" onclick=sendToShoppinglist()><img src="~/images/checklist.png" alt="Checklist" style="padding-right: 9%;" /><span class="btntext">Luo ostoslista</span><span class="glyphicon glyphicon-menu-right" style="padding-left: 9%;"></span></button>
+    </p>
+</div>
+
+

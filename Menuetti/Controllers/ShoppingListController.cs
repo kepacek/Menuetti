@@ -166,6 +166,61 @@ namespace Menuetti.Controllers
 
         }
 
+        //GET: ShoppingList/Recipes/id1/id2/...
+        public async Task<IActionResult> Recipes(int id1, int id2, int id3, int id4, int id5)
+        {
+            //List<Recipes> rlist = new List<Recipes>();
+            List<Ingredientti> jsonidata = LoadJsoni();
+
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+
+            // getting the ingredients from the db for each id
+            var allRecipesAndIncredients = await _context.Recipes
+                    .Where(r => r.RecipeId.Equals(id1)
+                        || r.RecipeId.Equals(id2)
+                        || r.RecipeId.Equals(id3)
+                        || r.RecipeId.Equals(id4)
+                        || r.RecipeId.Equals(id5))                        
+                    .Include(r => r.Ingredients)
+                    .ToListAsync();
+
+            Dictionary<string, int?> shoppings = new Dictionary<string, int?>();
+
+            foreach (var r in allRecipesAndIncredients)
+            {
+
+                foreach (var ing in r.Ingredients)
+                {
+                    string Key = ing.IngredientName;
+                    int? Value;
+                    if (shoppings.ContainsKey(ing.IngredientName))
+                    {
+                        if (ing.AmountG == null)
+                        {
+                            Value = 0;
+                            shoppings[Key] += Value;
+                        }
+                        else
+                        {
+                            Value = ing.AmountG;
+                            shoppings[Key] += Value;
+                        }
+                    }
+                    else
+                    {
+                        Value = ing.AmountG;
+                        shoppings.Add(Key, Value);
+                    }
+
+                }
+            }
+            ViewBag.List = shoppings;
+            ViewBag.Recipes = allRecipesAndIncredients;
+            ViewBag.jsoni = jsonidata;
+
+            return View("ShoppingListDetails");
+        }
+
         // GET: ShoppingList/Create
         public ActionResult Create()
         {
