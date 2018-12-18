@@ -110,6 +110,26 @@ namespace Menuetti.Controllers
             return View(recipes);
         }
 
+        // GET: Recipes/DetailsShoppinglist/5
+        public async Task<IActionResult> DetailsShoppinglist(int? id)
+        {
+            if (id == null)
+            {
+                return View("NotFound");
+            }
+
+            var recipes = await _context.Recipes
+                .Include(r => r.User)
+                .Include(r => r.Ingredients)
+                .FirstOrDefaultAsync(m => m.RecipeId == id);
+            if (recipes == null)
+            {
+                return View("NotFound");
+            }
+
+            return View(recipes);
+        }
+
         // GET: Recipes/Create
         public IActionResult Create()
         {

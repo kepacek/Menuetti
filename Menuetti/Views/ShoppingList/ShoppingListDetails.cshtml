@@ -9,7 +9,7 @@
     @foreach (var item in ViewBag.Recipes)
     {
         <tr>
-            <td><a asp-controller="Recipes" asp-action="Details" asp-route-id="@item.RecipeId">@item.RecipeName</a></td>
+            <td><a asp-controller="Recipes" asp-action="DetailsShoppinglist" asp-route-id="@item.RecipeId">@item.RecipeName</a></td>
         </tr>
         <br />
     }

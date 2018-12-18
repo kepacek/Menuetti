@@ -40,6 +40,9 @@
             </form>
         </div>
     </div>
+    <div>
+        <a asp-controller="Recipes" asp-action="Edit" asp-route-id="@ViewBag.RecipeNumber" button class="btn btn-default btn-md btn">Takaisin</a>
+    </div>
     <script>
     function redirect(event) {
         event.preventDefault();

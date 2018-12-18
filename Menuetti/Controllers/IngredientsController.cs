@@ -83,6 +83,7 @@ namespace Menuetti.Controllers
         {
             var rec = _context.Recipes.Find(RecipeId);
             ViewBag.RecipeName = rec.RecipeName;
+            ViewBag.RecipeNumber = rec.RecipeId;
             ViewData["RecipeId"] = new SelectList(_context.Recipes, "RecipeId", "RecipeName");
             SelectList JsonLista = new SelectList(LoadJson(), "name.fi", "name.fi");
             ViewBag.Json = JsonLista;
@@ -160,7 +161,9 @@ namespace Menuetti.Controllers
             }
             Recipes recipes = new Recipes();
             string recipe = recipes.RecipeName;
+            string recipenumber = recipes.RecipeId.ToString();
             ViewBag.RecipeName = recipe;
+            ViewBag.RecipeNumber = recipenumber;
             ViewData["RecipeId"] = new SelectList(_context.Recipes.Where(r => r.UserId == UserId), "RecipeId", "Instructions", ingredients.RecipeId);
 
             return View(ingredients);

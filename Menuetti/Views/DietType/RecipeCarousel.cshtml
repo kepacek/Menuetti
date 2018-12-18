@@ -73,7 +73,7 @@
     localStorage.clear();
 </script>
 
-<h2>Ruokavalio: @ViewBag.dietType</h2>
+<h2>@(ViewBag.dietType)ruokavalio</h2>
 
 <div>Kuinka monta reseptiä haluat?</div>
 <nav>
@@ -89,8 +89,8 @@
             }
             else
             {
-                <li class="page-item disabled">
-                    @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item disabled" })
+                <li class="page-item">
+                    @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item" })
                 </li>
             }
         }

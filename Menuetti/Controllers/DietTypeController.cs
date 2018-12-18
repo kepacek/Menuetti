@@ -10,72 +10,26 @@ namespace Menuetti.Controllers
 {
     public class DietTypeController : Controller
     {
+        // Carousel "settings"
+        static int maxAmountOfRecipes = 5; // max amount of recipes the user can request. Static until we have enough vegan recipes and we can make it const.
+        const int recipesPerCarousel = 3; // how many recipes will be displayed per carousel
+        const int defaultNumberOfRecipes = 3; // how many recipe carousels you will get if you haven't chosen the number
+
+        public DietTypeController(MenuettiDBContext context) { _context = context; }
+        private readonly MenuettiDBContext _context;
+
         public IActionResult Index()
         {
             return View();
         }
 
-        private readonly MenuettiDBContext _context;
-
-        public DietTypeController(MenuettiDBContext context)
+        // diettype/Omni/3
+        public async Task<IActionResult> Omni(int id = 3)
         {
-            _context = context;
-        }
-
-        // diettype/omni
-        public async Task<IActionResult> Omni()
-        {
-            var recipes = await _context.Recipes
-                            .Include(r => r.Ingredients)
-                            .ToListAsync();
-
-            List<Recipes> recipeList = new List<Recipes>();
-
-            foreach (var item in recipes)
-            {
-                recipeList.Add(item);
-            }
-            Random rng = new Random();
-            int n = recipeList.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = rng.Next(n + 1);
-                Recipes value = recipeList[k];
-                recipeList[k] = recipeList[n];
-                recipeList[n] = value;
-            }
-
-            //Random rnd = new Random();
-
-            //foreach (var item in recipes)
-            //{
-            //    int index = rnd.Next(recipes.Count);
-            //    recipeList.Add(recipes[index]);
-            //}
-            //for (int i = 0; i < 100; i++)
-            //{
-            //    int index = rnd.Next(recipes.Count);
-            //    recipeList.Add(recipes[index].RecipeName);
-            //}
-
-
-            return View(recipeList);
-        }
-
-
-        // diettype/RecipeCarousel/3
-        public async Task<IActionResult> RecipeCarousel(int id = 3)
-        {
-            // Defining the carousel "settings"
-            int maxAmountOfRecipes = 5;
-            int recipesPerCarousel = 3;
-
             if (id > maxAmountOfRecipes)
                 id = maxAmountOfRecipes;
-
-            if (id < 1)
-                id = 3;
+            else if (id < 1)
+                id = defaultNumberOfRecipes;
 
             int amountOfRecipesNeeded = id * recipesPerCarousel;
 
@@ -96,126 +50,79 @@ namespace Menuetti.Controllers
                     .FirstOrDefaultAsync();
 
                 recipesAndIncredients.Add(recipe);
-            } // Could this be done faster?
+            }
 
-            ViewBag.dietType = "Omni";
-            ViewBag.dietUrl = "RecipeCarousel";
+            ViewBag.dietType = "Seka";
+            ViewBag.dietUrl = "Omni";
             ViewBag.amountOfRecipes = id;
-            return View(recipesAndIncredients);
+            return View("RecipeCarousel", recipesAndIncredients);
         }
 
-        // diettype/vegetarian
+        // diettype/vegetarian/3
         public async Task<IActionResult> Vegetarian(int id = 3)
         {
-            // Defining the carousel "settings"
-            int maxAmountOfRecipes = 5;
-
             if (id > maxAmountOfRecipes)
                 id = maxAmountOfRecipes;
+            else if (id < 1)
+                id = defaultNumberOfRecipes;
 
-            if (id < 1)
-                id = 3;
-
+            // This collects every single relevant recipe from the db. Atm it does not matter but when we get more
+            // recipes we should make this more efficient.
             var recipes = await _context.Recipes
+                .Where(r => r.DietType == "Kasvis" || r.DietType == "Vegaaninen")
                 .Include(r => r.Ingredients)
-                .ToListAsync();
+                .ToListAsync();                      
 
-            List<Recipes> recipeList = new List<Recipes>();
-
-            foreach (var item in recipes)
-            {
-
-                if (item.DietType == "Kasvis" || item.DietType == "Vegaaninen")
-                {
-                    recipeList.Add(item);
-                }
-            }
             Random rng = new Random();
-            int n = recipeList.Count;
+            int n = recipes.Count;
             while (n > 1)
             {
                 n--;
                 int k = rng.Next(n + 1);
-                Recipes value = recipeList[k];
-                recipeList[k] = recipeList[n];
-                recipeList[n] = value;
+                Recipes value = recipes[k];
+                recipes[k] = recipes[n];
+                recipes[n] = value;
             }
-            //Random rnd = new Random();
-
-            //foreach (var item in recipes)
-            //{
-            //    int index = rnd.Next(recipes.Count);
-
-            //    if (recipes[index].DietType == "Kasvis" || recipes[index].DietType == "Vegaaninen")
-            //    {
-            //        recipeList.Add(recipes[index]);
-            //    }
-            //}
 
             ViewBag.dietType = "Kasvis";
             ViewBag.dietUrl = "Vegetarian";
             ViewBag.amountOfRecipes = id;
-            return View("RecipeCarousel", recipeList);
+            return View("RecipeCarousel", recipes);
         }
 
-        // diettype/vegan
+        // diettype/vegan/3
         public async Task<IActionResult> Vegan(int id = 3)
-        {
-            // Defining the carousel "settings"
+        {            
             int maxAmountOfRecipes = 4;
-            // THE MAX AMOUNT IS 4 SINCE WE DO NOT HAVE ENOUGH VEGAN RECIPES AND WE DO NOT WANT IT TO CRASH! 
+            // THE MAX AMOUNT IS 4 ATM SINCE WE DO NOT HAVE ENOUGH VEGAN RECIPES AND WE DO NOT WANT IT TO CRASH! 
 
             if (id > maxAmountOfRecipes)
                 id = maxAmountOfRecipes;
+            else if (id < 1)
+                id = defaultNumberOfRecipes;
 
-            if (id < 1)
-                id = 3;
-
+            // This collects every single relevant recipe from the db. Atm it does not matter but when we get more
+            // recipes we should make this more efficient.
             var recipes = await _context.Recipes
+                .Where(r => r.DietType == "Vegaaninen")
                 .Include(r => r.Ingredients)
                 .ToListAsync();
 
-            List<Recipes> recipeList = new List<Recipes>();
-
-            foreach (var item in recipes)
-            {
-
-                if (item.DietType == "Vegaaninen")
-                {
-                    recipeList.Add(item);
-                }
-            }
-
             Random rng = new Random();
-
-            int n = recipeList.Count;
+            int n = recipes.Count;
             while (n > 1)
             {
                 n--;
                 int k = rng.Next(n + 1);
-                Recipes value = recipeList[k];
-                recipeList[k] = recipeList[n];
-                recipeList[n] = value;
+                Recipes value = recipes[k];
+                recipes[k] = recipes[n];
+                recipes[n] = value;
             }
-
-
-            //  Random rnd = new Random();
-
-
-            //  foreach (var item in recipes)
-            //  {
-            //    int index = rnd.Next(recipes.Count);
-
-            //    if (recipes[index].DietType == "Vegaaninen")
-            //    {
-            //        recipeList.Add(recipes[index]);
-            //    }
-            //}
 
             ViewBag.dietType = "Vegaani";
             ViewBag.dietUrl = "Vegan";
             ViewBag.amountOfRecipes = id;
-            return View("RecipeCarousel", recipeList);
+            return View("RecipeCarousel", recipes);
         }
     }
 }
