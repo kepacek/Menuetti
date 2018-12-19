@@ -5,12 +5,9 @@
     var ingredients = ViewBag.Json;
 }
 
-<h2>Luo uusi</h2>
-
-<h4>Resepti</h4>
+<h2>Luo uusi resepti</h2>
 <hr />
 <div id="formi">
-    <div class="row">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -52,89 +49,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    @if (Model != null && Model.Ingredients != null)
-    {
-        foreach (var item in Model.Ingredients)
-        {
-            <p>@item.IngredientName</p>
-            <p>@item.AmountG</p>
-            <p>@item.RecipeUnit</p>
-        }
-    }
-</div>
 <div>
     <a asp-action="Index" button class="btn btn-default btn-md btn">Takaisin</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-<script>
-    var index = 0;
-    function newIngredient() {
-
-        var olderInputs = "";
-
-        // html for an empty input row
-        var newEmptyIngredientRow =
-            `<div class="row" id="ingredient-row" >
-                <div class="short-ingredient-box">
-                    <input class="form-control" type="number" id=incredient-${index}-amount min="1" name="Ingredients[${index}].AmountG" />
-                </div>
-                <div class="short-ingredient-box">
-                    <input class="form-control" type="text" id=incredient-${index}-unit name="Ingredients[${index}].RecipeUnit" readonly value="g" />
-                </div>
-                <div class="long-ingredient-box">
-                    <input class="form-control" type="text" id=incredient-${index}-name name="Ingredients[${index}].IngredientName" />
-                </div>
-            </div >`
-
-        // Adding the first ingredient (input row) - no need to check the previous inputs
-        if (index == 0) {
-            document.getElementById("newIngredients").innerHTML += (newEmptyIngredientRow += document.getElementById("newIngredients").innerHTML);
-        }
-        else {
-            // Other ingredients - checking the previous inputs using id number
-            for (var i = 0; i < index; i++) {
-
-                var previousAmount = document.getElementById(`incredient-${i}-amount`).value;
-                var previousUnit = document.getElementById(`incredient-${i}-unit`).value;
-                var previousName = document.getElementById(`incredient-${i}-name`).value;
-
-                // html for the previous inputs with values
-                var previousIngredientRow =
-                    `<div class="form-group" id="added-item-${i}">
-                        <div class="row" id="ingredient-row" >
-                            <div class="short-ingredient-box">
-                                <input class="form-control" type="number" id=incredient-${i}-amount min="1" name="Ingredients[${i}].AmountG" value="${previousAmount}" />
-                            </div>
-                            <div class="short-ingredient-box">
-                                <input class="form-control" type="text" id=incredient-${i}-unit name="Ingredients[${i}].RecipeUnit" readonly value="g" />
-                            </div>
-                            <div class="long-ingredient-box">
-                                <input class="form-control" type="text" id=incredient-${i}-name name="Ingredients[${i}].IngredientName" value="${previousName}" />
-                            </div>
-                     </div >`
-
-                    // adding all the inputs to one block that will be written again
-                    olderInputs = (olderInputs + previousIngredientRow);
-
-                // when the most previous ingredient is added, printing out
-                if (i == index - 1) {
-                    document.getElementById("newIngredients").innerHTML = olderInputs;
-
-                    var oldIngredientsAndEmpty = (olderInputs += newEmptyIngredientRow);
-                    //console.log(oldIngredientsAndEmpty);
-
-                    document.getElementById("newIngredients").innerHTML = oldIngredientsAndEmpty;
-                }
-            }
-        }
-        // the index needs to grow after every click
-        index++;
-    }
-
-</script>

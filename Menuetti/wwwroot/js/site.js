@@ -13,123 +13,88 @@ $(document).ready(function () {
     $(".DetCarousel").hide();
 });
 
-// Essi's - it is with THE
+// Toggle functions for the carousel (shows the recipe details)
 function showTheCarousel(modeli) {
-    console.log(modeli)
     $("#recipe-" + modeli).toggle();
 }
 function closeTheCarousels() {
     var selectedRecipes = document.getElementsByClassName("item active");
-
     for (let i = 0; i < selectedRecipes.length; i++) {
-        //console.log("closing " + selectedRecipes[i].id);
         $("#recipe-" + selectedRecipes[i].id).hide();
     }
 }
 
-function showDetCarousel(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel1(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel2(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel3(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel4(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel5(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel6(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel7(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel8(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel9(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel10(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel11(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel12(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel13(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-function showDetCarousel14(modeli) {
-    console.log(modeli)
-    $("#recipe-" + modeli).toggle();
-}
-
-function getRecipesData() {
-    var selRecipe0 = localStorage.getItem("recipe0")
-    var selRecipe1 = localStorage.getItem("recipe1")
-    var selRecipe2 = localStorage.getItem("recipe2")
-    var selRecipe3 = localStorage.getItem("recipe3")
-    var selRecipe4 = localStorage.getItem("recipe4")
-
-    var selectedRecipes = "../shoppinglist/shoppinglistdetails/"
-        + selRecipe0
-        + "/" + selRecipe1
-        + "/" + selRecipe2
-        + "/" + selRecipe3
-        + "/" + selRecipe4;
-
-
-    console.dir(selectedRecipes);
-    //fetch(selectedRecipes);
-    window.location.href = selectedRecipes;
-    //window.location.replace(selectedRecipes);
-}
-
+// This checks which recipes were chosen (active) from the carousel and send them and the user to the shopping list view
 function sendToShoppinglist() {
-
     var selectedRecipes = document.getElementsByClassName("item active");
-    console.dir(selectedRecipes);
 
     let recipeIdsListed = [];
-
     for (let i = 0; i < selectedRecipes.length; i++) {
-        console.log(selectedRecipes[i].id);
         recipeIdsListed.push(selectedRecipes[i].id)
     }
-
-    //console.log(recipeIdsListed);
-
-    let urlParameters = "/shoppinglist/recipes/";
-
+    let redirectUrlWithParameters = "/shoppinglist/recipes/";
     for (let i = 0; i < recipeIdsListed.length; i++) {
-        urlParameters += (recipeIdsListed[i].toString() + "/");
+        redirectUrlWithParameters += (recipeIdsListed[i].toString() + "/");
     }
+    window.location.href = redirectUrlWithParameters;
+}
 
-    console.log(urlParameters);
+// This adds new row for the user when adding ingredients to a recipe.
+var index = 0;
+function newIngredient() {
+    var olderInputs = "";
 
-    window.location.href = urlParameters;
+    // html for an empty input row
+    var newEmptyIngredientRow =
+        `<div class="row" id="ingredient-row" >
+                <div class="short-ingredient-box">
+                    <input class="form-control" type="number" id=incredient-${index}-amount min="1" name="Ingredients[${index}].AmountG" />
+                </div>
+                <div class="short-ingredient-box">
+                    <input class="form-control" type="text" id=incredient-${index}-unit name="Ingredients[${index}].RecipeUnit" readonly value="g" />
+                </div>
+                <div class="long-ingredient-box">
+                    <input class="form-control" type="text" id=incredient-${index}-name name="Ingredients[${index}].IngredientName" />
+                </div>
+            </div >`
+
+    // Adding the first ingredient (input row) - no need to check the previous inputs
+    if (index == 0) {
+        document.getElementById("newIngredients").innerHTML += (newEmptyIngredientRow += document.getElementById("newIngredients").innerHTML);
+    }
+    else {
+        // Other ingredients - checking the previous inputs using id number
+        for (var i = 0; i < index; i++) {
+
+            var previousAmount = document.getElementById(`incredient-${i}-amount`).value;
+            // var previousUnit = document.getElementById(`incredient-${i}-unit`).value; - not needed atm, unit readonly
+            var previousName = document.getElementById(`incredient-${i}-name`).value;
+
+            // html for the previous inputs with values
+            var previousIngredientRow =
+                `<div class="form-group" id="added-item-${i}">
+                        <div class="row" id="ingredient-row" >
+                            <div class="short-ingredient-box">
+                                <input class="form-control" type="number" id=incredient-${i}-amount min="1" name="Ingredients[${i}].AmountG" value="${previousAmount}" />
+                            </div>
+                            <div class="short-ingredient-box">
+                                <input class="form-control" type="text" id=incredient-${i}-unit name="Ingredients[${i}].RecipeUnit" readonly value="g" />
+                            </div>
+                            <div class="long-ingredient-box">
+                                <input class="form-control" type="text" id=incredient-${i}-name name="Ingredients[${i}].IngredientName" value="${previousName}" />
+                            </div>
+                     </div >`
+
+            // adding all the inputs to one block that will be written again
+            olderInputs = (olderInputs + previousIngredientRow);
+
+            // when the most previous ingredient is added, printing out
+            if (i == index - 1) {
+                document.getElementById("newIngredients").innerHTML = olderInputs;
+                var oldIngredientsAndEmpty = (olderInputs += newEmptyIngredientRow);
+                document.getElementById("newIngredients").innerHTML = oldIngredientsAndEmpty;
+            }
+        }
+    }
+    index++;
 }
