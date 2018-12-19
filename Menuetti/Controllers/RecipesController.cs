@@ -19,7 +19,7 @@ namespace Menuetti.Controllers
     public class RecipesController : Controller
     {
         private readonly MenuettiDBContext _context;
-        
+
         public RecipesController(MenuettiDBContext context)
         {
             _context = context;
@@ -172,49 +172,33 @@ namespace Menuetti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipes, ICollection<Ingredients> ingredients, string iname, string submitButton)
+        public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipe, ICollection<Ingredients> ingredients, string submitButton)
         {
             if (User.Claims.Count() == 0)
-            {
                 return View("NotFound");
-            }
-            else
-            {
 
-                if (User.Claims.Count() > 0)
+            string userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+            if (ModelState.IsValid)
+            {
+                recipe.UserId = userId;
+                _context.Add(recipe);
+
+                foreach (var ingredient in ingredients)
                 {
-                    string userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                    ingredient.RecipeId = recipe.RecipeId;
+                    _context.Add(ingredient);
                 }
-                if (ModelState.IsValid & submitButton == "Lisää uusi raaka-aine reseptiin") //Create a new recipe first to get an ID, then move to the CreateToRecipe of that particular ID
-                {
-                    if (_context.Users.Find(recipes.UserId) == null)
-                    {
-                        Users user = new Users() { UserId = recipes.UserId };
-                        _context.Users.Add(user);
-                    }
-                    _context.Add(recipes);
-                    await _context.SaveChangesAsync();
-                    bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
-                    if (showBadge)
-                    { return RedirectToAction("Profile", "Account"); }
-                    return RedirectToAction("CreateToRecipe", "Ingredients", new { RecipeId = recipes.RecipeId });
-                }
-                else if (ModelState.IsValid & submitButton == "Tallenna resepti") //Create a new recipe and move to the recipe list Index
-                {
-                    if (_context.Users.Find(recipes.UserId) == null)
-                    {
-                        Users user = new Users() { UserId = recipes.UserId };
-                        _context.Users.Add(user);
-                    }
-                    _context.Add(recipes);
-                    await _context.SaveChangesAsync();
-                    bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
-                    if (showBadge)
-                    { return RedirectToAction("Profile", "Account"); }
-                    return RedirectToAction(nameof(Index));
-                }
-                return View(recipes);
+
+                await _context.SaveChangesAsync();
+
+                //bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
+                //if (showBadge)
+                //{ return RedirectToAction("Profile", "Account"); }
+
+                return RedirectToAction(nameof(Index));
             }
+            return View(recipe);
         }
 
         [NonAction]
@@ -331,7 +315,7 @@ namespace Menuetti.Controllers
             {
                 return View("LoginRequired");
             }
-            else 
+            else
             {
                 string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
                 var recipes = await _context.Recipes
