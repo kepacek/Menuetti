@@ -99,7 +99,25 @@ body {
         display: block !important;
     }
 }
-.multiline
-{
+.multiline {
     white-space: pre-wrap;
+}
+
+#ingredient-row {
+    margin: 0% 0% 2% 0%;
+}
+
+#ingredient-row .short-ingredient-box {
+    width: 20%;
+    float: left;
+    margin-right: 1%;
+}
+
+#ingredient-row .long-ingredient-box {
+    display: grid;
+    padding-left: 5px;
+}
+
+#AddIngredient {
+    margin-bottom: 2%;
 }
