@@ -22,14 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\ShoppingList\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="Views\DietType\RecipeCarousel.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Ingredients\CreateToRecipe.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Ingredients\IngredientsByRecipe.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Ingredients\NoPermission.cshtml">
@@ -51,6 +50,9 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Recipes\NoPermission.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\ShoppingList\ShoppingListDetails - Copy.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

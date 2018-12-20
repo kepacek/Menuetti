@@ -52,10 +52,11 @@
 }
 else
 {
+    <div>
+        <a asp-controller="Recipes" asp-action="Index" button class="btn btn-default btn-md btn">Takaisin</a>
+    </div>
 }
-<div>
-    <a asp-controller="Recipes" asp-action="Index" button class="btn btn-default btn-md btn">Takaisin</a>
-</div>
+
 @*asp-all-route-data="@(new Dictionary<string, string>  { { "RecipeId",  Model.RecipeId.ToString() }})"*@
 
 @section Scripts {
