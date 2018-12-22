@@ -35,6 +35,7 @@ namespace Menuetti.Controllers
                 else
                 { return View("LoginRequired"); }
                 var menuettiDBContext = _context.Ingredients.Include(i => i.Recipe).Where(r => r.Recipe.UserId == UserId);
+                ViewBag.Recipes = menuettiDBContext;
                 return View(await menuettiDBContext.ToListAsync());
             }
             catch (Exception)
@@ -43,7 +44,28 @@ namespace Menuetti.Controllers
             }
 
         }
+        // GET: Ingredients by recipe
+        public async Task<IActionResult> IngredientsByRecipe(int? id)
+        {
+            string UserId = null;
+            try
+            {
+                if (User.Claims.Count() > 0)
+                {
+                    UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                    ViewBag.UserId = UserId;
+                }
+                else
+                { return View("LoginRequired"); }
+                var menuettiDBContext = _context.Ingredients.Include(i => i.Recipe).Where(q => q.Recipe.RecipeId  == id);
+                return View(await menuettiDBContext.ToListAsync());
+            }
+            catch (Exception)
+            {
+                return View("NotFound");
+            }
 
+        }
         // GET: Ingredients/Details/5
         public async Task<IActionResult> Details(int? id)
         {

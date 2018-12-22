@@ -86,7 +86,7 @@ namespace Menuetti.Controllers
             {
                 return View("NotFound");
             }
-
+            ViewBag.NameOfRecipe = recipes.RecipeName;
             return View(recipes);
         }
 

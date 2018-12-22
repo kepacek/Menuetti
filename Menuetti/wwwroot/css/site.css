@@ -164,3 +164,8 @@ body {
         #ingredient-options li a:hover:not(.header) {
             background-color: #eee;
         }
+
+#recipeindex
+{
+    vertical-align: middle;
+}

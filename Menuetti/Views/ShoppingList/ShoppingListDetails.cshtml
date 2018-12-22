@@ -1,94 +1,88 @@
 ﻿@using System.Globalization;
 
 @{
-    ViewData["Title"] = "ShoppingListDetails";
+    ViewData["Title"] = "Ostoskori";
     CultureInfo ci = new CultureInfo("en-US");
 }
 <div class="container">
     <h2>Valitsemasi menut:</h2>
-    @foreach (var item in ViewBag.Recipes)
-    {
-        <tr>
-            <td><a asp-controller="Recipes" asp-action="DetailsShoppinglist" asp-route-id="@item.RecipeId">@item.RecipeName</a></td>
-        </tr>
-        <br />
-    }
-    <h3>Tarvitsemasi raaka-aineet:</h3>
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th width="50px"><img src="~/images/shoppingcart25.png" /></th>
-                    <th>Ainekset</th>
-                    <th>Määrä</th>
-                    <th>Yksikkö</th>
-                    <th>Määrä grammoina</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in ViewBag.List)
-                {
-                    <tr>
-                        <td>
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </td>
-                        <td>@item.Key</td>
-                        <td>
-                            @foreach (var a in @ViewBag.jsoni)
+    <div class="container">
+        @foreach (var item in ViewBag.Recipes)
+        {
+            <div class="row">
+                <div class="col"><a asp-controller="Recipes" asp-action="DetailsShoppinglist" asp-route-id="@item.RecipeId">@item.RecipeName</a></div>
+            </div>
+        }
+        </div>
+        <h3>Tarvitsemasi raaka-aineet:</h3>
+        <div class="container-fluid" width=100%>
+            <div class="row">
+                <div class="col-sm-1"><img src="~/images/shoppingcart25.png" /></div>
+                <div class="col-sm-6">Ainekset</div>
+                <div class="col-sm-1">Määrä</div>
+                <div class="col-sm-2">Yksikkö</div>
+                <div class="col-sm-2">Määrä grammoina</div>
+            </div>
+            @foreach (var item in ViewBag.List)
+            {
+                <div class="row" flex-wrap: nowrap>
+                    <div class="col-sm-1">
+                        <input type="checkbox">
+                        @*<span class="checkmark"></span>*@
+                    </div>
+                    <div class="col-sm-6">@item.Key</div>
+                    <div class="col-sm-1">
+                        @foreach (var a in @ViewBag.jsoni)
+                        {
+                            if (item.Key == a.name.fi && item.Value != null)
                             {
-                                if (item.Key == a.name.fi && item.Value != null)
-                                {
-                                    var conversion = string.Join("", ((IEnumerable<dynamic>)a.units).Select(m => m.mass).First()); ;
-                                    var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
-                                    <p>@((Convert.ToDouble(item.Value) / double.Parse(conversion, ci)).ToString("f1"))  </p>
-                                }
+                                var conversion = string.Join("", ((IEnumerable<dynamic>)a.units).Select(m => m.mass).First()); ;
+                                var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
+                                <p>@((Convert.ToDouble(item.Value) / double.Parse(conversion, ci)).ToString("f1"))  </p>
                             }
-                        </td>
-                        <td>
-                            @foreach (var a in @ViewBag.jsoni)
+                        }
+                    </div>
+                    <div class="col-sm-2">
+                        @foreach (var a in @ViewBag.jsoni)
+                        {
+                            if (item.Key == a.name.fi && item.Value != null)
                             {
-                                if (item.Key == a.name.fi && item.Value != null)
-                                {
-                                    var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
-                                    <p>@unitti</p>
-                                }
+                                var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
+                                <p>@unitti</p>
                             }
-                        </td>
-                        <td>
-                            @if (item.Value != null)
-                            {
-                                string g = "g";
-                                @item.Value;
-                                g.ToString();
-                            }
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                        }
+                    </div>
+                    <div class="col-sm-2">
+                        @if (item.Value != null)
+                        {
+                            string g = " g";
+                            @item.Value @g.ToString();
+                        }
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-</div>
 
-<style>
-    .checkmark {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 25px;
-        width: 25px;
-        background-color: #eee;
-    }
+    <style>
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+        }
 
-    .container .checkmark:after {
-        left: 9px;
-        top: 5px;
-        width: 5px;
-        height: 10px;
-        border: solid white;
-        border-width: 0 3px 3px 0;
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
-</style>
+        .container .checkmark:after {
+            left: 9px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    </style>

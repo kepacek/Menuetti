@@ -218,5 +218,60 @@
         "mass": "1.0"
       }
     ]
+  },
+  {
+    "name": { "fi": "Juusto, grana, parmesan tai parmigiano-reggiano" },
+    "id": 100005,
+    "ingredientClass": { "description": { "fi": "Juustot, kypsytetyt, rasvaa >17 %" } },
+    "fiber": "0.0",
+    "salt": "1302.03002929688",
+    "fat": "25.7000007629395",
+    "carbohydrate": "0.0",
+    "protein": "26.5",
+    "energyKcal": "340.38894568018776",
+    "saturatedFat": "15.7158002853394",
+    "specialDiets": [ "SOYAFREE", "UNSWEET", "LOWSALT", "NAGLUFRE", "LACSFREE", "LACVEGE", "GLUTFREE", "LACOVEGE", "EGGFREE" ],
+    "units": [
+      {
+        "description": { "fi": "pieni (kpl)" },
+        "code": "KPL_S",
+        "mass": "4.0"
+      },
+      {
+        "description": { "fi": "keskikokoinen (kpl)" },
+        "code": "KPL_M",
+        "mass": "8.0"
+      },
+      {
+        "description": { "fi": "iso (kpl)" },
+        "code": "KPL_L",
+        "mass": "12.0"
+      },
+      {
+        "description": { "fi": "pieni annos" },
+        "code": "PORTS",
+        "mass": "4.0"
+      },
+      {
+        "description": { "fi": "keskikokoinen annos" },
+        "code": "PORTM",
+        "mass": "8.0"
+      },
+      {
+        "description": { "fi": "iso annos" },
+        "code": "PORTL",
+        "mass": "15.0"
+      },
+      {
+        "description": { "fi": "Annoksen koko, joka vastaa 1000kJ" },
+        "code": "PORT1000KJ",
+        "mass": "70.19"
+      },
+      {
+        "description": { "fi": "gramma" },
+        "code": "G",
+        "mass": "1.0"
+      }
+    ]
   }
 ]

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Menuetti.Models.Ingredients>
 
 @{
-    ViewData["Title"] = "Raaka-aineet";
+    ViewData["Title"] = "Index";
 }
 
 <h2>Raaka-aineet</h2>
@@ -9,8 +9,7 @@
 @if (User.Identity.IsAuthenticated)
 {
     <a asp-controller="Ingredients" asp-action="Create" button class="btn btn-default btn-md btn">Lisää uusi raaka-aine reseptiin</a>
-    <select>@foreach (var item in Model.Select(x => x.Recipe).Distinct()){<option value="@item.RecipeId">@Html.DisplayFor(modelItem => item.RecipeName)</option>}</select> 
-    <a asp-action="IngredientsByRecipe" asp-route-id="" class="btn btn-default">Tiedot</a>
+    <a asp-controller="Ingredients" asp-action="Index" button class="btn btn-default btn-md btn">Näytä kaikki raaka-aineet</a>
 }
 else
 {
@@ -54,7 +53,7 @@ else
                     @Html.DisplayFor(modelItem => item.Recipe.RecipeName)
                 </td>
                 <td>
-
+                    <a asp-action="Details" asp-route-id="@item.IngredientId" class="btn btn-default" style="margin-right: 6px">Tiedot</a>
                     @if (item.Recipe.UserId != null && ViewBag.UserId == item.Recipe.UserId)
                     {
                         <a asp-action="Edit" asp-route-id="@item.IngredientId" class="btn btn-default" style="margin-right: 6px">Muokkaa</a>

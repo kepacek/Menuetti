@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Menuetti.Models.Recipes>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Reseptit";
 }
 
 <h2>Reseptit</h2>
@@ -22,7 +22,7 @@
                 Reseptin nimi
             </th>
             <th>
-                Valmistusaika (min)
+                Valmistusaika
             </th>
             <th>
                 Ruokavalio
@@ -34,25 +34,24 @@
         <tr><td></td></tr>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RecipeName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Time)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DietType)
-                </td>
-                <td >
-                    <a asp-action="Details" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px">Tiedot</a>
-                    @if (item.User != null && ViewBag.UserId == item.User.UserId)
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px">Muokkaa</a>
-                        <a asp-action="Delete" asp-route-id="@item.RecipeId" class="btn btn-default">Poista </a>
-                    }
-                </td>
-            </tr>
+        <tr>
+            <th style="height: 52px; vertical-align: middle">
+                <a asp-action="Details" asp-route-id="@item.RecipeId" style="margin-right: 6px">@Html.DisplayFor(modelItem => item.RecipeName)</a>
+            </th>
+            <td style="vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Time) min
+            </td>
+            <td style="vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.DietType)
+            </td>
+            <td style="text-align: right">
+                @if (item.User != null && ViewBag.UserId == item.User.UserId)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px"><img src="~/images/edit.png" alt="edit"/></a>
+                    <a asp-action="Delete" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px"><img src="~/images/trash.png" alt="delete" /></a>
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>

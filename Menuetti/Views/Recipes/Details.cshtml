@@ -4,37 +4,23 @@
     ViewData["Title"] = "Tarkastele reseptiä";
 }
 
-<h2>Tarkastele reseptiä</h2>
+<h2>@ViewBag.NameOfRecipe</h2>
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @*@Html.DisplayNameFor(model => model.RecipeName)*@
-            Reseptin nimi
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RecipeName)
-        </dd>
-        @*<dt>
-                Html.DisplayNameFor(model => model.User)
-                Lisääjä
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.User.UserId)
-            </dd>*@
-        <dt>
             @*@Html.DisplayNameFor(model => model.Portions)*@
-            Annoksia
+            <img src="~/images/plate.png" alt="Portions" />
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Portions)
         </dd>
         <dt>
             @*@Html.DisplayNameFor(model => model.Time)*@
-            Valmistusaika (min)
+            <img src="~/images/time.png" alt="PreparationTime" />
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Time)
+            @Html.DisplayFor(model => model.Time) min
         </dd>
         <dt>
             @*@Html.DisplayNameFor(model => model.DietType)*@
