@@ -5,7 +5,6 @@
     int rowNumber = Convert.ToInt32(ViewData["rowNumber"]);
 }
 
-
 <div class="form-group" id="added-item-@rowNumber">
     <div class="row" id="ingredient-row">
         <div class="short-ingredient-box">
@@ -15,7 +14,6 @@
             <input class="form-control" type="text" id=ingredient-@rowNumber-unit name="Ingredients[@rowNumber].RecipeUnit" readonly value="g" />
         </div>
         <div class="long-ingredient-box">
-            @*<input class="form-control" type="text" id=ingredient-@rowNumber-name name="Ingredients[@rowNumber].IngredientName" />*@
             <input type="text" class="form-control" id="ingredient-@rowNumber-name" name="Ingredients[@rowNumber].IngredientName" onkeyup="SearchIngredient()" onclick="showIngredientOptions()" placeholder="Etsi raaka-ainetta" />
             <ul id="ingredient-options" style="display:none">
                 @foreach (var item in Model)
@@ -30,31 +28,31 @@
     </div>
 </div>
 
-
 <script>
-        function SearchIngredient() {
-            var input, filter, ul, li, a, i, txtValue;
-            input = document.getElementById("ingredient-@rowNumber-name");
-            filter = input.value.toUpperCase();
-            ul = document.getElementById("ingredient-options");
-            li = ul.getElementsByTagName("li");
-            for (i = 0; i < li.length; i++) {
-                a = li[i].getElementsByTagName("a")[0];
-                txtValue = a.textContent || a.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
+    function SearchIngredient() {
+
+        let input = document.getElementById("ingredient-@rowNumber-name");
+        let filter = input.value.toUpperCase();
+        let ingredientList = document.getElementById("ingredient-options");
+        let ingredient = ingredientList.getElementsByTagName("li");
+
+        for (let i = 0; i < ingredient.length; i++) {
+
+            let ingredientName = ingredient[i].getElementsByTagName("a")[0];
+            let txtValue = ingredientName.textContent || ingredientName.innerText;
+
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                ingredient[i].style.display = "";
+            } else {
+                ingredient[i].style.display = "none";
             }
         }
-        function showIngredientOptions() {
-            $("#ingredient-options").toggle();
-        }
-        function save(id) {
-            console.log(id);
-            console.log(document.getElementById("ingredient-@rowNumber-name").value);
-            document.getElementById("ingredient-@rowNumber-name").value = id;
-            $("#ingredient-options").hide();
-        }
+    }
+    function showIngredientOptions() {
+        $("#ingredient-options").toggle();
+    }
+    function save(id) {
+        document.getElementById("ingredient-@rowNumber-name").value = id;
+        $("#ingredient-options").hide();
+    }
 </script>

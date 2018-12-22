@@ -11,7 +11,6 @@
     <form asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            @*<label type="hidden" asp-for="UserId" class="control-label">Käyttäjä</label>*@
             <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId" />
         </div>
         <div class="form-group">
@@ -46,60 +45,10 @@
             <span asp-validation-for="Instructions" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="submit" name="submitButton" value="Tallenna resepti" class="btn btn-default" /> @*Create a new recipe, move to the recipe list*@
+            <input type="submit" name="submitButton" value="Tallenna resepti" class="btn btn-default" />
         </div>
     </form>
 </div>
 <div>
     <a asp-action="Index" button class="btn btn-default btn-md btn">Takaisin</a>
 </div>
-
-<script>
-    var index = 1; // index for both newIngredient() and deleteRow(id) below.
-    function newIngredient() {
-        var olderInputs = "";
-
-            // Older ingredients - checking the previous inputs using the id number
-            for (var i = (index-1); i >= 0; i--) {
-
-                var previousAmount = document.getElementById(`ingredient-${i}-amount`).value;
-                document.getElementById(`ingredient-${i}-amount`).value = "";
-                // var previousUnit = document.getElementById(`ingredient-${i}-unit`).value; - not needed atm, unit readonly
-                var previousName = document.getElementById(`ingredient-${i}-name`).value;
-                document.getElementById(`ingredient-${i}-name`).value = "";
-
-                console.log("ingredient" + i + " - " + previousAmount + " " + previousName);
-                
-                // html for the previous inputs with values
-                var previousIngredientRow =
-                    `<div class="form-group" id="added-item-${i+1}">
-    <div class="row" id="ingredient-row">
-        <div class="short-ingredient-box">
-            <input class="form-control" type="number" id=ingredient-${i + 1}-amount min="1" name="Ingredients[${i + 1}].AmountG" readonly value="${previousAmount}" />
-        </div>
-        <div class="short-ingredient-box">
-            <input class="form-control" type="text" id=ingredient-${i + 1}-unit name="Ingredients[${i + 1}].RecipeUnit" readonly value="g" />
-        </div>
-        <div class="long-ingredient-box">
-            <input class="form-control" type="text" id=ingredient-${i + 1}-name name="Ingredients[${i + 1}].IngredientName" readonly value="${previousName}" />
-        </div>
-        <div class="delete-button">
-            <button type="button" onclick="deleteRow(id)" id="delete-button-${i + 1}">X</button>
-        </div>
-    </div>
-</div>`
-                // adding all the inputs to one block that will be written again
-                olderInputs = (olderInputs + previousIngredientRow);
-
-                // when the most previous ingredient is added, printing out
-                if (i == 0) {
-                    document.getElementById("newIngredients").innerHTML = olderInputs;
-                    //var oldIngredientsAndEmpty = (olderInputs += newEmptyIngredientRow);
-                    //document.getElementById("newIngredients").innerHTML = oldIngredientsAndEmpty;
-                }
-            }
-        
-        index++;
-    }
-
-</script>
