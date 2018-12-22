@@ -175,7 +175,7 @@ namespace Menuetti.Controllers
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
             // getting the ingredients from the db for each id
-            var allRecipesAndIncredients = await _context.Recipes
+            var allRecipesAndingredients = await _context.Recipes
                     .Where(r => r.RecipeId.Equals(id1)
                         || r.RecipeId.Equals(id2)
                         || r.RecipeId.Equals(id3)
@@ -186,7 +186,7 @@ namespace Menuetti.Controllers
 
             Dictionary<string, int?> shoppings = new Dictionary<string, int?>();
 
-            foreach (var r in allRecipesAndIncredients)
+            foreach (var r in allRecipesAndingredients)
             {
 
                 foreach (var ing in r.Ingredients)
@@ -215,7 +215,7 @@ namespace Menuetti.Controllers
                 }
             }
             ViewBag.List = shoppings;
-            ViewBag.Recipes = allRecipesAndIncredients;
+            ViewBag.Recipes = allRecipesAndingredients;
             ViewBag.jsoni = jsonidata;
 
             return View("ShoppingListDetails");

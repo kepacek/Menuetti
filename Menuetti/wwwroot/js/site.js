@@ -49,13 +49,13 @@ function sendToShoppinglist() {
 //        `<div class="form-group" id="added-item-${i}">
 //                <div class="row" id="ingredient-row" >
 //                    <div class="short-ingredient-box">
-//                        <input class="form-control" type="number" id=incredient-${index}-amount min="1" name="Ingredients[${index}].AmountG" />
+//                        <input class="form-control" type="number" id=ingredient-${index}-amount min="1" name="Ingredients[${index}].AmountG" />
 //                    </div>
 //                    <div class="short-ingredient-box">
-//                        <input class="form-control" type="text" id=incredient-${index}-unit name="Ingredients[${index}].RecipeUnit" readonly value="g" />
+//                        <input class="form-control" type="text" id=ingredient-${index}-unit name="Ingredients[${index}].RecipeUnit" readonly value="g" />
 //                    </div>
 //                    <div class="long-ingredient-box">
-//                        <input class="form-control" type="text" id=incredient-${index}-name name="Ingredients[${index}].IngredientName" />
+//                        <input class="form-control" type="text" id=ingredient-${index}-name name="Ingredients[${index}].IngredientName" />
 //                    </div>
 //                    <div class="delete-button">
 //                        <button type="button" onclick="deleteRow(id)" id="delete-button-${index}">X</button>
@@ -71,22 +71,22 @@ function sendToShoppinglist() {
 //        // Other ingredients - checking the previous inputs using id number
 //        for (var i = 0; i < index; i++) {
 
-//            var previousAmount = document.getElementById(`incredient-${i}-amount`).value;
-//            // var previousUnit = document.getElementById(`incredient-${i}-unit`).value; - not needed atm, unit readonly
-//            var previousName = document.getElementById(`incredient-${i}-name`).value;
+//            var previousAmount = document.getElementById(`ingredient-${i}-amount`).value;
+//            // var previousUnit = document.getElementById(`ingredient-${i}-unit`).value; - not needed atm, unit readonly
+//            var previousName = document.getElementById(`ingredient-${i}-name`).value;
 
 //            // html for the previous inputs with values
 //            var previousIngredientRow =
 //                `<div class="form-group" id="added-item-${i}">
 //                        <div class="row" id="ingredient-row" >
 //                            <div class="short-ingredient-box">
-//                                <input class="form-control" type="number" id=incredient-${i}-amount min="1" name="Ingredients[${i}].AmountG" value="${previousAmount}" />
+//                                <input class="form-control" type="number" id=ingredient-${i}-amount min="1" name="Ingredients[${i}].AmountG" value="${previousAmount}" />
 //                            </div>
 //                            <div class="short-ingredient-box">
-//                                <input class="form-control" type="text" id=incredient-${i}-unit name="Ingredients[${i}].RecipeUnit" readonly value="g" />
+//                                <input class="form-control" type="text" id=ingredient-${i}-unit name="Ingredients[${i}].RecipeUnit" readonly value="g" />
 //                            </div>
 //                            <div class="long-ingredient-box">
-//                                <input class="form-control" type="text" id=incredient-${i}-name name="Ingredients[${i}].IngredientName" value="${previousName}" />
+//                                <input class="form-control" type="text" id=ingredient-${i}-name name="Ingredients[${i}].IngredientName" value="${previousName}" />
 //                            </div>
 //                            <div class="delete-button">
 //                                <button type="button" onclick="deleteRow(id)" id="delete-button-${i}">X</button>
@@ -116,71 +116,122 @@ function deleteRow(id) {
 
     var olderInputs = "";
 
-    for (var i = index - 1; i >= 0; i--) {
+    if (buttonNro != 0) {
 
-        var previousAmount = document.getElementById(`incredient-${i}-amount`).value;
-        // var previousUnit = document.getElementById(`incredient-${i}-unit`).value; - not needed atm, unit readonly
-        var previousName = document.getElementById(`incredient-${i}-name`).value;
+        for (var i = index - 1; i >= 0; i--) {
 
-        if (i < buttonNro && i != 0) {
-            // html for the previous inputs with values
-            var previousIngredientRow =
-                `<div class="form-group" id="added-item-${i}">
+            var previousAmount = document.getElementById(`ingredient-${i}-amount`).value;
+            // var previousUnit = document.getElementById(`ingredient-${i}-unit`).value; - not needed atm, unit readonly
+            var previousName = document.getElementById(`ingredient-${i}-name`).value;
+
+            if (i < buttonNro && i != 0) {
+                // html for the previous inputs with values
+                var previousIngredientRow =
+                    `<div class="form-group" id="added-item-${i}">
                         <div class="row" id="ingredient-row" >
                             <div class="short-ingredient-box">
-                                <input class="form-control" type="number" id=incredient-${i}-amount min="1" name="Ingredients[${i}].AmountG" value="${previousAmount}" />
+                                <input class="form-control" type="number" id=ingredient-${i}-amount min="1" name="Ingredients[${i}].AmountG" readonly value="${previousAmount}" />
                             </div>
                             <div class="short-ingredient-box">
-                                <input class="form-control" type="text" id=incredient-${i}-unit name="Ingredients[${i}].RecipeUnit" readonly value="g" />
+                                <input class="form-control" type="text" id=ingredient-${i}-unit name="Ingredients[${i}].RecipeUnit" readonly value="g" />
                             </div>
                             <div class="long-ingredient-box">
-                                <input class="form-control" type="text" id=incredient-${i}-name name="Ingredients[${i}].IngredientName" value="${previousName}" />
+                                <input class="form-control" type="text" id=ingredient-${i}-name name="Ingredients[${i}].IngredientName" readonly value="${previousName}" />
                             </div>
                             <div class="delete-button">
                                 <button type="button" onclick="deleteRow(id)" id="delete-button-${i}">X</button>
                             </div>
                         </div>
                       </div>`
-        }
-        else if (i > buttonNro) {
-            // html for the previous inputs with values
-            var previousIngredientRow =
-                `<div class="form-group" id="added-item-${i - 1}">
+            }
+            else if (i > buttonNro) {
+                // html for the previous inputs with values
+                var previousIngredientRow =
+                    `<div class="form-group" id="added-item-${i - 1}">
                         <div class="row" id="ingredient-row" >
                             <div class="short-ingredient-box">
-                                <input class="form-control" type="number" id=incredient-${i - 1}-amount min="1" name="Ingredients[${i - 1}].AmountG" value="${previousAmount}" />
+                                <input class="form-control" type="number" id=ingredient-${i - 1}-amount min="1" name="Ingredients[${i - 1}].AmountG" readonly value="${previousAmount}" />
                             </div>
                             <div class="short-ingredient-box">
-                                <input class="form-control" type="text" id=incredient-${i - 1}-unit name="Ingredients[${i - 1}].RecipeUnit" readonly value="g" />
+                                <input class="form-control" type="text" id=ingredient-${i - 1}-unit name="Ingredients[${i - 1}].RecipeUnit" readonly value="g" />
                             </div>
                             <div class="long-ingredient-box">
-                                <input class="form-control" type="text" id=incredient-${i - 1}-name name="Ingredients[${i - 1}].IngredientName" value="${previousName}" />
+                                <input class="form-control" type="text" id=ingredient-${i - 1}-name name="Ingredients[${i - 1}].IngredientName" readonly value="${previousName}" />
                             </div>
                             <div class="delete-button">
                                 <button type="button" onclick="deleteRow(id)" id="delete-button-${i - 1}">X</button>
                             </div>
                         </div>
                      </div>`
-        }
-        else {
-            var previousIngredientRow = "";
+            }
+            else {
+                var previousIngredientRow = "";
+                if (i == 0) {
+                    index--;
+                }
+            }
+
+            console.log("index: " + index);
+            console.log("i: " + i);
+            console.log(previousIngredientRow);
+
+            // adding all the inputs to one block that will be written again
+            olderInputs = (olderInputs + previousIngredientRow);
+            console.log("old inputs:")
+            console.log(olderInputs)
+
+            // when the most previous ingredient is added, printing out
             if (i == 0) {
-                index--;
+                document.getElementById("newIngredients").innerHTML = olderInputs;
+
             }
         }
+    }
+    else {
+        for (var i = index - 1; i >= 0; i--) {
 
-        console.log("index: " + index);
-        console.log("i: " + i);
-        console.log(previousIngredientRow);
+            var previousAmount = document.getElementById(`ingredient-${i}-amount`).value;
+            // var previousUnit = document.getElementById(`ingredient-${i}-unit`).value; - not needed atm, unit readonly
+            var previousName = document.getElementById(`ingredient-${i}-name`).value;
 
-        // adding all the inputs to one block that will be written again
-        olderInputs = (olderInputs + previousIngredientRow);
-        console.log("old inputs:")
-        console.log(olderInputs)
+            if (i != 1) {
 
-        // when the most previous ingredient is added, printing out
-        if (i == 0) {
-            document.getElementById("newIngredients").innerHTML = olderInputs;
+                var previousIngredientRow =
+                    `<div class="form-group" id="added-item-${i - 1}">
+                        <div class="row" id="ingredient-row" >
+                            <div class="short-ingredient-box">
+                                <input class="form-control" type="number" id=ingredient-${i - 1}-amount min="1" name="Ingredients[${i - 1}].AmountG" readonly value="${previousAmount}" />
+                            </div>
+                            <div class="short-ingredient-box">
+                                <input class="form-control" type="text" id=ingredient-${i - 1}-unit name="Ingredients[${i - 1}].RecipeUnit" readonly value="g" />
+                            </div>
+                            <div class="long-ingredient-box">
+                                <input class="form-control" type="text" id=ingredient-${i - 1}-name name="Ingredients[${i - 1}].IngredientName" readonly value="${previousName}" />
+                            </div>
+                            <div class="delete-button">
+                                <button type="button" onclick="deleteRow(id)" id="delete-button-${i - 1}">X</button>
+                            </div>
+                        </div>
+                     </div>`
+            }
+            if (i == 1) {
+                document.getElementById("ingredient-0-amount").value = previousAmount;
+                //document.getElementById("ingredient-0-unit").value = previousUnit;
+                document.getElementById("ingredient-0-name").value = previousName;
+                previousIngredientRow = "";
+            }
+            if (i == 0) {
+                previousIngredientRow = "";
+            }
+
+            // adding all the inputs to one block that will be written again
+            olderInputs = (olderInputs + previousIngredientRow);
+
+            if (i == 0) {
+                document.getElementById("newIngredients").innerHTML = olderInputs;
+                index--;
+
+            }
 
         }
     }

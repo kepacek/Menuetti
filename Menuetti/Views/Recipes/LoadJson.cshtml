@@ -9,14 +9,14 @@
 <div class="form-group" id="added-item-@rowNumber">
     <div class="row" id="ingredient-row">
         <div class="short-ingredient-box">
-            <input class="form-control" type="number" id=incredient-@rowNumber-amount min="1" name="Ingredients[@rowNumber].AmountG" />
+            <input class="form-control" type="number" id=ingredient-@rowNumber-amount min="1" name="Ingredients[@rowNumber].AmountG" />
         </div>
         <div class="short-ingredient-box">
-            <input class="form-control" type="text" id=incredient-@rowNumber-unit name="Ingredients[@rowNumber].RecipeUnit" readonly value="g" />
+            <input class="form-control" type="text" id=ingredient-@rowNumber-unit name="Ingredients[@rowNumber].RecipeUnit" readonly value="g" />
         </div>
         <div class="long-ingredient-box">
-            @*<input class="form-control" type="text" id=incredient-@rowNumber-name name="Ingredients[@rowNumber].IngredientName" />*@
-            <input type="text" class="form-control" id="incredient-@rowNumber-name" name="Ingredients[@rowNumber].IngredientName" onkeyup="SearchIngredient()" onclick="showIngredientOptions()" placeholder="Etsi raaka-ainetta" />
+            @*<input class="form-control" type="text" id=ingredient-@rowNumber-name name="Ingredients[@rowNumber].IngredientName" />*@
+            <input type="text" class="form-control" id="ingredient-@rowNumber-name" name="Ingredients[@rowNumber].IngredientName" onkeyup="SearchIngredient()" onclick="showIngredientOptions()" placeholder="Etsi raaka-ainetta" />
             <ul id="ingredient-options" style="display:none">
                 @foreach (var item in Model)
                 {
@@ -34,7 +34,7 @@
 <script>
         function SearchIngredient() {
             var input, filter, ul, li, a, i, txtValue;
-            input = document.getElementById("incredient-@rowNumber-name");
+            input = document.getElementById("ingredient-@rowNumber-name");
             filter = input.value.toUpperCase();
             ul = document.getElementById("ingredient-options");
             li = ul.getElementsByTagName("li");
@@ -53,8 +53,8 @@
         }
         function save(id) {
             console.log(id);
-            console.log(document.getElementById("incredient-@rowNumber-name").value);
-            document.getElementById("incredient-@rowNumber-name").value = id;
+            console.log(document.getElementById("ingredient-@rowNumber-name").value);
+            document.getElementById("ingredient-@rowNumber-name").value = id;
             $("#ingredient-options").hide();
         }
 </script>
