@@ -148,11 +148,9 @@ namespace Menuetti.Controllers
                     string json = string.Concat(ingredientsEdited, ",", AddedIngredients().Substring(1).ToString()); // Concatenate the above ingredients-string with a "," and an addedIngredients string with the initial "[" removed
                     items = JsonConvert.DeserializeObject<List<Ingredientti>>(json).OrderBy(t => t.name.fi).ToList(); // Create a list of ingredients and added sorted alphabetically by the name
                 }
-                SelectList JsonLista = new SelectList(items, "name.fi", "name.fi");
-                ViewBag.Json = JsonLista;
 
-                //ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
-                //SelectList JsonLista = new SelectList(LoadJson(), "name.fi", "name.fi");
+                TempData["ingredients"] = items;
+
                 ViewData["UserId"] = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
                 return View();
             }
