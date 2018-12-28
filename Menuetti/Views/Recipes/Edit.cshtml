@@ -42,9 +42,9 @@
                         <p>@item.AmountG @item.RecipeUnit @item.IngredientName</p>
                     }
                 }
-                <a asp-controller="Ingredients" asp-action="CreateToRecipe"  
+                @*<a asp-controller="Ingredients" asp-action="CreateToRecipe"  
                     asp-all-route-data="@(new Dictionary<string, string>  { { "RecipeId",  Model.RecipeId.ToString() }})" 
-                            class="btn btn-default btn-md btn">Lisää uusi raaka-aine reseptiin</a><br />
+                            class="btn btn-default btn-md btn">Lisää uusi raaka-aine reseptiin</a><br />*@
             </div>
             <div class="form-group">
                 <label asp-for="DietType" class="control-label">Ruokavalio</label>

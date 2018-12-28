@@ -39,7 +39,7 @@ namespace Menuetti.Controllers
             Random rnd = new Random();
             var skipNumbersRandomised = skipNumbers.OrderBy(x => rnd.Next()).Take(amountOfRecipesNeeded);
 
-            List<Recipes> recipesAndIncredients = new List<Recipes>();
+            List<Recipes> recipesAndingredients = new List<Recipes>();
 
             foreach (var randomNumber in skipNumbersRandomised)
             {
@@ -49,13 +49,13 @@ namespace Menuetti.Controllers
                     .Include(r => r.Ingredients)
                     .FirstOrDefaultAsync();
 
-                recipesAndIncredients.Add(recipe);
+                recipesAndingredients.Add(recipe);
             }
 
             ViewBag.dietType = "Seka";
             ViewBag.dietUrl = "Omni";
             ViewBag.amountOfRecipes = id;
-            return View("RecipeCarousel", recipesAndIncredients);
+            return View("RecipeCarousel", recipesAndingredients);
         }
 
         // diettype/vegetarian/3

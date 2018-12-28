@@ -19,7 +19,7 @@ namespace Menuetti.Controllers
     public class RecipesController : Controller
     {
         private readonly MenuettiDBContext _context;
-        
+
         public RecipesController(MenuettiDBContext context)
         {
             _context = context;
@@ -33,8 +33,11 @@ namespace Menuetti.Controllers
                 string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
                 ViewBag.UserId = UserId;
             }
-            var menuettiDBContext = _context.Recipes.Include(r => r.User);
-            return View(await menuettiDBContext.ToListAsync());
+            var menuettiDBContext = await _context.Recipes
+                .Include(r => r.User)
+                .ToListAsync();
+
+            return View(menuettiDBContext);
         }
 
         // GET: Recipes/UserRecipes
@@ -136,9 +139,29 @@ namespace Menuetti.Controllers
             }
             else
             {
-                //ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+                List<Ingredientti> items = new List<Ingredientti>();
+
+                using (StreamReader r = new StreamReader("ingredients.json"))
+                {
+                    string ingredients = r.ReadToEnd(); // Read ingredients.json
+                    string ingredientsEdited = ingredients.Remove(ingredients.Length - 1).ToString(); // Remove the final "]" from the ingredients.json file to prepare the string for concatenation
+                    string json = string.Concat(ingredientsEdited, ",", AddedIngredients().Substring(1).ToString()); // Concatenate the above ingredients-string with a "," and an addedIngredients string with the initial "[" removed
+                    items = JsonConvert.DeserializeObject<List<Ingredientti>>(json).OrderBy(t => t.name.fi).ToList(); // Create a list of ingredients and added sorted alphabetically by the name
+                }
+
+                TempData["ingredients"] = items;
+
                 ViewData["UserId"] = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
                 return View();
+            }
+        }
+        public string AddedIngredients()
+        {
+            // Create a string from the non-Fineli API ingredients located in the ingredientsAdded.json file
+            using (StreamReader r = new StreamReader("ingredientsAdded.json"))
+            {
+                string addedIngredients = r.ReadToEnd();
+                return addedIngredients;
             }
         }
 
@@ -147,49 +170,33 @@ namespace Menuetti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipes, string iname, string submitButton)
+        public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipe, ICollection<Ingredients> ingredients, string submitButton)
         {
             if (User.Claims.Count() == 0)
-            {
                 return View("NotFound");
-            }
-            else
-            {
 
-                if (User.Claims.Count() > 0)
+            string userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+            if (ModelState.IsValid)
+            {
+                recipe.UserId = userId;
+                _context.Add(recipe);
+
+                foreach (var ingredient in ingredients)
                 {
-                    string userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                    ingredient.RecipeId = recipe.RecipeId;
+                    _context.Add(ingredient);
                 }
-                if (ModelState.IsValid & submitButton == "Lisää uusi raaka-aine reseptiin") //Create a new recipe first to get an ID, then move to the CreateToRecipe of that particular ID
-                {
-                    if (_context.Users.Find(recipes.UserId) == null)
-                    {
-                        Users user = new Users() { UserId = recipes.UserId };
-                        _context.Users.Add(user);
-                    }
-                    _context.Add(recipes);
-                    await _context.SaveChangesAsync();
-                    bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
-                    if (showBadge)
-                    { return RedirectToAction("Profile", "Account"); }
-                    return RedirectToAction("CreateToRecipe", "Ingredients", new { RecipeId = recipes.RecipeId });
-                }
-                else if (ModelState.IsValid & submitButton == "Tallenna resepti") //Create a new recipe and move to the recipe list Index
-                {
-                    if (_context.Users.Find(recipes.UserId) == null)
-                    {
-                        Users user = new Users() { UserId = recipes.UserId };
-                        _context.Users.Add(user);
-                    }
-                    _context.Add(recipes);
-                    await _context.SaveChangesAsync();
-                    bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
-                    if (showBadge)
-                    { return RedirectToAction("Profile", "Account"); }
-                    return RedirectToAction(nameof(Index));
-                }
-                return View(recipes);
+
+                await _context.SaveChangesAsync();
+
+                //bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
+                //if (showBadge)
+                //{ return RedirectToAction("Profile", "Account"); }
+
+                return RedirectToAction(nameof(Index));
             }
+            return View(recipe);
         }
 
         [NonAction]
@@ -306,7 +313,7 @@ namespace Menuetti.Controllers
             {
                 return View("LoginRequired");
             }
-            else 
+            else
             {
                 string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
                 var recipes = await _context.Recipes
