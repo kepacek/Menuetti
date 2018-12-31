@@ -260,8 +260,21 @@ namespace Menuetti.Controllers
                     return View("NoPermission");
                 }
 
+                List<Ingredientti> items = new List<Ingredientti>();
+
+                // get the ingredient options list
+                using (StreamReader r = new StreamReader("ingredients.json"))
+                {
+                    string ingredients = r.ReadToEnd(); // Read ingredients.json
+                    string ingredientsEdited = ingredients.Remove(ingredients.Length - 1).ToString(); // Remove the final "]" from the ingredients.json file to prepare the string for concatenation
+                    string json = string.Concat(ingredientsEdited, ",", AddedIngredients().Substring(1).ToString()); // Concatenate the above ingredients-string with a "," and an addedIngredients string with the initial "[" removed
+                    items = JsonConvert.DeserializeObject<List<Ingredientti>>(json).OrderBy(t => t.name.fi).ToList(); // Create a list of ingredients and added sorted alphabetically by the name
+                }
+
+                TempData["ingredients"] = items;
                 ViewBag.UserId = UserId;
                 ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipes.UserId);
+
                 return View(recipes);
             }
         }
