@@ -7,7 +7,7 @@
 @section Scripts
     {
     <script>
-        var i = @Model.RecipeName.Count();
+        var i = @Model.Ingredients.Count() +1;
         $(document).ready(function () {
             setIndex(i);
         })
@@ -45,7 +45,7 @@
             <div id="newIngredients">
                 @if (Model.Ingredients.Count > 0)
                 {
-                    var i = Model.RecipeName.Count() - 1;
+                    var i = Model.Ingredients.Count();
                     @foreach (var item in Model.Ingredients)
                     {
 

@@ -284,9 +284,9 @@ namespace Menuetti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipes)
+        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipe, ICollection<Ingredients> ingredients)
         {
-            if (id != recipes.RecipeId)
+            if (id != recipe.RecipeId)
             {
                 return View("NotFound");
             }
@@ -295,12 +295,33 @@ namespace Menuetti.Controllers
             {
                 try
                 {
-                    _context.Update(recipes);
+                    _context.Update(recipe);
+
+                    // deleting old ingredients from the recipe
+                    var oldIngredients = from rec in _context.Ingredients
+                                         where rec.RecipeId == recipe.RecipeId
+                                         select rec;
+
+                    foreach (var ingredient in oldIngredients)
+                    {
+                        _context.Remove(ingredient);
+                    }                    
+                    
+                    // adding ingredients to the recipe
+                    foreach (var ingredient in ingredients)
+                    {
+                        if (ingredient.IngredientName != null)
+                        {
+                            ingredient.RecipeId = recipe.RecipeId;
+                            _context.Add(ingredient);
+                        }
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RecipesExists(recipes.RecipeId))
+                    if (!RecipesExists(recipe.RecipeId))
                     {
                         return View("NotFound");
                     }
@@ -309,10 +330,11 @@ namespace Menuetti.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipes.UserId);
-            return View(recipes);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipe.UserId);
+            return View(recipe);
         }
 
         // GET: Recipes/Delete/5
