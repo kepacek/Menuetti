@@ -260,8 +260,21 @@ namespace Menuetti.Controllers
                     return View("NoPermission");
                 }
 
+                List<Ingredientti> items = new List<Ingredientti>();
+
+                // get the ingredient options list
+                using (StreamReader r = new StreamReader("ingredients.json"))
+                {
+                    string ingredients = r.ReadToEnd(); // Read ingredients.json
+                    string ingredientsEdited = ingredients.Remove(ingredients.Length - 1).ToString(); // Remove the final "]" from the ingredients.json file to prepare the string for concatenation
+                    string json = string.Concat(ingredientsEdited, ",", AddedIngredients().Substring(1).ToString()); // Concatenate the above ingredients-string with a "," and an addedIngredients string with the initial "[" removed
+                    items = JsonConvert.DeserializeObject<List<Ingredientti>>(json).OrderBy(t => t.name.fi).ToList(); // Create a list of ingredients and added sorted alphabetically by the name
+                }
+
+                TempData["ingredients"] = items;
                 ViewBag.UserId = UserId;
                 ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipes.UserId);
+
                 return View(recipes);
             }
         }
@@ -271,9 +284,9 @@ namespace Menuetti.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipes)
+        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipe, ICollection<Ingredients> ingredients)
         {
-            if (id != recipes.RecipeId)
+            if (id != recipe.RecipeId)
             {
                 return View("NotFound");
             }
@@ -282,12 +295,33 @@ namespace Menuetti.Controllers
             {
                 try
                 {
-                    _context.Update(recipes);
+                    _context.Update(recipe);
+
+                    // deleting old ingredients from the recipe
+                    var oldIngredients = from rec in _context.Ingredients
+                                         where rec.RecipeId == recipe.RecipeId
+                                         select rec;
+
+                    foreach (var ingredient in oldIngredients)
+                    {
+                        _context.Remove(ingredient);
+                    }                    
+                    
+                    // adding ingredients to the recipe
+                    foreach (var ingredient in ingredients)
+                    {
+                        if (ingredient.IngredientName != null)
+                        {
+                            ingredient.RecipeId = recipe.RecipeId;
+                            _context.Add(ingredient);
+                        }
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RecipesExists(recipes.RecipeId))
+                    if (!RecipesExists(recipe.RecipeId))
                     {
                         return View("NotFound");
                     }
@@ -296,10 +330,11 @@ namespace Menuetti.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipes.UserId);
-            return View(recipes);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipe.UserId);
+            return View(recipe);
         }
 
         // GET: Recipes/Delete/5
