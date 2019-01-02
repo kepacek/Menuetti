@@ -4,6 +4,7 @@
     ViewData["Title"] = "Edit";
     var ingredients = TempData["ingredients"];
 }
+<script src="~/js/site.js"></script>
 @section Scripts
     {
     <script>
@@ -13,84 +14,82 @@
         })
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+}
 
-    <h2>Muokkaa reseptiä</h2>
-    <hr />
-    <div class="formi">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="RecipeId" />
-            <div class="form-group">
-                @*<label asp-for="UserId" class="control-label"></label>*@
-                <input type="hidden" asp-for="UserId" class="form-control" asp-items="ViewBag.UserId" readonly />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RecipeName" class="control-label">Reseptin nimi</label>
-                <input asp-for="RecipeName" class="form-control" />
-                <span asp-validation-for="RecipeName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Portions" class="control-label">Annoksia</label>
-                <input asp-for="Portions" class="form-control" />
-                <span asp-validation-for="Portions" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Time" class="control-label">Valmistusaika (min)</label>
-                <input asp-for="Time" class="form-control" />
-                <span asp-validation-for="Time" class="text-danger"></span>
-            </div>
-            <b>Raaka-aineet</b>
-            <div id="newIngredients">
-                @if (Model.Ingredients.Count > 0)
+<h2>Muokkaa reseptiä</h2>
+<hr />
+<div class="formi">
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="RecipeId" />
+        <div class="form-group">
+            @*<label asp-for="UserId" class="control-label"></label>*@
+            <input type="hidden" asp-for="UserId" class="form-control" asp-items="ViewBag.UserId" readonly />
+            <span asp-validation-for="UserId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RecipeName" class="control-label">Reseptin nimi</label>
+            <input asp-for="RecipeName" class="form-control" />
+            <span asp-validation-for="RecipeName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Portions" class="control-label">Annoksia</label>
+            <input asp-for="Portions" class="form-control" />
+            <span asp-validation-for="Portions" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Time" class="control-label">Valmistusaika (min)</label>
+            <input asp-for="Time" class="form-control" />
+            <span asp-validation-for="Time" class="text-danger"></span>
+        </div>
+        <b>Raaka-aineet</b>
+        <div id="newIngredients">
+            @if (Model.Ingredients.Count > 0)
                 {
                     var i = Model.Ingredients.Count();
-                    @foreach (var item in Model.Ingredients)
+            @foreach (var item in Model.Ingredients)
                     {
 
-                        @*<p>@item.AmountG @item.RecipeUnit @item.IngredientName</p>*@
+          
 
-                        <div class="form-group" id="added-item-@i">
-                            <div class="row" id="ingredient-row">
-                                <div class="short-ingredient-box">
-                                    <input class="form-control" type="number" id=ingredient-@i-amount min="1" name="Ingredients[@i].AmountG" readonly value="@item.AmountG" />
-                                </div>
-                                <div class="short-ingredient-box">
-                                    <input class="form-control" type="text" id=ingredient-@i-unit name="Ingredients[@i].RecipeUnit" readonly value="@item.RecipeUnit" />
-                                </div>
-                                <div class="long-ingredient-box">
-                                    <input class="form-control" type="text" id=ingredient-@i-name name="Ingredients[@i].IngredientName" readonly value="@item.IngredientName" />
-                                </div>
-                                <div class="delete-button">
-                                    <button type="button" onclick="deleteRow(id)" id="delete-button-@i">X</button>
-                                </div>
-                            </div>
-                        </div>
+            <div class="form-group" id="added-item-@i">
+                <div class="row" id="ingredient-row">
+                    <div class="short-ingredient-box">
+                        <input class="form-control" type="number" id=ingredient-@i-amount min="1" name="Ingredients[@i].AmountG" readonly value="@item.AmountG" />
+                    </div>
+                    <div class="short-ingredient-box">
+                        <input class="form-control" type="text" id=ingredient-@i-unit name="Ingredients[@i].RecipeUnit" readonly value="@item.RecipeUnit" />
+                    </div>
+                    <div class="long-ingredient-box">
+                        <input class="form-control" type="text" id=ingredient-@i-name name="Ingredients[@i].IngredientName" readonly value="@item.IngredientName" />
+                    </div>
+                    <div class="delete-button">
+                        <button type="button" onclick="deleteRow(id)" id="delete-button-@i">X</button>
+                    </div>
+                </div>
+            </div>
                         i--;
                     }
                 }
-                @*<a asp-controller="Ingredients" asp-action="CreateToRecipe"
-                    asp-all-route-data="@(new Dictionary<string, string>  { { "RecipeId",  Model.RecipeId.ToString() }})"
-                            class="btn btn-default btn-md btn">Lisää uusi raaka-aine reseptiin</a><br />*@
-            </div>
-            @{await Html.RenderPartialAsync("LoadJson", ingredients, new ViewDataDictionary(ViewData) { { "rowNumber", 0 } });}
-            <button type="button" class="btn" id="AddIngredient" onclick="newIngredient()">Lisää uusi raaka-aine</button>
-            <div class="form-group">
-                <label asp-for="DietType" class="control-label">Ruokavalio</label>
-                <select asp-for="DietType" class="form-control"><option>Sekaruoka</option><option>Kasvis</option><option>Vegaaninen</option></select>
-                <span asp-validation-for="DietType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Instructions" class="control-label">Valmistusohje</label>
-                @Html.TextAreaFor(m => m.Instructions, 15, 600, new { @class = "form-control" })
-                <span asp-validation-for="Instructions" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Tallenna resepti" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-    <div>
-        <a asp-action="Index" class="btn btn-default">Palaa takaisin</a>
-    </div>
+            
+        </div>
+        @{await Html.RenderPartialAsync("LoadJson", ingredients, new ViewDataDictionary(ViewData) { { "rowNumber", 0 } });}
+        <button type="button" class="btn" id="AddIngredient" onclick="newIngredient()">Lisää uusi raaka-aine</button>
+        <div class="form-group">
+            <label asp-for="DietType" class="control-label">Ruokavalio</label>
+            <select asp-for="DietType" class="form-control"><option>Sekaruoka</option><option>Kasvis</option><option>Vegaaninen</option></select>
+            <span asp-validation-for="DietType" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Instructions" class="control-label">Valmistusohje</label>
+            @Html.TextAreaFor(m => m.Instructions, 15, 600, new { @class = "form-control" })
+            <span asp-validation-for="Instructions" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Tallenna resepti" class="btn btn-default" />
+        </div>
+    </form>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-default">Palaa takaisin</a>
+</div>
