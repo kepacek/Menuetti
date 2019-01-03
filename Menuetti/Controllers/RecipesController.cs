@@ -161,6 +161,7 @@ namespace Menuetti.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            ViewBag.AlreadyAddedIngredients = ingredients.Reverse().ToList();
             TempData["ingredients"] = GetIngredientList();
             return View(recipe);
         }
