@@ -41,7 +41,6 @@ namespace Menuetti.Controllers
         }
 
         // GET: Recipes/UserRecipes
-
         public async Task<IActionResult> UserRecipes()
         {
             string UserId = null;
@@ -61,13 +60,6 @@ namespace Menuetti.Controllers
             {
                 return View("NotFound");
             }
-            //if (User.Claims.Count() > 0)
-            //{
-            //    string UserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            //    ViewBag.UserId = UserId;
-            //}
-            //var menuettiDBContext = _context.Recipes.Include(r => r.User);
-            //return View(await menuettiDBContext.ToListAsync());
         }
 
         // GET: Recipes/Details/5
@@ -139,38 +131,16 @@ namespace Menuetti.Controllers
             }
             else
             {
-                List<Ingredientti> items = new List<Ingredientti>();
-
-                using (StreamReader r = new StreamReader("ingredients.json"))
-                {
-                    string ingredients = r.ReadToEnd(); // Read ingredients.json
-                    string ingredientsEdited = ingredients.Remove(ingredients.Length - 1).ToString(); // Remove the final "]" from the ingredients.json file to prepare the string for concatenation
-                    string json = string.Concat(ingredientsEdited, ",", AddedIngredients().Substring(1).ToString()); // Concatenate the above ingredients-string with a "," and an addedIngredients string with the initial "[" removed
-                    items = JsonConvert.DeserializeObject<List<Ingredientti>>(json).OrderBy(t => t.name.fi).ToList(); // Create a list of ingredients and added sorted alphabetically by the name
-                }
-
-                TempData["ingredients"] = items;
-
+                TempData["ingredients"] = GetIngredientList();
                 ViewData["UserId"] = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
                 return View();
             }
         }
-        public string AddedIngredients()
-        {
-            // Create a string from the non-Fineli API ingredients located in the ingredientsAdded.json file
-            using (StreamReader r = new StreamReader("ingredientsAdded.json"))
-            {
-                string addedIngredients = r.ReadToEnd();
-                return addedIngredients;
-            }
-        }
 
         // POST: Recipes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipe, ICollection<Ingredients> ingredients, string submitButton)
+        public async Task<IActionResult> Create([Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType,Ingredients")] Recipes recipe, ICollection<Ingredients> ingredients, string submitButton)
         {
             if (User.Claims.Count() == 0)
                 return View("NotFound");
@@ -182,12 +152,6 @@ namespace Menuetti.Controllers
                 recipe.UserId = userId;
                 _context.Add(recipe);
 
-                foreach (var ingredient in ingredients)
-                {
-                    ingredient.RecipeId = recipe.RecipeId;
-                    _context.Add(ingredient);
-                }
-
                 await _context.SaveChangesAsync();
 
                 //bool showBadge = ShowBadgeMessage(recipes.DietType, recipes.UserId);
@@ -196,45 +160,9 @@ namespace Menuetti.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+
+            TempData["ingredients"] = GetIngredientList();
             return View(recipe);
-        }
-
-        [NonAction]
-        private bool ShowBadgeMessage(string DietType, string UserId)
-        {
-            var userrecipes = _context.Recipes.Where(r => r.UserId == UserId).ToList();
-            //Linq for checking the amount of recipes byt DietType added by user
-            var result = (from s in userrecipes
-                          where s.DietType == DietType
-                          select s).Count();
-            //Most likely useless code, but here for storage for a while:
-            //var resultVegan = (from s in userrecipes
-            //                   where s.DietType == "Vegaaninen"
-            //                   select s).Count();
-
-            //var resultOmni = (from s in userrecipes
-            //                  where s.DietType == "Sekaruoka"
-            //                  select s).Count();
-
-            //var resultVegetarian = (from s in userrecipes
-            //                        where s.DietType == "Kasvis"
-            //                        select s).Count();
-
-            ////ViewsBag for the amount of vegan recipes by user
-            //ViewBag.Vegan = resultVegan;
-            ////ViewsBag for the amount of omni recipes by user sekaruoka
-            //ViewBag.Omni = resultOmni;
-            ////ViewsBag for the amount of vegetarian recipes by user kasvis
-            //ViewBag.Vegetarian = resultVegetarian;
-
-            if (result == 3)
-            { return true; }
-            else if (result == 10)
-            { return true; }
-            else if (result == 20)
-            { return true; }
-            else
-            { return false; }
         }
 
         // GET: Recipes/Edit/5
@@ -260,18 +188,7 @@ namespace Menuetti.Controllers
                     return View("NoPermission");
                 }
 
-                List<Ingredientti> items = new List<Ingredientti>();
-
-                // get the ingredient options list
-                using (StreamReader r = new StreamReader("ingredients.json"))
-                {
-                    string ingredients = r.ReadToEnd(); // Read ingredients.json
-                    string ingredientsEdited = ingredients.Remove(ingredients.Length - 1).ToString(); // Remove the final "]" from the ingredients.json file to prepare the string for concatenation
-                    string json = string.Concat(ingredientsEdited, ",", AddedIngredients().Substring(1).ToString()); // Concatenate the above ingredients-string with a "," and an addedIngredients string with the initial "[" removed
-                    items = JsonConvert.DeserializeObject<List<Ingredientti>>(json).OrderBy(t => t.name.fi).ToList(); // Create a list of ingredients and added sorted alphabetically by the name
-                }
-
-                TempData["ingredients"] = items;
+                TempData["ingredients"] = GetIngredientList();
                 ViewBag.UserId = UserId;
                 ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", recipes.UserId);
 
@@ -280,11 +197,9 @@ namespace Menuetti.Controllers
         }
 
         // POST: Recipes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType")] Recipes recipe, ICollection<Ingredients> ingredients)
+        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,UserId,RecipeName,Portions,Instructions,Time,DietType,Ingredients")] Recipes recipe, ICollection<Ingredients> ingredients)
         {
             if (id != recipe.RecipeId)
             {
@@ -295,8 +210,6 @@ namespace Menuetti.Controllers
             {
                 try
                 {
-                    _context.Update(recipe);
-
                     // deleting old ingredients from the recipe
                     var oldIngredients = from rec in _context.Ingredients
                                          where rec.RecipeId == recipe.RecipeId
@@ -305,17 +218,9 @@ namespace Menuetti.Controllers
                     foreach (var ingredient in oldIngredients)
                     {
                         _context.Remove(ingredient);
-                    }                    
-                    
-                    // adding ingredients to the recipe
-                    foreach (var ingredient in ingredients)
-                    {
-                        if (ingredient.IngredientName != null)
-                        {
-                            ingredient.RecipeId = recipe.RecipeId;
-                            _context.Add(ingredient);
-                        }
                     }
+
+                    _context.Update(recipe);
 
                     await _context.SaveChangesAsync();
                 }
@@ -374,12 +279,6 @@ namespace Menuetti.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RecipesExists(int id)
-        {
-            return _context.Recipes.Any(e => e.RecipeId == id);
-        }
-
-
         public ActionResult<Ingredientti> LoadJson()
         {
             using (StreamReader r = new StreamReader("ingredients.json"))
@@ -390,6 +289,56 @@ namespace Menuetti.Controllers
             }
         }
 
+        [NonAction]
+        private bool RecipesExists(int id)
+        {
+            return _context.Recipes.Any(e => e.RecipeId == id);
+        }
 
+        [NonAction]
+        private List<Ingredientti> GetIngredientList()
+        {
+            List<Ingredientti> items = new List<Ingredientti>();
+
+            // get the ingredient options list
+            using (StreamReader r = new StreamReader("ingredients.json"))
+            {
+                string ingredients = r.ReadToEnd(); // Read ingredients.json
+                string ingredientsEdited = ingredients.Remove(ingredients.Length - 1).ToString(); // Remove the final "]" from the ingredients.json file to prepare the string for concatenation
+                string json = string.Concat(ingredientsEdited, ",", AddedIngredients().Substring(1).ToString()); // Concatenate the above ingredients-string with a "," and an addedIngredients string with the initial "[" removed
+                items = JsonConvert.DeserializeObject<List<Ingredientti>>(json).ToList(); // Create a list of ingredients
+            }
+            return items;
+        }
+
+        [NonAction]
+        public string AddedIngredients()
+        {
+            // Create a string from the non-Fineli API ingredients located in the ingredientsAdded.json file
+            using (StreamReader r = new StreamReader("ingredientsAdded.json"))
+            {
+                string addedIngredients = r.ReadToEnd();
+                return addedIngredients;
+            }
+        }
+
+        [NonAction]
+        private bool ShowBadgeMessage(string DietType, string UserId)
+        {
+            var userrecipes = _context.Recipes.Where(r => r.UserId == UserId).ToList();
+            //Linq for checking the amount of recipes byt DietType added by user
+            var result = (from s in userrecipes
+                          where s.DietType == DietType
+                          select s).Count();
+
+            if (result == 3)
+                { return true; }
+            else if (result == 10)
+                { return true; }
+            else if (result == 20)
+                { return true; }
+            else
+                { return false; }
+        }
     }
 }
