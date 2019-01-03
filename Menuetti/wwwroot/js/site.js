@@ -4,14 +4,14 @@
 // Write your JavaScript code.
 
 /*setting the previous recipe id to local storage for later shopping list creation and hiding recipe details*/
-function fnSaveChoiceBack() {
-    localStorage.setItem('recipe0', 0)
-    $(".DetCarousel").hide();
-}
+//function fnSaveChoiceBack() {
+//    localStorage.setItem('recipe0', 0)
+//    $(".DetCarousel").hide();
+//}
 //hiding by default the recipe details and the toggle function for shoving it
-$(document).ready(function () {
-    $(".DetCarousel").hide();
-});
+//$(document).ready(function () {
+//    $(".DetCarousel").hide();
+//});
 
 // Toggle functions for the carousel (shows the recipe details)
 function showTheCarousel(modeli) {
@@ -66,13 +66,13 @@ function newIngredient() {
             `<div class="form-group" id="added-item-${i + 1}">
                 <div class="row" id="ingredient-row">
                     <div class="short-ingredient-box">
-                        <input class="form-control" type="number" id=ingredient-${i + 1}-amount min="1" name="Ingredients[${i + 1}].AmountG" readonly value="${previousAmount}" />
+                        <input class="form-control" type="number" id=ingredient-${i + 1}-amount min="1" name="Ingredients[${i + 1}].AmountG" required readonly value="${previousAmount}" />
                     </div>
                     <div class="short-ingredient-box">
-                        <input class="form-control" type="text" id=ingredient-${i + 1}-unit name="Ingredients[${i + 1}].RecipeUnit" readonly value="g" />
+                        <input class="form-control" type="text" id=ingredient-${i + 1}-unit name="Ingredients[${i + 1}].RecipeUnit" required readonly value="g" />
                     </div>
                     <div class="long-ingredient-box">
-                        <input class="form-control" type="text" id=ingredient-${i + 1}-name name="Ingredients[${i + 1}].IngredientName" readonly value="${previousName}" />
+                        <input class="form-control" type="text" id=ingredient-${i + 1}-name name="Ingredients[${i + 1}].IngredientName" required readonly value="${previousName}" />
                     </div>
                     <div class="delete-button">
                         <button type="button" onclick="deleteRow(id)" id="delete-button-${i + 1}">X</button>
@@ -115,13 +115,13 @@ function deleteRow(id) {
                     `<div class="form-group" id="added-item-${i}">
                         <div class="row" id="ingredient-row" >
                             <div class="short-ingredient-box">
-                                <input class="form-control" type="number" id=ingredient-${i}-amount min="1" name="Ingredients[${i}].AmountG" readonly value="${previousAmount}" />
+                                <input class="form-control" type="number" id=ingredient-${i}-amount min="1" name="Ingredients[${i}].AmountG" required readonly value="${previousAmount}" />
                             </div>
                             <div class="short-ingredient-box">
-                                <input class="form-control" type="text" id=ingredient-${i}-unit name="Ingredients[${i}].RecipeUnit" readonly value="g" />
+                                <input class="form-control" type="text" id=ingredient-${i}-unit name="Ingredients[${i}].RecipeUnit" required readonly value="g" />
                             </div>
                             <div class="long-ingredient-box">
-                                <input class="form-control" type="text" id=ingredient-${i}-name name="Ingredients[${i}].IngredientName" readonly value="${previousName}" />
+                                <input class="form-control" type="text" id=ingredient-${i}-name name="Ingredients[${i}].IngredientName" required readonly value="${previousName}" />
                             </div>
                             <div class="delete-button">
                                 <button type="button" onclick="deleteRow(id)" id="delete-button-${i}">X</button>
@@ -135,13 +135,13 @@ function deleteRow(id) {
                     `<div class="form-group" id="added-item-${i - 1}">
                         <div class="row" id="ingredient-row" >
                             <div class="short-ingredient-box">
-                                <input class="form-control" type="number" id=ingredient-${i - 1}-amount min="1" name="Ingredients[${i - 1}].AmountG" readonly value="${previousAmount}" />
+                                <input class="form-control" type="number" id=ingredient-${i - 1}-amount min="1" name="Ingredients[${i - 1}].AmountG" required readonly value="${previousAmount}" />
                             </div>
                             <div class="short-ingredient-box">
-                                <input class="form-control" type="text" id=ingredient-${i - 1}-unit name="Ingredients[${i - 1}].RecipeUnit" readonly value="g" />
+                                <input class="form-control" type="text" id=ingredient-${i - 1}-unit name="Ingredients[${i - 1}].RecipeUnit" required readonly value="g" />
                             </div>
                             <div class="long-ingredient-box">
-                                <input class="form-control" type="text" id=ingredient-${i - 1}-name name="Ingredients[${i - 1}].IngredientName" readonly value="${previousName}" />
+                                <input class="form-control" type="text" id=ingredient-${i - 1}-name name="Ingredients[${i - 1}].IngredientName" required readonly value="${previousName}" />
                             </div>
                             <div class="delete-button">
                                 <button type="button" onclick="deleteRow(id)" id="delete-button-${i - 1}">X</button>
@@ -179,13 +179,13 @@ function deleteRow(id) {
                     `<div class="form-group" id="added-item-${i - 1}">
                         <div class="row" id="ingredient-row" >
                             <div class="short-ingredient-box">
-                                <input class="form-control" type="number" id=ingredient-${i - 1}-amount min="1" name="Ingredients[${i - 1}].AmountG" readonly value="${previousAmount}" />
+                                <input class="form-control" type="number" id=ingredient-${i - 1}-amount min="1" name="Ingredients[${i - 1}].AmountG" required readonly value="${previousAmount}" />
                             </div>
                             <div class="short-ingredient-box">
-                                <input class="form-control" type="text" id=ingredient-${i - 1}-unit name="Ingredients[${i - 1}].RecipeUnit" readonly value="g" />
+                                <input class="form-control" type="text" id=ingredient-${i - 1}-unit name="Ingredients[${i - 1}].RecipeUnit" required readonly value="g" />
                             </div>
                             <div class="long-ingredient-box">
-                                <input class="form-control" type="text" id=ingredient-${i - 1}-name name="Ingredients[${i - 1}].IngredientName" readonly value="${previousName}" />
+                                <input class="form-control" type="text" id=ingredient-${i - 1}-name name="Ingredients[${i - 1}].IngredientName" required readonly value="${previousName}" />
                             </div>
                             <div class="delete-button">
                                 <button type="button" onclick="deleteRow(id)" id="delete-button-${i - 1}">X</button>
