@@ -273,5 +273,60 @@
         "mass": "1.0"
       }
     ]
+  },
+  {
+    "name": { "fi": "Jauho, gluteenijauho" },
+    "id": 100006,
+    "ingredientClass": { "description": { "fi": "Vehnä" } },
+    "fiber": "3.5",
+    "salt": "0.548",
+    "fat": "5.46",
+    "carbohydrate": "10.7229995727539",
+    "protein": "79.899",
+    "energyKcal": "390.736",
+    "saturatedFat": "1.316",
+    "specialDiets": [ "SOYAFREE", "UNSWEET", "MILKFREE", "LACSFREE", "SALTFREE", "LACVEGE", "VEGAN", "LACOVEGE", "EGGFREE" ],
+    "units": [
+      {
+        "description": { "fi": "desilitra" },
+        "code": "DL",
+        "mass": "55.0"
+      },
+      {
+        "description": { "fi": "ruokalusikka" },
+        "code": "RKL",
+        "mass": "9.0"
+      },
+      {
+        "description": { "fi": "teelusikka" },
+        "code": "TL",
+        "mass": "3.0"
+      },
+      {
+        "description": { "fi": "pieni annos" },
+        "code": "PORTS",
+        "mass": "15.0"
+      },
+      {
+        "description": { "fi": "keskikokoinen annos" },
+        "code": "PORTM",
+        "mass": "25.0"
+      },
+      {
+        "description": { "fi": "iso annos" },
+        "code": "PORTL",
+        "mass": "35.0"
+      },
+      {
+        "description": { "fi": "Annoksen koko, joka vastaa 1000kJ" },
+        "code": "PORT1000KJ",
+        "mass": "69.5"
+      },
+      {
+        "description": { "fi": "gramma" },
+        "code": "G",
+        "mass": "1.0"
+      }
+    ]
   }
 ]
