@@ -1,18 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-/*setting the previous recipe id to local storage for later shopping list creation and hiding recipe details*/
-//function fnSaveChoiceBack() {
-//    localStorage.setItem('recipe0', 0)
-//    $(".DetCarousel").hide();
-//}
-//hiding by default the recipe details and the toggle function for shoving it
-//$(document).ready(function () {
-//    $(".DetCarousel").hide();
-//});
-
+﻿
 // Toggle functions for the carousel (shows the recipe details)
 function showTheCarousel(modeli) {
     $("#recipe-" + modeli).toggle();

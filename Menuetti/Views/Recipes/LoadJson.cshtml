@@ -18,7 +18,7 @@
             <ul id="ingredient-options" style="display:none">
                 @foreach (var item in Model)
                 {
-                    <li><a onclick="save(id)" id="@item.name.fi">@item.name.fi</a></li>
+                    <li><a class="ingredientItemVisible" onclick="save(id)" id="@item.name.fi">@item.name.fi</a></li>
                 }
             </ul>
         </div>
@@ -29,12 +29,14 @@
 </div>
 
 <script>
+
     function SearchIngredient() {
 
         let input = document.getElementById("ingredient-@rowNumber-name");
         let filter = input.value.toUpperCase();
         let ingredientList = document.getElementById("ingredient-options");
         let ingredient = ingredientList.getElementsByTagName("li");
+        let errorMessage = "<div id=noOptionError>Valitse raaka-aine listalta.</div>"
 
         for (let i = 0; i < ingredient.length; i++) {
 
@@ -42,11 +44,14 @@
             let txtValue = ingredientName.textContent || ingredientName.innerText;
 
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                ingredient[i].style.display = "";
+                //ingredient[i].style.display = "";
+                $(ingredientName).removeClass('ingredientItemHidden').addClass('ingredientItemVisible');
             } else {
-                ingredient[i].style.display = "none";
-            }
+                //ingredient[i].style.display = "none";
+                $(ingredientName).removeClass('ingredientItemVisible').addClass('ingredientItemHidden');
+            }            
         }
+
     }
     function showIngredientOptions() {
         $("#ingredient-options").toggle();
