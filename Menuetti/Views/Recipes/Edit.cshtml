@@ -52,7 +52,7 @@
                     if (Model.Ingredients.Last().IngredientId != item.IngredientId) // printing out all the rows except the last one that goes to the partial view
                     {
                         <div class="form-group" id="added-item-@i">
-                            <div class="row" id="ingredient-row">
+                            <div id="ingredient-row">
                                 <div class="short-ingredient-box">
                                     <input class="form-control" type="number" id=ingredient-@i-amount min="1" name="Ingredients[@i].AmountG" required readonly value="@item.AmountG" />
                                 </div>
