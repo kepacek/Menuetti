@@ -57,7 +57,7 @@ function newIngredient() {
             // html for the previous inputs with values
             var previousIngredientRow =
                 `<div class="form-group" id="added-item-${i + 1}">
-                <div class="row" id="ingredient-row">
+                <div id="ingredient-row">
                     <div class="short-ingredient-box">
                         <input class="form-control" type="number" id=ingredient-${i + 1}-amount min="1" name="Ingredients[${i + 1}].AmountG" required readonly value="${previousAmount}" />
                     </div>
@@ -111,7 +111,7 @@ function deleteRow(id) {
                 // html for the previous inputs with values
                 var previousIngredientRow =
                     `<div class="form-group" id="added-item-${i}">
-                        <div class="row" id="ingredient-row" >
+                        <div id="ingredient-row" >
                             <div class="short-ingredient-box">
                                 <input class="form-control" type="number" id=ingredient-${i}-amount min="1" name="Ingredients[${i}].AmountG" required readonly value="${previousAmount}" />
                             </div>
@@ -131,7 +131,7 @@ function deleteRow(id) {
                 // html for the previous inputs with values
                 var previousIngredientRow =
                     `<div class="form-group" id="added-item-${i - 1}">
-                        <div class="row" id="ingredient-row" >
+                        <div id="ingredient-row" >
                             <div class="short-ingredient-box">
                                 <input class="form-control" type="number" id=ingredient-${i - 1}-amount min="1" name="Ingredients[${i - 1}].AmountG" required readonly value="${previousAmount}" />
                             </div>
@@ -175,7 +175,7 @@ function deleteRow(id) {
 
                 var previousIngredientRow =
                     `<div class="form-group" id="added-item-${i - 1}">
-                        <div class="row" id="ingredient-row" >
+                        <div id="ingredient-row" >
                             <div class="short-ingredient-box">
                                 <input class="form-control" type="number" id=ingredient-${i - 1}-amount min="1" name="Ingredients[${i - 1}].AmountG" required readonly value="${previousAmount}" />
                             </div>

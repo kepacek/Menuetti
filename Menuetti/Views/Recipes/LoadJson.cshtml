@@ -6,7 +6,7 @@
 }
 
 <div class="form-group" id="added-item-@rowNumber">
-    <div class="row" id="ingredient-row">
+    <div id="ingredient-row">
         <div class="short-ingredient-box">
             <input class="form-control" type="number" id=ingredient-@rowNumber-amount min="1" name="Ingredients[@rowNumber].AmountG" required />
         </div>
@@ -18,13 +18,14 @@
             <ul id="ingredient-options" style="display:none">
                 @foreach (var item in Model)
                 {
-                    <li><a class="ingredientItemVisible" onclick="save(id)" id="@item.name.fi">@item.name.fi</a></li>
+                    <li class="ingredientItemVisible"><a onclick="save(id)" id="@item.name.fi">@item.name.fi</a></li>
                 }
             </ul>
         </div>
         <div class="delete-button">
             <button type="button" onclick="deleteRow(id)" id="delete-button-@rowNumber">X</button>
         </div>
+        <div id="noOptionError"></div>
     </div>
 </div>
 
@@ -36,26 +37,37 @@
         let filter = input.value.toUpperCase();
         let ingredientList = document.getElementById("ingredient-options");
         let ingredient = ingredientList.getElementsByTagName("li");
-        let errorMessage = "<div id=noOptionError>Valitse raaka-aine listalta.</div>"
+        let errorMessage = "Valitse raaka-aine listalta."
 
         for (let i = 0; i < ingredient.length; i++) {
 
             let ingredientName = ingredient[i].getElementsByTagName("a")[0];
+            let ingredientRow = ingredient[i].getElementsByTagName("a")[0].parentElement;
             let txtValue = ingredientName.textContent || ingredientName.innerText;
 
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                //ingredient[i].style.display = "";
-                $(ingredientName).removeClass('ingredientItemHidden').addClass('ingredientItemVisible');
+                $(ingredientRow).removeClass('ingredientItemHidden').addClass('ingredientItemVisible');
             } else {
-                //ingredient[i].style.display = "none";
-                $(ingredientName).removeClass('ingredientItemVisible').addClass('ingredientItemHidden');
-            }            
+                $(ingredientRow).removeClass('ingredientItemVisible').addClass('ingredientItemHidden');
+            }
+
         }
 
+        let ingredientSuggestionCount = document.getElementsByClassName("ingredientItemVisible").length;
+
+        if (ingredientSuggestionCount == 0 && document.getElementById("noOptionError").innerHTML !== errorMessage) {
+            document.getElementById("noOptionError").innerHTML = errorMessage;
+            ingredientSuggestionCount = 0;
+        }
+        if (document.getElementById("noOptionError") && ingredientSuggestionCount != 0) {
+                document.getElementById("noOptionError").innerHTML = "";
+        }
     }
+
     function showIngredientOptions() {
         $("#ingredient-options").toggle();
     }
+
     function save(id) {
         document.getElementById("ingredient-@rowNumber-name").value = id;
         $("#ingredient-options").hide();
