@@ -8,6 +8,7 @@
     int indexOfPartialView = 0;
     string action = ViewBag.dietUrl;
 }
+<script src="~/js/site.js"></script>
 @section Scripts
     {
     <script>
@@ -73,30 +74,38 @@
     localStorage.clear();
 </script>
 
-<h2>@(ViewBag.dietType)ruokavalio</h2>
+<div class="recipe-nav-wrapper">
 
-<div>Kuinka monta reseptiä haluat?</div>
-<nav>
-    <ul class="pagination pagination-lg" style="margin: 0 0 0 0">
-        @for (int i = 1; i < 6; i++)
-        {
-            string number = i.ToString();
-            if (i == nroOfRecipes)
-            {
-                <li class="page-item active">
-                    @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item active" })
-                </li>
-            }
-            else
-            {
-                <li class="page-item">
-                    @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item" })
-                </li>
-            }
-        }
-    </ul>
-</nav>
-<hr style="margin-top:0px" />
+    <div class="recipe-nav-left">
+        <h2>@(ViewBag.dietType)ruokavalio</h2>
+        <div><p>Kuinka monta reseptiä haluat?</p></div>
+        <nav class="recipe-nav">
+            <ul class="pagination pagination-lg" style="margin: 0 0 0 0">
+                @for (int i = 1; i < 6; i++)
+                {
+                    string number = i.ToString();
+                    if (i == nroOfRecipes)
+                    {
+                        <li class="page-item active">
+                            @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item active" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item" })
+                        </li>
+                    }
+                }
+            </ul>
+        </nav>
+    </div>
+    <div class="shopping-list">
+        <button type="submit" class="" onclick=sendToShoppinglist()><img src="~/images/shopping_list.png" alt="Checklist" /><span class="btntext">Luo ostoslista</span></button>
+    </div>
+
+</div>
+<hr />
 
 
 @for (int j = 1; j <= nroOfRecipes; j++)
@@ -147,10 +156,10 @@
     </div>
     <hr style="margin-top:0px" />
 }
-<div>
+@*<div>
     <p>
         <button type="submit" class="btn btn-default btn-lg btn-block" onclick=sendToShoppinglist()><img src="~/images/checklist.png" alt="Checklist" style="padding-right: 9%;" /><span class="btntext">Luo ostoslista</span><span class="glyphicon glyphicon-menu-right" style="padding-left: 9%;"></span></button>
     </p>
-</div>
+</div>*@
 
 

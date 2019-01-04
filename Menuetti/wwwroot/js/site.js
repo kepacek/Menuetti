@@ -43,6 +43,10 @@ function sendToShoppinglist() {
 
 var index = 1; // index for both newIngredient() and deleteRow(id) below.
 
+function setIndex(indx) {
+    index = indx;
+}
+
 function newIngredient() {
     var olderInputs = "";
 
@@ -55,7 +59,7 @@ function newIngredient() {
         var previousName = document.getElementById(`ingredient-${i}-name`).value;
         document.getElementById(`ingredient-${i}-name`).value = "";
 
-        console.log("ingredient" + i + " - " + previousAmount + " " + previousName);
+        //console.log("ingredient" + i + " - " + previousAmount + " " + previousName);
 
         // html for the previous inputs with values
         var previousIngredientRow =
@@ -92,7 +96,7 @@ function newIngredient() {
 function deleteRow(id) {
 
     var buttonNro = id.toString().substring(14, 16);
-    console.log("id: " + id + ", buttonNro: " + buttonNro);
+    //console.log("id: " + id + ", buttonNro: " + buttonNro);
 
     var olderInputs = "";
 
@@ -152,14 +156,8 @@ function deleteRow(id) {
                 }
             }
 
-            console.log("index: " + index);
-            console.log("i: " + i);
-            console.log(previousIngredientRow);
-
             // adding all the inputs to one block that will be written again
             olderInputs = (olderInputs + previousIngredientRow);
-            console.log("old inputs:")
-            console.log(olderInputs)
 
             // when the most previous ingredient is added, printing out
             if (i == 0) {
