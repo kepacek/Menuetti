@@ -24,18 +24,22 @@
 
         @ViewBag.CarouselIngredients //Katso näitä, älä jätä ikuisiksi ajoiksi tänne roikkumaan*@
 
-    @foreach (var item in Model.Ingredients)
-    {
-        <p>
-            @item.AmountG @item.RecipeUnit @item.IngredientName
-        </p>
-    }
+    <table>
+        @foreach (var item in Model.Ingredients)
+        {
+            <tr>
+                <td class="td-align-right"> @item.AmountG </td>
+                <td> @item.RecipeUnit</td>
+                <td> @item.IngredientName </td>
+            </tr>
+        }
+    </table>
     <hr />
-    <dt>
-        Ohjeet
-    </dt>
-    <dd class="multiline">
+
+    <h5>Ohjeet</h5>
+
+    <p class="multiline">
         @Html.DisplayFor(model => model.Instructions)
-    </dd>
+    </p>
     <hr />
 </div>
