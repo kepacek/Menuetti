@@ -3,12 +3,34 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'Open Sans', sans-serif;
 }
+
+/*text styles*/
+h2 {
+    margin-bottom: 20px;
+}
+
+h4, h5 {
+    color: rgb(112, 121, 255);
+    font-weight: 800;
+}
+
+td {
+    padding: 5px;
+}
+
+.td-align-right {
+    text-align: right;
+    padding-right: 0px;
+}
+
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 4%;
-    padding-right: 4%;
+    padding-left: 6%;
+    padding-right: 6%;
 }
 /* Carousel */
 .carousel-caption p {
@@ -24,55 +46,223 @@ body {
     color: #333333;
     opacity: inherit;
     background-image: none !important;
+    font-size: 12px;
+    width: auto;
 }
 
-    .carousel-control:hover {
-        color: dimgray;
-    }
+.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right {
+    top: 40%;
+}
+
+.carousel-control:hover {
+    color: dimgray;
+}
 /* QR code generator */
 #qrCode {
     margin: 15px;
 }
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-}
-/*.glyphicon-menu-right {
-    position: absolute;
-    right: 10%;
-    top: 40%;
-    padding-left: 10px;
-}*/
-.col-sm-12 {
-    padding-bottom: 15px;
+
+
+/*navbar*/
+.navbar-collapse {
+    width: 90%;
 }
 
-.btntext {
-    /*padding-left: 20px;*/
+.navbar-header {
+    padding-left: 0px;
+}
+
+.navbar-nav {
+    font-weight: 600;
+    color: white;
+}
+
+.navbar-brand {
+    margin-left: 0px;
+    margin-top: 0;
+    padding-top: 10px;
+}
+
+
+/*logo*/
+
+.logo {
+    width: 90%;
+    max-width: 350px;
+    margin: 20px auto 20px auto;
+}
+
+.logo > img {
+    width: 100%;
+    height: auto;
+}
+
+/*index-page*/
+
+.index_btn {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    max-width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text_index {
+    text-align: left;
+    max-width: 600px;
+    margin-left: 0px;
+    margin-bottom: 20px;
+}
+
+.introduction, .register_text {
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+
+.register_text {
+    display: none;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+}
+
+.button_container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.food_img {
+    width: 150px;
+}
+
+.btntext, .btntext-index {
+    text-align: left;
+    margin-top: 0px;
     font-weight: bold;
     font-size: 1em;
     color: black;
 }
 
-    .btntext:link {
-        text-decoration: none;
-        color: black;
-    }
+.btntext-index {
+    width: 80px;
+}
 
-    .btntext:hover {
-        text-decoration: none;
-    }
+.btntext:link {
+    text-decoration: none;
+    color: black;
+}
+
+.btntext:hover {
+    text-decoration: none;
+}
+
+.recipe-text {
+    font-size: 1.2em;
+    margin-right: 2em;
+}
+
+.recipe-item {
+    height: auto;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.recipe-nav-left {
+    width: 70%;
+}
+
+.recipe-nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+}
+
+.shopping-list {
+    width: 50px;
+    margin-top: 70px;
+}
+
+.shopping-list > button > img {
+    width: 100%;
+    height: auto;
+}
+
+.shopping-list > button {
+    background-color: white;
+    border: 0;
+}
+
+.body-content {
+    width: 100%;
+    margin-top: 10px;
+}
 
 #myCarousel {
     height: 200px;
 }
 
-@media (max-width: 1000px) {
-    .navbar-header {
-        float: none;
+/*.multiline {
+    white-space: pre-wrap;
+}*/
+
+.arrow {
+    margin-left: 0px;
+}
+
+
+
+/*media-query*/
+
+@media screen and (min-width: 768px) {
+
+    .logo {
+        margin-top: 50px;
+        min-width: 350px;
+    }
+
+    .register_text {
+        display: block;
+    }
+
+    .carousel-control .glyphicon-chevron-left {
+        font-size: 12px;
+    }
+
+    .carousel-control .glyphicon-chevron-right {
+        font-size: 12px;
+    }
+}
+
+
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+
+    .button_container {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .flex {
+        display: block;
+    }
+
+    .food_btn {
+        width: 90%;
+    }
+
+    .food_btn a {
+        margin: 10px auto;
     }
 
     .navbar-left, .navbar-right {
@@ -102,98 +292,23 @@ body {
         margin-top: 7.5px;
     }
 
-        .navbar-nav > li {
-            float: none;
-        }
+    .navbar-nav > li {
+        float: none;
+    }
 
-            .navbar-nav > li > a {
-                padding-top: 10px;
-                padding-bottom: 10px;
-            }
+    .navbar-nav > li > a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 
     .collapse.in {
         display: block !important;
     }
 }
 
-.multiline {
-    white-space: pre-wrap;
-}
-
-@media screen and (min-width: 992px) {
-    #ingredient-row {
-        margin: 0% 0% 1% 0%;
+@media screen and (min-width: 1100px) {
+    .body-content {
+        width: 70%;
+        margin-top: 30px;
     }
-
-        #ingredient-row .short-ingredient-box {
-            width: 20%;
-            float: left;
-            margin-right: 1%;
-        }
-
-        #ingredient-row .long-ingredient-box {
-            float: left;
-            width: 54%;
-            /*padding-left: 5px;*/
-        }
-
-    .delete-button {
-        margin-left: 1%;
-        float: left;
-    }
-
-    #AddIngredient {
-        margin-bottom: 2%;
-    }
-}
-@media screen and (max-width: 992px) {
-    #ingredient-row {
-        margin: 0% 0% 1% 0%;
-    }
-
-        /*#ingredient-row .short-ingredient-box {
-            width: 20%;
-            float: left;
-            margin-right: 1%;
-        }*/
-
-        #ingredient-row .long-ingredient-box {
-            float: left;
-            width: 91%;
-        }
-
-    .delete-button {
-        /*margin-left: 1%;*/
-        float: left;
-    }
-
-    /*#AddIngredient {
-        margin-bottom: 2%;
-    }*/
-}
-
-/*Ingredient searchbar*/
-#ingredient-options {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-    #ingredient-options li a {
-        border: 1px solid #ddd;
-        margin-top: -1px; /* Prevent double borders */
-        background-color: #f6f6f6;
-        padding: 1%;
-        text-decoration: none;
-        font-size: 150%;
-        color: black;
-        display: block
-    }
-
-        #ingredient-options li a:hover:not(.header) {
-            background-color: #eee;
-        }
-
-#recipeindex {
-    vertical-align: middle;
 }

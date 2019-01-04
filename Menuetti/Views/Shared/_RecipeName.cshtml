@@ -1,6 +1,6 @@
 ﻿@model Recipes
 
-<span class="btntext" id="recipe@(Model.RecipeId)" style="text-align: center">
-    @Model.RecipeName <br />
+<span class="btntext recipe-text" id="recipe@(Model.RecipeId)">
+    @Model.RecipeName
     <img src="~/images/time.png" /><span style="font-size: small"> @Model.Time min</span>
 </span>
