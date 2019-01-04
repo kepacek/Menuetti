@@ -1,18 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-/*setting the previous recipe id to local storage for later shopping list creation and hiding recipe details*/
-//function fnSaveChoiceBack() {
-//    localStorage.setItem('recipe0', 0)
-//    $(".DetCarousel").hide();
-//}
-//hiding by default the recipe details and the toggle function for shoving it
-//$(document).ready(function () {
-//    $(".DetCarousel").hide();
-//});
-
+﻿
 // Toggle functions for the carousel (shows the recipe details)
 function showTheCarousel(modeli) {
     $("#recipe-" + modeli).toggle();
@@ -71,7 +57,7 @@ function newIngredient() {
             // html for the previous inputs with values
             var previousIngredientRow =
                 `<div class="form-group" id="added-item-${i + 1}">
-                <div class="row" id="ingredient-row">
+                <div id="ingredient-row">
                     <div class="short-ingredient-box">
                         <input class="form-control" type="number" id=ingredient-${i + 1}-amount min="1" name="Ingredients[${i + 1}].AmountG" required readonly value="${previousAmount}" />
                     </div>
@@ -125,7 +111,7 @@ function deleteRow(id) {
                 // html for the previous inputs with values
                 var previousIngredientRow =
                     `<div class="form-group" id="added-item-${i}">
-                        <div class="row" id="ingredient-row" >
+                        <div id="ingredient-row" >
                             <div class="short-ingredient-box">
                                 <input class="form-control" type="number" id=ingredient-${i}-amount min="1" name="Ingredients[${i}].AmountG" required readonly value="${previousAmount}" />
                             </div>
@@ -145,7 +131,7 @@ function deleteRow(id) {
                 // html for the previous inputs with values
                 var previousIngredientRow =
                     `<div class="form-group" id="added-item-${i - 1}">
-                        <div class="row" id="ingredient-row" >
+                        <div id="ingredient-row" >
                             <div class="short-ingredient-box">
                                 <input class="form-control" type="number" id=ingredient-${i - 1}-amount min="1" name="Ingredients[${i - 1}].AmountG" required readonly value="${previousAmount}" />
                             </div>
@@ -189,7 +175,7 @@ function deleteRow(id) {
 
                 var previousIngredientRow =
                     `<div class="form-group" id="added-item-${i - 1}">
-                        <div class="row" id="ingredient-row" >
+                        <div id="ingredient-row" >
                             <div class="short-ingredient-box">
                                 <input class="form-control" type="number" id=ingredient-${i - 1}-amount min="1" name="Ingredients[${i - 1}].AmountG" required readonly value="${previousAmount}" />
                             </div>
