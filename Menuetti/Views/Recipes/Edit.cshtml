@@ -3,14 +3,14 @@
 @{
     ViewData["Title"] = "Edit";
     var ingredients = TempData["ingredients"];
+    var recipeIngredientsCount = @Model.Ingredients.Count();
 }
-<script src="~/js/site.js"></script>
 @section Scripts
     {
+    <script src="~/js/site.js"></script>
     <script>
-        var i = @Model.Ingredients.Count() +1;
         $(document).ready(function () {
-            setIndex(i);
+            setIndex(@recipeIngredientsCount);
         })
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -23,7 +23,6 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="RecipeId" />
         <div class="form-group">
-            @*<label asp-for="UserId" class="control-label"></label>*@
             <input type="hidden" asp-for="UserId" class="form-control" asp-items="ViewBag.UserId" readonly />
             <span asp-validation-for="UserId" class="text-danger"></span>
         </div>
@@ -44,36 +43,45 @@
         </div>
         <b>Raaka-aineet</b>
         <div id="newIngredients">
-            @if (Model.Ingredients.Count > 0)
+            @if (recipeIngredientsCount > 0)
+            {
+                var i = recipeIngredientsCount - 1; // counting how many rows needed --> numbers to the field id's
+
+                @foreach (var item in Model.Ingredients)
                 {
-                    var i = Model.Ingredients.Count();
-            @foreach (var item in Model.Ingredients)
+                    if (Model.Ingredients.Last().IngredientId != item.IngredientId) // printing out all the rows except the last one that goes to the partial view
                     {
+                        <div class="form-group" id="added-item-@i">
+                            <div class="row" id="ingredient-row">
+                                <div class="short-ingredient-box">
+                                    <input class="form-control" type="number" id=ingredient-@i-amount min="1" name="Ingredients[@i].AmountG" required readonly value="@item.AmountG" />
+                                </div>
+                                <div class="short-ingredient-box">
+                                    <input class="form-control" type="text" id=ingredient-@i-unit name="Ingredients[@i].RecipeUnit" required readonly value="@item.RecipeUnit" />
+                                </div>
+                                <div class="long-ingredient-box">
+                                    <input class="form-control" type="text" id=ingredient-@i-name name="Ingredients[@i].IngredientName" required readonly value="@item.IngredientName" />
+                                </div>
+                                <div class="delete-button">
+                                    <button type="button" onclick="deleteRow(id)" id="delete-button-@i">X</button>
+                                </div>
+                            </div>
+                        </div>
 
-          
-
-            <div class="form-group" id="added-item-@i">
-                <div class="row" id="ingredient-row">
-                    <div class="short-ingredient-box">
-                        <input class="form-control" type="number" id=ingredient-@i-amount min="1" name="Ingredients[@i].AmountG" readonly value="@item.AmountG" />
-                    </div>
-                    <div class="short-ingredient-box">
-                        <input class="form-control" type="text" id=ingredient-@i-unit name="Ingredients[@i].RecipeUnit" readonly value="@item.RecipeUnit" />
-                    </div>
-                    <div class="long-ingredient-box">
-                        <input class="form-control" type="text" id=ingredient-@i-name name="Ingredients[@i].IngredientName" readonly value="@item.IngredientName" />
-                    </div>
-                    <div class="delete-button">
-                        <button type="button" onclick="deleteRow(id)" id="delete-button-@i">X</button>
-                    </div>
-                </div>
-            </div>
                         i--;
                     }
                 }
-            
+            }
         </div>
         @{await Html.RenderPartialAsync("LoadJson", ingredients, new ViewDataDictionary(ViewData) { { "rowNumber", 0 } });}
+            @if (Model.Ingredients.Count > 0)
+             {
+                <script>
+                    document.getElementById("ingredient-0-amount").value = @Model.Ingredients.Last().AmountG;
+                    document.getElementById("ingredient-0-unit").value = "@Model.Ingredients.Last().RecipeUnit";
+                    document.getElementById("ingredient-0-name").value = "@Model.Ingredients.Last().IngredientName";
+                </script>
+             }
         <button type="button" class="btn" id="AddIngredient" onclick="newIngredient()">Lisää uusi raaka-aine</button>
         <div class="form-group">
             <label asp-for="DietType" class="control-label">Ruokavalio</label>
