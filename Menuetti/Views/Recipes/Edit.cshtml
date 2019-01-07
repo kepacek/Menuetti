@@ -5,9 +5,9 @@
     var ingredients = TempData["ingredients"];
     var recipeIngredientsCount = @Model.Ingredients.Count();
 }
+<script src="~/js/site.js"></script>
 @section Scripts
     {
-    <script src="~/js/site.js"></script>
     <script>
         $(document).ready(function () {
             setIndex(@recipeIngredientsCount);
