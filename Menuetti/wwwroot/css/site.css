@@ -80,20 +80,26 @@ td {
 .navbar-brand {
     margin-left: 0px;
     margin-top: 0;
-    padding-top: 10px;
+    padding-top: 13px;
 }
+
+.navbar-brand img {
+    width: 120px;
+    height: 20px;
+}
+
+
 
 
 /*logo*/
-
 .logo {
     width: 90%;
     max-width: 350px;
-    margin: 20px auto 20px auto;
+    margin: 20px auto;
 }
 
 .logo > img {
-    width: 100%;
+    max-width: 297px;
     height: auto;
 }
 
@@ -102,22 +108,24 @@ td {
 .index_btn {
     margin-top: 0px;
     margin-bottom: 10px;
-    max-width: 350px;
+    width: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: auto;
+    margin-right:auto;
 }
 
 .text_index {
     text-align: left;
     max-width: 600px;
-    margin-left: 0px;
-    margin-bottom: 20px;
+    margin: 0 auto 20px;
 }
 
 .introduction, .register_text {
     font-size: 1.2em;
     line-height: 1.5;
+    margin: 0 auto 20px;
 }
 
 .register_text {
@@ -221,29 +229,21 @@ td {
 
 /*media-query*/
 
-@media screen and (min-width: 768px) {
 
-    .logo {
-        margin-top: 50px;
-        min-width: 350px;
-    }
 
+
+/*-------Small devices (landscape phones, 576px and up)----------*/
+@media (min-width: 576px) {
     .register_text {
         display: block;
     }
 
-    .carousel-control .glyphicon-chevron-left {
-        font-size: 12px;
-    }
-
-    .carousel-control .glyphicon-chevron-right {
-        font-size: 12px;
-    }
 }
 
 
-@media screen and (max-width: 767px) {
-    /* Hide captions */
+
+@media (max-width: 767px) {
+
     .carousel-caption {
         display: none;
     }
@@ -304,11 +304,36 @@ td {
     .collapse.in {
         display: block !important;
     }
+
+    .logo > img {
+        width: 350px;
+        height: auto;
+    }
 }
 
-@media screen and (min-width: 1100px) {
+/*------Medium devices (tablets, 768px and up) ------------*/
+@media (min-width: 768px) {
+    
+    .carousel-control .glyphicon-chevron-left {
+        font-size: 12px;
+    }
+
+    .carousel-control .glyphicon-chevron-right {
+        font-size: 12px;
+    }
+  
+}
+
+/*-----------Large devices (desktops, 992px and up)--------*/
+@media (min-width: 992px) {
     .body-content {
-        width: 70%;
+        width: 80%;
         margin-top: 30px;
     }
+
+    .logo {
+        margin-top: 50px;
+        min-width: 350px;
+    }
+  
 }
