@@ -87,13 +87,13 @@
                     if (i == nroOfRecipes)
                     {
                         <li class="page-item active">
-                            @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item active" })
+                            @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em 0.15em", @class = "page-item active" })
                         </li>
                     }
                     else
                     {
                         <li class="page-item">
-                            @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item" })
+                            @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em 0.15em", @class = "page-item" })
                         </li>
                     }
                 }
@@ -116,20 +116,20 @@
             <div class="carousel-inner">
 
                 @*<--First item on the carousel (visible right away)-->*@
-                <div class="item active" id="@Model[indexOfFirstCarouselItem].RecipeId" style="height: 5.5em; text-align:center">
-                    <p class="btntext" style="text-align: center; height:50%">
+                <div class="item active" id="@Model[indexOfFirstCarouselItem].RecipeId" style="height:100%; text-align:center">
+                    <div class="btntext" style="text-align: center;" >
                         <a role="button" onclick="showTheCarousel(@Model[indexOfFirstCarouselItem].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[indexOfFirstCarouselItem]);} </a>
-                    </p>
+                    </div>
                     <script>localStorage.setItem('recipe/@(indexOfFirstCarouselItem)', '@Model[indexOfFirstCarouselItem].RecipeName')</script>
                 </div>
 
                 @*<--Other items on the carousel (visible when clicking right or left)-->*@
                 @for (int i = 1; i < nroOfRecipesPerCarousel; i++)
                 {
-                    <div class="item" id="@Model[(i + indexOfFirstCarouselItem)].RecipeId" style="height: 5.5em; text-align:center">
-                        <p class="btntext" style="text-align: center">
+                    <div class="item" id="@Model[(i + indexOfFirstCarouselItem)].RecipeId" style="height:100%; text-align:center">
+                        <div class="btntext" style="text-align: center">
                             <a role="button" onclick="showTheCarousel(@Model[(i + indexOfFirstCarouselItem)].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[(i + indexOfFirstCarouselItem)]);} </a>
-                        </p>
+                        </div>
                         <script>localStorage.setItem('recipe/@(i + indexOfFirstCarouselItem)', '@Model[(i + indexOfFirstCarouselItem)].RecipeName')</script>
                     </div>
                 }
@@ -154,7 +154,7 @@
 
         }
     </div>
-    <hr style="margin-top:0px" />
+    <hr />
 }
 @*<div>
     <p>

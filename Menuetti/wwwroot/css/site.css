@@ -6,13 +6,17 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+hr {
+    margin: 17px 0;
+}
+
 /*text styles*/
 h2 {
     margin-bottom: 20px;
 }
 
 h4, h5 {
-    color: rgb(112, 121, 255);
+    color: #5bc0de;
     font-weight: 800;
 }
 
@@ -50,8 +54,18 @@ td {
     width: auto;
 }
 
-.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right {
-    top: 40%;
+.carousel-control .glyphicon-chevron-left {
+    margin-left: -15px;
+}
+
+.carousel-control .glyphicon-chevron-right {
+    margin-right: -15px;
+}
+
+
+.carousel-inner{
+    padding-left: 15px;
+    padding-right: 1px;
 }
 
 .carousel-control:hover {
@@ -184,18 +198,23 @@ td {
 }
 
 .recipe-nav-left {
-    width: 70%;
+    width: 100%;
 }
 
 .recipe-nav-wrapper {
-    display: flex;
-    justify-content: space-between;
     padding-right: 20px;
+    position: relative;
 }
+
+/*.recipe-content {
+    width: 70%;
+}*/
 
 .shopping-list {
     width: 50px;
-    margin-top: 70px;
+    position: absolute;
+    top: 43px;
+    right: 5px;
 }
 
 .shopping-list > button > img {
@@ -313,12 +332,8 @@ td {
 
 /*------Medium devices (tablets, 768px and up) ------------*/
 @media (min-width: 768px) {
-    
-    .carousel-control .glyphicon-chevron-left {
-        font-size: 12px;
-    }
 
-    .carousel-control .glyphicon-chevron-right {
+    .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right {
         font-size: 12px;
     }
   
