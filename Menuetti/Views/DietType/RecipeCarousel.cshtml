@@ -86,13 +86,13 @@
                     string number = i.ToString();
                     if (i == nroOfRecipes)
                     {
-                        <li class="page-item active">
+                        <li class="page-item active" testID="carouselOmni3">
                             @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item active" })
                         </li>
                     }
                     else
                     {
-                        <li class="page-item">
+                        <li class="page-item" testID="carouselOmni\@number">
                             @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em", @class = "page-item" })
                         </li>
                     }
