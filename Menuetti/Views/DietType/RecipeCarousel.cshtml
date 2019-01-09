@@ -74,92 +74,95 @@
     localStorage.clear();
 </script>
 
-<div class="recipe-nav-wrapper">
+<div class="page-cont">
+    <div class="recipe-nav-wrapper">
 
-    <div class="recipe-nav-left">
-        <h2>@(ViewBag.dietType)ruokavalio</h2>
-        <div><p>Kuinka monta reseptiä haluat?</p></div>
-        <nav class="recipe-nav">
-            <ul class="pagination pagination-lg" style="margin: 0 0 0 0">
-                @for (int i = 1; i < 6; i++)
-                {
-                    string number = i.ToString();
-                    if (i == nroOfRecipes)
+        <div class="recipe-nav-left">
+            <h2>@(ViewBag.dietType)ruokavalio</h2>
+            <div><p>Kuinka monta reseptiä haluat?</p></div>
+            <nav class="recipe-nav">
+                <ul class="pagination pagination-lg" style="margin: 0 0 0 0">
+                    @for (int i = 1; i < 6; i++)
                     {
-                        <li class="page-item active">
-                            @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em 0.15em", @class = "page-item active" })
-                        </li>
+                        string number = i.ToString();
+                        if (i == nroOfRecipes)
+                        {
+                            <li class="page-item active">
+                                @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em 0.15em", @class = "page-item active" })
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em 0.15em", @class = "page-item" })
+                            </li>
+                        }
                     }
-                    else
-                    {
-                        <li class="page-item">
-                            @Html.ActionLink(number, action, "DietType", new { id = number }, new { @style = "margin:0.25em 0.15em", @class = "page-item" })
-                        </li>
-                    }
-                }
-            </ul>
-        </nav>
-    </div>
-    <div class="shopping-list">
-        <button type="submit" class="" onclick=sendToShoppinglist()><img src="~/images/shopping_list.png" alt="Checklist" /><span class="btntext">Luo ostoslista</span></button>
-    </div>
-
-</div>
-<hr />
-
-
-@for (int j = 1; j <= nroOfRecipes; j++)
-{
-    <div class="container-fluid">
-        @*<--Carousel. The program creates as many carousels as the user wants to get recipes--?*@
-        <div id="sidebar-carousel-@j" style="height:70%; align-content:center" class="carousel slide" data-ride="carousel" data-interval="false">
-            <div class="carousel-inner">
-
-                @*<--First item on the carousel (visible right away)-->*@
-                <div class="item active" id="@Model[indexOfFirstCarouselItem].RecipeId" style="height:100%; text-align:center">
-                    <div class="btntext" style="text-align: center;" >
-                        <a role="button" onclick="showTheCarousel(@Model[indexOfFirstCarouselItem].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[indexOfFirstCarouselItem]);} </a>
-                    </div>
-                    <script>localStorage.setItem('recipe/@(indexOfFirstCarouselItem)', '@Model[indexOfFirstCarouselItem].RecipeName')</script>
-                </div>
-
-                @*<--Other items on the carousel (visible when clicking right or left)-->*@
-                @for (int i = 1; i < nroOfRecipesPerCarousel; i++)
-                {
-                    <div class="item" id="@Model[(i + indexOfFirstCarouselItem)].RecipeId" style="height:100%; text-align:center">
-                        <div class="btntext" style="text-align: center">
-                            <a role="button" onclick="showTheCarousel(@Model[(i + indexOfFirstCarouselItem)].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[(i + indexOfFirstCarouselItem)]);} </a>
-                        </div>
-                        <script>localStorage.setItem('recipe/@(i + indexOfFirstCarouselItem)', '@Model[(i + indexOfFirstCarouselItem)].RecipeName')</script>
-                    </div>
-                }
-                <script>@(indexOfFirstCarouselItem += nroOfRecipesPerCarousel);</script>
-            </div>
-
-            @*<!-- Controls -->*@
-            <a class="left carousel-control" href="#sidebar-carousel-@j" data-slide="prev" onclick="closeTheCarousels()">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="right carousel-control" href="#sidebar-carousel-@j" data-slide="next" onclick="closeTheCarousels()">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
+                </ul>
+            </nav>
+        </div>
+        <div class="shopping-list">
+            <button type="submit" class="" onclick=sendToShoppinglist()><img src="~/images/shopping_list.png" alt="Checklist" /><span class="btntext">Luo ostoslista</span></button>
         </div>
 
-        @*<--This creates a partial view for the recipe under the relevant carousel-->*@
-        @while (indexOfPartialView < indexOfFirstCarouselItem)
-        {
-            <div id="details-@Model[indexOfPartialView]">@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[indexOfPartialView]);}</div>
-
-            indexOfPartialView++;
-
-        }
     </div>
     <hr />
-}
-@*<div>
-    <p>
-        <button type="submit" class="btn btn-default btn-lg btn-block" onclick=sendToShoppinglist()><img src="~/images/checklist.png" alt="Checklist" style="padding-right: 9%;" /><span class="btntext">Luo ostoslista</span><span class="glyphicon glyphicon-menu-right" style="padding-left: 9%;"></span></button>
-    </p>
-</div>*@
+
+
+    @for (int j = 1; j <= nroOfRecipes; j++)
+    {
+        <div class="container-fluid">
+            @*<--Carousel. The program creates as many carousels as the user wants to get recipes--?*@
+            <div id="sidebar-carousel-@j" style="height:70%; align-content:center" class="carousel slide" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner">
+
+                    @*<--First item on the carousel (visible right away)-->*@
+                    <div class="item active" id="@Model[indexOfFirstCarouselItem].RecipeId" style="height:100%; text-align:center">
+                        <div class="btntext" style="text-align: center;">
+                            <a role="button" onclick="showTheCarousel(@Model[indexOfFirstCarouselItem].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[indexOfFirstCarouselItem]);} </a>
+                        </div>
+                        <script>localStorage.setItem('recipe/@(indexOfFirstCarouselItem)', '@Model[indexOfFirstCarouselItem].RecipeName')</script>
+                    </div>
+
+                    @*<--Other items on the carousel (visible when clicking right or left)-->*@
+                    @for (int i = 1; i < nroOfRecipesPerCarousel; i++)
+                    {
+                        <div class="item" id="@Model[(i + indexOfFirstCarouselItem)].RecipeId" style="height:100%; text-align:center">
+                            <div class="btntext" style="text-align: center">
+                                <a role="button" onclick="showTheCarousel(@Model[(i + indexOfFirstCarouselItem)].RecipeId)"> @{await Html.RenderPartialAsync("_RecipeName", Model[(i + indexOfFirstCarouselItem)]);} </a>
+                            </div>
+                            <script>localStorage.setItem('recipe/@(i + indexOfFirstCarouselItem)', '@Model[(i + indexOfFirstCarouselItem)].RecipeName')</script>
+                        </div>
+                    }
+                    <script>@(indexOfFirstCarouselItem += nroOfRecipesPerCarousel);</script>
+                </div>
+
+                @*<!-- Controls -->*@
+                <a class="left carousel-control" href="#sidebar-carousel-@j" data-slide="prev" onclick="closeTheCarousels()">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#sidebar-carousel-@j" data-slide="next" onclick="closeTheCarousels()">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+
+            @*<--This creates a partial view for the recipe under the relevant carousel-->*@
+            @while (indexOfPartialView < indexOfFirstCarouselItem)
+            {
+                <div id="details-@Model[indexOfPartialView]">@{ await Html.RenderPartialAsync("_DetailsCarousel", Model[indexOfPartialView]);}</div>
+
+                indexOfPartialView++;
+
+            }
+        </div>
+        <hr />
+    }
+
+</div>
+    @*<div>
+            <p>
+                <button type="submit" class="btn btn-default btn-lg btn-block" onclick=sendToShoppinglist()><img src="~/images/checklist.png" alt="Checklist" style="padding-right: 9%;" /><span class="btntext">Luo ostoslista</span><span class="glyphicon glyphicon-menu-right" style="padding-left: 9%;"></span></button>
+            </p>
+        </div>*@
 
 
