@@ -4,6 +4,8 @@
     ViewData["Title"] = "Tarkastele reseptiä";
 }
 
+<div class="page-cont">
+
 <h2>@ViewBag.NameOfRecipe</h2>
 <div>
     <hr />
@@ -33,13 +35,20 @@
 </div>
 <hr />
 <h4>Reseptin raaka-aineet</h4>
-@foreach (var item in Model.Ingredients)
-{
-    <p>
-        @item.AmountG @item.RecipeUnit @item.IngredientName
-    </p>
-}
-<hr/>
+<table>
+    <tbody>
+        @foreach (var item in Model.Ingredients)
+        {
+            <tr>
+                <td class="td-align-right">@item.AmountG</td>
+                <td>@item.RecipeUnit</td>
+                <td>@item.IngredientName</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+<hr />
 <dt>
     @*@Html.DisplayNameFor(model => model.Instructions)*@
     Ohjeet
@@ -51,4 +60,6 @@
 <div>
     @*<a asp-action="Edit" asp-route-id="@Model.RecipeId">Edit</a> |*@
     <a asp-action="Index" class="btn btn-default">Palaa takaisin</a>
+</div>
+
 </div>

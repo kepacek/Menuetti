@@ -4,54 +4,58 @@
     ViewData["Title"] = "Reseptit";
 }
 
-<h2>Reseptit</h2>
+<div class="page-cont">
 
-<p>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <a asp-controller="Recipes" asp-action="Create" button class="btn btn-default btn-md btn">Luo uusi resepti</a> <a asp-controller="Recipes" asp-action="UserRecipes" button class="btn btn-default btn-md btn">Näytä omat reseptit</a>
-    }
-    else
-    {
-    }
-</p>
-<table class="table">
-    <thead @*style="position: fixed; width: 100%"*@ >
-        <tr>
-            <th>
-                Reseptin nimi
-            </th>
-            <th>
-                Valmistusaika
-            </th>
-            <th>
-                Ruokavalio
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-     
-        @foreach (var item in Model)
+    <h2>Reseptit</h2>
+
+    <p>
+        @if (User.Identity.IsAuthenticated)
         {
-        <tr>
-            <th style="height: 52px; vertical-align: middle">
-                <a asp-action="Details" asp-route-id="@item.RecipeId" style="margin-right: 6px">@Html.DisplayFor(modelItem => item.RecipeName)</a>
-            </th>
-            <td style="vertical-align: middle">
-                @Html.DisplayFor(modelItem => item.Time) min
-            </td>
-            <td style="vertical-align: middle">
-                @Html.DisplayFor(modelItem => item.DietType)
-            </td>
-            <td style="text-align: right">
-                @if (item.User != null && ViewBag.UserId == item.User.UserId)
-                {
-                    <a asp-action="Edit" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px"><img src="~/images/edit.png" alt="edit"/></a>
-                    <a asp-action="Delete" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px"><img src="~/images/trash.png" alt="delete" /></a>
-                }
-            </td>
-        </tr>
+            <a asp-controller="Recipes" asp-action="Create" button class="btn btn-default btn-md btn">Luo uusi resepti</a> <a asp-controller="Recipes" asp-action="UserRecipes" button class="btn btn-default btn-md btn">Näytä omat reseptit</a>
         }
-    </tbody>
-</table>
+        else
+        {
+        }
+    </p>
+    <table class="table">
+        <thead @*style="position: fixed; width: 100%" *@>
+            <tr>
+                <th>
+                    Reseptin nimi
+                </th>
+                <th>
+                    Valmistusaika
+                </th>
+                <th>
+                    Ruokavalio
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th style="height: 52px; vertical-align: middle">
+                        <a asp-action="Details" asp-route-id="@item.RecipeId" style="margin-right: 6px">@Html.DisplayFor(modelItem => item.RecipeName)</a>
+                    </th>
+                    <td style="vertical-align: middle">
+                        @Html.DisplayFor(modelItem => item.Time) min
+                    </td>
+                    <td style="vertical-align: middle">
+                        @Html.DisplayFor(modelItem => item.DietType)
+                    </td>
+                    <td style="text-align: right">
+                        @if (item.User != null && ViewBag.UserId == item.User.UserId)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px"><img src="~/images/edit.png" alt="edit" /></a>
+                            <a asp-action="Delete" asp-route-id="@item.RecipeId" class="btn btn-default" style="margin-right: 6px"><img src="~/images/trash.png" alt="delete" /></a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
