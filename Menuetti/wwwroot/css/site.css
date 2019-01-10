@@ -93,13 +93,6 @@ td {
     display: none;
 }
 
-
-/*.col-left {
-    float: left;
-    padding-left: 0px;
-    width: 110px;
-}*/
-
 .shopping-list-pc {
     width:40px;
 }
@@ -136,7 +129,6 @@ td {
     margin-right: -15px;
 }
 
-
 .carousel-inner{
     padding-left: 15px;
     padding-right: 1px;
@@ -153,11 +145,12 @@ td {
 
 /*navbar*/
 .navbar-collapse {
-    width: 90%;
+    width: 100%;
 }
 
-.navbar-header {
+.container > .navbar-header {
     padding-left: 0px;
+    margin-right: 0px;
 }
 
 .navbar-nav {
@@ -176,8 +169,13 @@ td {
     height: 20px;
 }
 
+.nav > li > a {
+    padding: 0;
+}
 
-
+.container > .navbar-collapse {
+    margin-right: 0px;
+}
 
 /*logo*/
 .logo {
@@ -192,7 +190,6 @@ td {
 }
 
 /*index-page*/
-
 
 .page-cont, .page-cont-shoppinglist {
     width: 100%;
@@ -286,10 +283,6 @@ td {
     position: relative;
 }
 
-/*.recipe-content {
-    width: 70%;
-}*/
-
 .shopping-list {
     width: 50px;
     position: absolute;
@@ -317,8 +310,6 @@ input[type=checkbox] {
     margin-right: 0px;
 }
 
-
-
 .body-content {
     width: 100%;
     margin-top: 10px;
@@ -331,16 +322,14 @@ input[type=checkbox] {
 /*.multiline {
     white-space: pre-wrap;
 }*/
-    .arrow {
-    margin-left: 0px;
+
+.arrow {
+margin-left: 0px;
 }
 
 
 
 /*media-query*/
-
-
-
 
 /*-------Small devices (landscape phones, 576px and up)----------*/
 @media (min-width: 576px) {
@@ -435,8 +424,6 @@ input[type=checkbox] {
         width: 350px;
         height: auto;
     }
-
-    
 }
 
 /*------Medium devices (tablets, 768px and up) ------------*/
@@ -458,12 +445,6 @@ input[type=checkbox] {
         text-align: right;
     }
 
-    .col-left {
-        /*float: left;*/
-        /*padding-left: 0px;
-        width: 200px;*/
-    }
-
     .shopping-list-pc {
         width: 40px;
     }
@@ -481,8 +462,10 @@ input[type=checkbox] {
     .shopping-list-text{
         margin-bottom: 0px;
     }
-    
-  
+
+    .nav > li > a {
+        padding: 15px 20px;
+    }
 }
 
 /*-----------Large devices (desktops, 992px and up)--------*/
