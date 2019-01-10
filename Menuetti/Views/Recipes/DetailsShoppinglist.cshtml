@@ -4,66 +4,61 @@
     ViewData["Title"] = "Tarkastele reseptiä";
 }
 
-<h2>Tarkastele reseptiä</h2>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @*@Html.DisplayNameFor(model => model.RecipeName)*@
-            Reseptin nimi
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RecipeName)
-        </dd>
-        @*<dt>
-                Html.DisplayNameFor(model => model.User)
-                Lisääjä
+<div class="page-cont">
+
+    <h2>@ViewBag.NameOfRecipe</h2>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @*@Html.DisplayNameFor(model => model.Portions)*@
+                <img src="~/images/plate.png" alt="Portions" />
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.User.UserId)
-            </dd>*@
-        <dt>
-            @*@Html.DisplayNameFor(model => model.Portions)*@
-            Annoksia
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Portions)
-        </dd>
-        <dt>
-            @*@Html.DisplayNameFor(model => model.Time)*@
-            Valmistusaika (min)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Time)
-        </dd>
-        <dt>
-            @*@Html.DisplayNameFor(model => model.DietType)*@
-            Ruokavalio
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DietType)
-        </dd>
-    </dl>
-</div>
-<hr />
-<h4>Reseptin raaka-aineet</h4>
-@foreach (var item in Model.Ingredients)
-{
-    <p>
-        @item.AmountG @item.RecipeUnit @item.IngredientName
-    </p>
-}
-<hr/>
-<dt>
-    @*@Html.DisplayNameFor(model => model.Instructions)*@
-    Ohjeet
-</dt>
-<dd class="multiline">
-    @Html.DisplayFor(model => model.Instructions)
-</dd>
-<hr />
-<div>
-    @*<a asp-action="Edit" asp-route-id="@Model.RecipeId">Edit</a> |*@
-    @*<a asp-action="Index" class="btn btn-default">Palaa takaisin</a>*@
-    <button onclick="window.history.go(-1);">Palaa takaisin</button>
-</div>
+                @Html.DisplayFor(model => model.Portions)
+            </dd>
+            <dt>
+                @*@Html.DisplayNameFor(model => model.Time)*@
+                <img src="~/images/time.png" alt="PreparationTime" />
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Time) min
+            </dd>
+            <dt>
+                @*@Html.DisplayNameFor(model => model.DietType)*@
+                Ruokavalio
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DietType)
+            </dd>
+        </dl>
+    </div>
+    <hr />
+    <h4>Reseptin raaka-aineet</h4>
+    <table>
+        <tbody>
+            @foreach (var item in Model.Ingredients)
+            {
+                <tr>
+                    <td class="td-align-right">@item.AmountG</td>
+                    <td>@item.RecipeUnit</td>
+                    <td>@item.IngredientName</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <hr />
+    <h5>
+        @*@Html.DisplayNameFor(model => model.Instructions)*@
+        Ohjeet
+    </h5>
+    <dd class="multiline">
+        @Html.DisplayFor(model => model.Instructions)
+    </dd>
+    <hr />
+    <div>
+        @*<a asp-action="Edit" asp-route-id="@Model.RecipeId">Edit</a> |*@
+        @*<a asp-action="Index" class="btn btn-default">Palaa takaisin</a>*@
+        <button onclick="window.history.go(-1);">Palaa takaisin</button>
+    </div>

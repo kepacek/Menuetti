@@ -10,6 +10,13 @@ hr {
     margin: 17px 0;
 }
 
+footer {
+    padding-top: 15px;
+    background-color: white;
+    width: 100%;
+}
+
+
 /*text styles*/
 h2 {
     margin-bottom: 20px;
@@ -18,6 +25,10 @@ h2 {
 h4, h5 {
     color: #5bc0de;
     font-weight: 800;
+}
+
+th {
+    font-size: 15px;
 }
 
 td {
@@ -29,12 +40,12 @@ td {
     padding-right: 0px;
 }
 
-.footer-text{
+.footer-text {
     font-size: 13px;
     margin-left: 0px;
 }
 
-.shopping-heading{
+.shopping-heading {
     color: black;
     margin-top: 10px;
     display: none;
@@ -42,6 +53,7 @@ td {
 
 .shopping-list-text {
     font-weight: 700;
+    margin-bottom: 4px;
 }
 
 .flex {
@@ -49,10 +61,14 @@ td {
     justify-content: flex-start;
 }
 
-.shopping-check-box{
-    display: block;
-    width: 30px;
-    float: left;
+.shopping-cont{
+    margin-left:10px;
+    padding:0;
+}
+
+.row-margin {
+    margin-left: -10px;
+    margin-right: 0px;
 }
 
 .shopping-list-text-item {
@@ -61,7 +77,6 @@ td {
 
 .shopping-list-row {
     border-top: 1px solid #eee;
-    margin-top: 10px;
     margin-bottom: 10px;
     padding-top:10px;
 }
@@ -79,11 +94,11 @@ td {
 }
 
 
-.col-left {
+/*.col-left {
     float: left;
     padding-left: 0px;
     width: 110px;
-}
+}*/
 
 .shopping-list-pc {
     width:40px;
@@ -299,7 +314,7 @@ input[type=checkbox] {
     -webkit-transform: scale(2); /* Safari and Chrome */
     -o-transform: scale(2); /* Opera */
     padding: 10px;
-    margin-right: 15px;
+    margin-right: 0px;
 }
 
 
@@ -333,10 +348,6 @@ input[type=checkbox] {
         display: block;
     }
 
-    .shopping-heading {
-        display: block;
-    }
-
     input[type=checkbox] {
         /* Double-sized Checkboxes */
         -ms-transform: scale(1.4); /* IE */
@@ -348,6 +359,11 @@ input[type=checkbox] {
 
     .shopping-list-text-item {
         margin-left: 0px;
+    }
+
+    .row-margin {
+        margin-left:0; 
+        margin-right:0;
     }
 
 }
@@ -435,7 +451,7 @@ input[type=checkbox] {
     }
 
     .page-cont{
-        width: 75%;
+        width: 70%;
     }
 
     .shopping-check-box {
@@ -443,7 +459,7 @@ input[type=checkbox] {
     }
 
     .col-left {
-        float: left;
+        /*float: left;*/
         /*padding-left: 0px;
         width: 200px;*/
     }
@@ -452,6 +468,19 @@ input[type=checkbox] {
         width: 40px;
     }
 
+    .shopping-cont {
+        margin-left: 0;
+        margin-right: 0;
+        width:100%;
+    }
+
+    .shopping-heading {
+        display: block;
+    }
+
+    .shopping-list-text{
+        margin-bottom: 0px;
+    }
     
   
 }
@@ -459,7 +488,7 @@ input[type=checkbox] {
 /*-----------Large devices (desktops, 992px and up)--------*/
 @media (min-width: 992px) {
     .body-content {
-        width: 80%;
+        width: 90%;
         margin-top: 30px;
     }
 
@@ -469,7 +498,7 @@ input[type=checkbox] {
     }
 
     .page-cont-shoppinglist {
-        width: 85%;
+        width: 90%;
     }
   
 }
