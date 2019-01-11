@@ -56,6 +56,19 @@ td {
     margin-bottom: 4px;
 }
 
+.recipe-table td {
+    margin-left: 20px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+}
+
+.recipe-table .td-align-right {
+    padding-right: 10px;
+}
+
+
+/*------------*/
 .flex {
     display: flex;
     justify-content: flex-start;
