@@ -3,8 +3,22 @@
 @{
     ViewData["Title"] = "Luo uusi resepti";
     var ingredients = TempData["ingredients"];
+    var errorMessage = ViewBag.IngredientNull;
+    var alreadyAddedIngredients = ViewBag.alreadyAddedIngredients;
 }
-<script src="~/js/site.js"></script>
+@section Scripts
+    {
+    <script src="~/js/site.js"></script>
+    @if (ViewBag.AlreadyAddedIngredients != null)
+    {
+        <script>
+               $(document).ready(function () {
+                   setIndex(@alreadyAddedIngredients.Count);
+               })
+        </script>
+    }
+}
+
 <h2>Luo uusi resepti</h2>
 <hr />
 <div id="formi">
@@ -15,7 +29,7 @@
         </div>
         <div class="form-group">
             <label asp-for="RecipeName" class="control-label">Reseptin nimi</label>
-            <input asp-for="RecipeName" required autofocus class="form-control" />
+            <input asp-for="RecipeName" autofocus class="form-control" />
             <span asp-validation-for="RecipeName" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -31,8 +45,45 @@
         <label asp-for="Ingredients" class="control-label">Raaka-aineet</label>
         <div id="newIngredients">
             @*The ingredients come to this div when added*@
+            @if (alreadyAddedIngredients != null && alreadyAddedIngredients.Count > 0)
+            {
+                var i = Model.Ingredients.Count() -1 ; // counting how many rows needed --> numbers to the field id's. -1 cause 0 is in the partial view.
+
+                @foreach (var item in alreadyAddedIngredients)
+                {
+                    if (Model.Ingredients.First().IngredientName != item.IngredientName) // printing out all the rows except the last one that goes to the partial view
+                    {
+                        <div class="form-group" id="added-item-@i">
+                            <div class="row" id="ingredient-row">
+                                <div class="short-ingredient-box">
+                                    <input class="form-control" type="number" id=ingredient-@i-amount min="1" name="Ingredients[@i].AmountG" required readonly value="@item.AmountG" />
+                                </div>
+                                <div class="short-ingredient-box">
+                                    <input class="form-control" type="text" id=ingredient-@i-unit name="Ingredients[@i].RecipeUnit" required readonly value="@item.RecipeUnit" />
+                                </div>
+                                <div class="long-ingredient-box">
+                                    <input class="form-control" type="text" id=ingredient-@i-name name="Ingredients[@i].IngredientName" required readonly value="@item.IngredientName" />
+                                </div>
+                                <div class="delete-button">
+                                    <button type="button" onclick="deleteRow(id)" id="delete-button-@i">X</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        i--;
+                    }
+                }
+            }
         </div>
-            @{await Html.RenderPartialAsync("LoadJson", ingredients, new ViewDataDictionary(ViewData) { { "rowNumber", 0 } });}
+        @{await Html.RenderPartialAsync("LoadJson", ingredients, new ViewDataDictionary(ViewData) { { "rowNumber", 0 } });}
+            @if (alreadyAddedIngredients != null)
+            {
+                <script>
+                        document.getElementById("ingredient-0-amount").value = @Model.Ingredients.First().AmountG;
+                        document.getElementById("ingredient-0-unit").value = "@Model.Ingredients.First().RecipeUnit";
+                        document.getElementById("ingredient-0-name").value = "@Model.Ingredients.First().IngredientName";
+                </script>
+            }
         <button type="button" class="btn" id="AddIngredient" onclick="newIngredient()">Lisää uusi raaka-aine</button>
         <div class="form-group">
             <label asp-for="DietType" class="control-label">Ruokavalio</label>

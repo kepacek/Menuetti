@@ -340,7 +340,28 @@ input[type=checkbox] {
 margin-left: 0px;
 }
 
-
+/*Ingredient searchbar (LoadJson.cshtml)*/
+.ingredientItemHidden {
+    display: none;
+}
+#ingredient-options {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+    #ingredient-options li a {
+        border: 1px solid #ddd;
+        margin-top: -1px; /* Prevent double borders */
+        background-color: #f6f6f6;
+        padding: 1%;
+        text-decoration: none;
+        font-size: 150%;
+        color: black;
+        display: block
+    }
+        #ingredient-options li a:hover:not(.header) {
+            background-color: #eee;
+        }
 
 /*media-query*/
 
