@@ -4,64 +4,84 @@
     ViewData["Title"] = "Ostoskori";
     CultureInfo ci = new CultureInfo("en-US");
 }
-<div class="container">
-    <h2>Valitsemasi menut:</h2>
-    <div class="container">
+<div class="page-cont-shoppinglist">
+    <h2>Valitsemasi menut</h2>
+    
         @foreach (var item in ViewBag.Recipes)
         {
-            <div class="row">
-                <div class="col"><a asp-controller="Recipes" asp-action="DetailsShoppinglist" asp-route-id="@item.RecipeId">@item.RecipeName</a></div>
-            </div>
+         <div class="col recipe-text"><a asp-controller="Recipes" asp-action="DetailsShoppinglist" asp-route-id="@item.RecipeId">@item.RecipeName</a></div>
+          
         }
-        </div>
-        <h3>Tarvitsemasi raaka-aineet:</h3>
-        <div class="container-fluid" width=100%>
-            <div class="row">
-                <div class="col-sm-1"><img src="~/images/shoppingcart25.png" /></div>
-                <div class="col-sm-6">Ainekset</div>
-                <div class="col-sm-1">Määrä</div>
-                <div class="col-sm-2">Yksikkö</div>
-                <div class="col-sm-2">Määrä grammoina</div>
+      
+    <hr />
+    <h4>Tarvitsemasi raaka-aineet</h4>
+        
+        <div class="container shopping-cont">
+            
+            <div class="row row-margin">
+                <div class="green col-xs-1 shopping-check-box"><h5 class="shopping-heading">
+                    <img src="~/images/shoppingcart25.png" /></h5>
+                </div>
+
+                <div class="col-xs-11">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6"><h5 class="shopping-heading">Ainekset</h5></div>
+                        <div class="col-xs-4 col-sm-2"><h5 class="shopping-heading">Määrä</h5></div>
+                        <div class="col-xs-4 col-sm-2"><h5 class="shopping-heading">Yksikkö</h5></div>
+                        <div class="col-xs-4 col-sm-2"><h5 class="shopping-heading">Määrä grammoina</h5></div>
+                    </div>
+                </div>
+                
             </div>
             @foreach (var item in ViewBag.List)
             {
-                <div class="row" flex-wrap: nowrap>
-                    <div class="col-sm-1">
-                        <input type="checkbox">
-                        @*<span class="checkmark"></span>*@
-                    </div>
-                    <div class="col-sm-6">@item.Key</div>
-                    <div class="col-sm-1">
-                        @foreach (var a in @ViewBag.jsoni)
-                        {
-                            if (item.Key == a.name.fi && item.Value != null)
+            <div class="row shopping-list-row row-margin">
+                <div class="col-xs-1 shopping-check-box">
+                    <span><input type="checkbox" /></span>
+                </div>
+
+                <div class="col-xs-11">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-6 shopping-list-text">
+                            <span>@item.Key</span>
+                        </div>
+
+                        <div class="col-xs-2 col-sm-2">
+                            @foreach (var a in @ViewBag.jsoni)
                             {
-                                var conversion = string.Join("", ((IEnumerable<dynamic>)a.units).Select(m => m.mass).First()); ;
-                                var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
-                                <p>@((Convert.ToDouble(item.Value) / double.Parse(conversion, ci)).ToString("f1"))  </p>
+                                if (item.Key == a.name.fi && item.Value != null)
+                                {
+                                    var conversion = string.Join("", ((IEnumerable<dynamic>)a.units).Select(m => m.mass).First()); ;
+                                    var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
+                                    <span>@((Convert.ToDouble(item.Value) / double.Parse(conversion, ci)).ToString("f1"))  </span>
+                                }
                             }
-                        }
-                    </div>
-                    <div class="col-sm-2">
-                        @foreach (var a in @ViewBag.jsoni)
-                        {
-                            if (item.Key == a.name.fi && item.Value != null)
+                        </div>
+                        <div class="col-xs-6 col-sm-2">
+                            @foreach (var a in @ViewBag.jsoni)
                             {
-                                var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
-                                <p>@unitti</p>
+                                if (item.Key == a.name.fi && item.Value != null)
+                                {
+                                    var unitti = string.Join(",", ((IEnumerable<dynamic>)a.units).Select(m => m.description.fi).First());
+                                    <span>@unitti</span>
+                                }
                             }
-                        }
-                    </div>
-                    <div class="col-sm-2">
-                        @if (item.Value != null)
-                        {
-                            string g = " g";
-                            @item.Value @g.ToString();
-                        }
+                        </div>
+                        <div class="col-xs-4 col-sm-2">
+                            @if (item.Value != null)
+                            {
+                                string g = " g";
+                                @item.Value @g.ToString();
+                            }
+                        </div>
                     </div>
                 </div>
-            }
-        </div>
+                </div>
+                }
+            </div>
     </div>
 
     <style>
