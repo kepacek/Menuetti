@@ -7,6 +7,7 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
+        <link rel="icon" type="image/png" href="~/images/m-icon2.png" sizes="16x16">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"
               asp-fallback-href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
@@ -27,7 +28,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top navbar-expand-xl">
         <div class="container">
             <div class="navbar-header">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="~/images/menuetti_logo_small.png" /></a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="~/images/logo_small.svg" /></a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -61,10 +62,10 @@
 
     <div class="container body-content" id="footer">
         @RenderBody()
-        <hr />
+        @*<hr />*@
         <footer style="position: fixed; bottom: 0;">
             <partial name="_CookieConsentPartial" />
-            <p style="font-weight: bold; justify-content: center;">&copy;Menuetti 2018 | <a href="https://icons8.com">Icon pack by Icons8</a></p>
+            <p class="footer-text" style="justify-content: center;">&copy;Menuetti 2018 | <a href="https://icons8.com">Icon pack by Icons8</a></p>
         </footer>
     </div>
 
