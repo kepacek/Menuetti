@@ -4,12 +4,12 @@
     ViewData["Title"] = "Ostoskori";
     CultureInfo ci = new CultureInfo("en-US");
 }
-<div class="page-cont-shoppinglist">
+<div class="page-cont-shoppinglist" testID="page-cont-shoppinglist">
     <h2>Valitsemasi menut</h2>
     
         @foreach (var item in ViewBag.Recipes)
         {
-         <div class="col recipe-text"><a asp-controller="Recipes" asp-action="DetailsShoppinglist" asp-route-id="@item.RecipeId">@item.RecipeName</a></div>
+         <div class="col recipe-text"><a asp-controller="Recipes" asp-action="DetailsShoppinglist" asp-route-id="@item.RecipeId" name="selected-recipe-text">@item.RecipeName</a></div>
           
         }
       
@@ -36,7 +36,7 @@
             </div>
             @foreach (var item in ViewBag.List)
             {
-            <div class="row shopping-list-row row-margin">
+            <div class="row shopping-list-row row-margin" name="test-shoppinglist-item">
                 <div class="col-xs-1 shopping-check-box">
                     <span><input type="checkbox" /></span>
                 </div>
