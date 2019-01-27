@@ -49,11 +49,11 @@
                     {
                         <li><a asp-controller="Account" asp-action="Profile">@User.Identity.Name</a></li>
                         <li><br /></li>
-                        <li><a asp-controller="Account" asp-action="Logout">Kirjaudu ulos</a></li>
+                        <li><a asp-controller="Account" asp-action="Logout" testID="sign-out">Kirjaudu ulos</a></li>
                     }
                     else
                     {
-                        <li><a asp-controller="Account" asp-action="Login">Kirjaudu sisään</a></li>
+                        <li><a asp-controller="Account" asp-action="Login" testID="sign-in">Kirjaudu sisään</a></li>
                     }
                 </ul>
             </div>
